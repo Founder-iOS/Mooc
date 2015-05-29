@@ -2,16 +2,34 @@ var DEBUG = true;
 
 angular.module('starter.services', [])
 
-.factory('user', function() {
+.factory('userService', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-   var user = {id:'1',name:'李雷川',sex:'0',role:'1'};
-
+  var user ={
+     username:'teacher201503',
+     password:'111111',
+            };
   return {
-
     get: function() {
        return user;
+    },
+    saveUser : function(user){
+    }
+  };
+})
+
+.factory('deviceService', function() {
+  // Might use a resource here that returns a JSON array
+
+  // Some fake testing data
+  var device ={
+     version:'1.0',
+     udid:'lileichuan111fffffffff',
+            };
+  return {
+    get: function() {
+       return device;
     }
   };
 })
@@ -95,9 +113,6 @@ angular.module('starter.services', [])
     return rObj;
   });
 
-if (DEBUG) {
-  console.log(chapters[0].lessons);
-}
   return {
     all: function() {
       return chapters;
@@ -106,47 +121,64 @@ if (DEBUG) {
 })
 
 .service('moocService', function($http, $q){
-  var baseUrl = 'http://42.62.16.168:88/api?method=';
-  var _finalUrl = '';
+  var baseUrl = 'http://172.19.43.88:8080/api?method=';
+          //var baseUrl = 'http://42.62.16.168:88/api?method=';
   var makeUrl = function(parms){
-    _finalUrl = baseUrl + parms + '&callback=JSON_CALLBACK';
-    return _finalUrl;
+    var finalUrl = baseUrl + parms + '&callback=JSON_CALLBACK';
+    return finalUrl;
+  }
+
+  var request = function(finalUrl){
+    var deferred = $q.defer();
+    $http({
+      method: 'JSONP',
+      url:finalUrl
+    }).success(function(data){
+       console.log('success');
+      
+      deferred.resolve(data);
+    }).error(function(){
+       console.log('faild');
+      deferred.reject('There was an error')
+    })
+    return deferred.promise;
   }
   // 用户登录
-  this.signIn = function(user){
-    alert('111');
-    var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111';
+  this.signIn = function(user,device){
+    //var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111';
+             var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111' +'&type=1';
     console.log('parms is'+ parms);
-    makeUrl(parms);
-    console.log(_finalUrl);
-    var deferred = $q.defer();
-    $http({
-      method: 'JSONP',
-      url: _finalUrl
-    }).success(function(data){
-       console.log('success');
-      deferred.resolve(data);
-    }).error(function(){
-       console.log('faild');
-      deferred.reject('There was an error')
-    })
-    return deferred.promise;
+    var finalUrl = makeUrl(parms);
+    console.log('finalUrl is' + finalUrl);
+    return request(finalUrl);
+
   }
-  this.clientActive = function(){
-    makeUrl();
-    console.log(_finalUrl);
-    var deferred = $q.defer();
-    $http({
-      method: 'JSONP',
-      url: _finalUrl
-    }).success(function(data){
-       console.log('success');
-      deferred.resolve(data);
-    }).error(function(){
-       console.log('faild');
-      deferred.reject('There was an error')
-    })
-    return deferred.promise;
+  // 课程列表
+  this.courseList = function(user,device){
+    var parms = 'courseList&user_id=' + user.id;
+    console.log('courseList parms is'+ parms);
+        var finalUrl =makeUrl(parms);
+    console.log('finalUrl is' + finalUrl);
+    return request(finalUrl);
+
   }
+  // 课程详情
+  this.courseDetail = function(courseId){
+    var parms = 'courseDetail&course_id='+courseId;
+    console.log('parms is'+ parms);
+    var finalUrl =makeUrl(parms);
+    console.log('finalUrl is' + finalUrl);
+    return request(finalUrl);
+  }
+    //lesson详情
+  this.lessonDetail = function(lessonId){
+      var parms = 'courseDetail&course_id='+courseId;
+      console.log('parms is'+ parms);
+      var finalUrl = makeUrl(parms);
+      console.log('finalUrl is' + finalUrl);
+      return request(finalUrl);
+    }
+
+
 });
 

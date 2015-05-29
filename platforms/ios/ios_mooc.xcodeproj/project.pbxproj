@@ -52,8 +52,8 @@
 		30136524EEBB454A8963B9F4 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 120502F339BA4767AB54425F /* CDVAssetLibraryFilesystem.m */; };
 		8F5928FC8A6F4197B1D90603 /* CDVFileTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CA3889F19A424589FAB965 /* CDVFileTransfer.m */; };
 		66513F9170954CDF992980CF /* AppVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C11D06F0D7C44A99B5FAE6E0 /* AppVersion.m */; };
-		B52D69F0B24441B6B4593778 /* SQLitePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D3D3B3AC0544171AC655DA7 /* SQLitePlugin.m */; };
-		DAEB2FE1842541929D56F743 /* sqlite3.c in Resources */ = {isa = PBXBuildFile; fileRef = 58162C9FE970419EA2EBF729 /* sqlite3.c */; };
+		CF498AF1D0954066902FECFE /* SQLitePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D463DC83DB4A6589FE98D6 /* SQLitePlugin.m */; };
+		57A3245FAC3E4BF8B881C258 /* sqlite3.c in Resources */ = {isa = PBXBuildFile; fileRef = 91199E98F44E4D9386D97F35 /* sqlite3.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,10 +145,10 @@
 		85A8A584490549F099FD1FB0 /* CDVFileTransfer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVFileTransfer.h"; path = "org.apache.cordova.file-transfer/CDVFileTransfer.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		C11D06F0D7C44A99B5FAE6E0 /* AppVersion.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "AppVersion.m"; path = "uk.co.whiteoctober.cordova.appversion/AppVersion.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		8D94C56282E5423BABED51CB /* AppVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AppVersion.h"; path = "uk.co.whiteoctober.cordova.appversion/AppVersion.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		7D3D3B3AC0544171AC655DA7 /* SQLitePlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "SQLitePlugin.m"; path = "io.litehelpers.cordova.sqlite/SQLitePlugin.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		58162C9FE970419EA2EBF729 /* sqlite3.c */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "sqlite3.c"; path = "io.litehelpers.cordova.sqlite/sqlite3.c"; sourceTree = "<group>"; fileEncoding = 4; };
-		57EA2DAA8F6D4B8BAFB8DA3D /* SQLitePlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SQLitePlugin.h"; path = "io.litehelpers.cordova.sqlite/SQLitePlugin.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		E922B5B0432B4C46841EF019 /* sqlite3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sqlite3.h"; path = "io.litehelpers.cordova.sqlite/sqlite3.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		19D463DC83DB4A6589FE98D6 /* SQLitePlugin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "SQLitePlugin.m"; path = "cordova-sqlite-storage/SQLitePlugin.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		91199E98F44E4D9386D97F35 /* sqlite3.c */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "sqlite3.c"; path = "cordova-sqlite-storage/sqlite3.c"; sourceTree = "<group>"; fileEncoding = 4; };
+		66715C997D7C4E69BA1571C0 /* SQLitePlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SQLitePlugin.h"; path = "cordova-sqlite-storage/SQLitePlugin.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		855A88CDE2BE47579EAAF6C0 /* sqlite3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sqlite3.h"; path = "cordova-sqlite-storage/sqlite3.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -273,10 +273,10 @@
 				85A8A584490549F099FD1FB0 /* CDVFileTransfer.h */,
 				C11D06F0D7C44A99B5FAE6E0 /* AppVersion.m */,
 				8D94C56282E5423BABED51CB /* AppVersion.h */,
-				7D3D3B3AC0544171AC655DA7 /* SQLitePlugin.m */,
-				58162C9FE970419EA2EBF729 /* sqlite3.c */,
-				57EA2DAA8F6D4B8BAFB8DA3D /* SQLitePlugin.h */,
-				E922B5B0432B4C46841EF019 /* sqlite3.h */,
+				19D463DC83DB4A6589FE98D6 /* SQLitePlugin.m */,
+				91199E98F44E4D9386D97F35 /* sqlite3.c */,
+				66715C997D7C4E69BA1571C0 /* SQLitePlugin.h */,
+				855A88CDE2BE47579EAAF6C0 /* sqlite3.h */,
 			);
 			name = Plugins;
 			path = "ios_mooc/Plugins";
@@ -474,8 +474,8 @@
 				30136524EEBB454A8963B9F4 /* CDVAssetLibraryFilesystem.m in Sources */,
 				8F5928FC8A6F4197B1D90603 /* CDVFileTransfer.m in Sources */,
 				66513F9170954CDF992980CF /* AppVersion.m in Sources */,
-				B52D69F0B24441B6B4593778 /* SQLitePlugin.m in Sources */,
-				DAEB2FE1842541929D56F743 /* sqlite3.c in Resources */,
+				CF498AF1D0954066902FECFE /* SQLitePlugin.m in Sources */,
+				57A3245FAC3E4BF8B881C258 /* sqlite3.c in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

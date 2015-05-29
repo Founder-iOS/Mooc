@@ -4,7 +4,12 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
-<ion-view view-title="我的课程">
+<ion-view  view-title="我的课程">
+      <ion-nav-buttons side="left">
+        <a class="button"  ng-href="#/sign-in">
+          注销
+        </a>
+      </ion-nav-buttons>
   <ion-content class="padding">
    <ion-refresher
     pulling-text="Pull to refresh..."
@@ -14,11 +19,11 @@
     collection-item-height="getItemHeight(course, $index)"
     ng-style="{height: getItemHeight(course, $index)}">
    <a class="item item-thumbnail-top my-course-item"
-    ng-href="#/courses/{{course.id}}">
-      <img ng-src="{{course.image}}">
-      <h2>{{course.name}}</h2>
-      <p>{{course.studynum}}</p>
-      <p>{{course.studytime}}</p>
+    ng-href="#/courses/{{course.course_id}}">
+      <img ng-src="{{course.cover_url}}">
+      <h2>{{course.course_name}}</h2>
+      <p>{{course.study_num}}</p>
+      <p>{{course.open_time}}</p>
   </a>
   </div>
   <ion-infinite-scroll on-infinite="loadMore()" distance="5%"></ion-infinite-scroll>

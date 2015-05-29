@@ -1,20 +1,38 @@
-var services = angular.module('starter.services', []);
+angular.module('starter.services', [])
 
-services.factory('user', function() {
+.factory('userService', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-   var user = {id:'1',name:'李雷川',sex:'0',role:'1'};
-
+  var user ={
+     username:'founder2013_tlhaojob3',
+     password:'111111',
+            };
   return {
-
     get: function() {
        return user;
+    },
+    saveUser : function(user){
     }
   };
-});
+})
 
-services.factory('courses', function() {
+.factory('deviceService', function() {
+  // Might use a resource here that returns a JSON array
+
+  // Some fake testing data
+  var device ={
+     version:'1.0',
+     udid:'lileichuan111fffffffff',
+            };
+  return {
+    get: function() {
+       return device;
+    }
+  };
+})
+
+.factory('courses', function() {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -66,10 +84,10 @@ services.factory('courses', function() {
       return null;
     }
   };
-});
+})
 
 
-services.factory('chapters', function() {
+.factory('chapters', function() {
   // Might use a resource here that returns a JSON array
   // Some fake testing data
   var chapters = [{
@@ -102,25 +120,42 @@ services.factory('chapters', function() {
       return chapters;
     }
   };
-});
+})
 
-services.service('moocService', function($http, $q){
-  var baseUrl = 'http://42.62.16.168:88/api?method=clientActive&client_type=1&client_renew_type=1&udid=OpenUDIDcom.founder.Class_9363f9ec20c0f440691cfd09b4ec7da776624c5a';
+.service('moocService', function($http, $q){
+  var baseUrl = 'http://172.19.43.88:8080/api?method=';
+          //var baseUrl = 'http://42.62.16.168:88/api?method=';
   var _finalUrl = '';
-  var makeUrl = function(){
-    _finalUrl = baseUrl + '&callback=JSON_CALLBACK';
+  var makeUrl = function(parms){
+    _finalUrl = baseUrl + parms + '&callback=JSON_CALLBACK';
     return _finalUrl;
   }
-
-  this.setArtist = function(artist){
-    _artist = artist;
+  // 用户登录
+  this.signIn = function(user,device){
+    //var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111';
+             var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111' +'&type=1';
+    console.log('parms is'+ parms);
+    makeUrl(parms);
+    console.log(_finalUrl);
+    var deferred = $q.defer();
+    $http({
+      method: 'JSONP',
+      url: _finalUrl
+    }).success(function(data){
+       console.log('success');
+      
+      deferred.resolve(data);
+    }).error(function(){
+       console.log('faild');
+      deferred.reject('There was an error')
+    })
+    return deferred.promise;
   }
-
-  this.getArtist = function(){
-    return _artist;
-  }
-  this.clientActive = function(){
-    makeUrl();
+  // 课程列表
+  this.courseList = function(user,device){
+    var parms = 'courseList&userId=11A3AAE7-6DC9-06E4-CB22-F6F033C64352';
+    console.log('courseList parms is'+ parms);
+    makeUrl(parms);
     console.log(_finalUrl);
     var deferred = $q.defer();
     $http({
@@ -135,5 +170,27 @@ services.service('moocService', function($http, $q){
     })
     return deferred.promise;
   }
+  // 课程详情
+  this.courseDetail = function(user,device){
+    alert('111');
+    var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111';
+    console.log('parms is'+ parms);
+    makeUrl(parms);
+    console.log(_finalUrl);
+    var deferred = $q.defer();
+    $http({
+      method: 'JSONP',
+      url: _finalUrl
+    }).success(function(data){
+       console.log('success');
+      deferred.resolve(data);
+    }).error(function(){
+       console.log('faild');
+      deferred.reject('There was an error')
+    })
+    return deferred.promise;
+  }
+
+
 });
 

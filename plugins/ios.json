@@ -93,7 +93,7 @@
         "uk.co.whiteoctober.cordova.appversion": {
             "PACKAGE_NAME": "com.ionicframework.iosmooc758720"
         },
-        "io.litehelpers.cordova.sqlite": {
+        "cordova-sqlite-storage": {
             "PACKAGE_NAME": "com.ionicframework.iosmooc758720"
         }
     },

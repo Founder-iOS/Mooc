@@ -6411,7 +6411,6 @@ angular.module('ngCordova.plugins.sqlite', [])
 
     return {
       openDB: function (dbName, background) {
-                              alert('openDB');
 
         if (typeof background === 'undefined') {
           background = 0;
