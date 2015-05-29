@@ -32,8 +32,10 @@
     <ion-item class=" padding-top padding-bottom courseSchedule" ng-repeat = "chapter in course.chapters">
           <h2 class= "padding-bottom lessonName" style="font-weight: 900">{{chapter.name}}</h2>
           <ion-scroll  direction= "x" scrollbar-x ="false">
-            <div ng-repeat = "lesson in chapter.studyplans" ng-class="{button:true, lesson_button:true,lesson_button_visited:lesson.visited, lesson_button_clicked:lesson.id===learningLesson.lessonNo && chapter.id===learningLesson.chapterNo}" ng-click="goStudyPlan({{lesson.id}})">{{lesson.name}}
-          </div>
+          <!--   <div ng-repeat = "lesson in chapter.studyplans" ng-class="{button:true, lesson_button:true,lesson_button_visited:lesson.visited, lesson_button_clicked:lesson.id===learningLesson.lessonNo && chapter.id===learningLesson.chapterNo}" ng-click="goStudyPlan({{lesson.id}})">{{lesson.name}}
+          </div> -->
+          <a ng-repeat = "lesson in chapter.studyplans" ng-class="{button:true, lesson_button:true,lesson_button_visited:lesson.visited, lesson_button_clicked:lesson.id===learningLesson.lessonNo && chapter.id===learningLesson.chapterNo}" ng-href="#/lesson/{{lesson.id}}">{{lesson.name}}</a>
+          
           </ion-scroll>
     </ion-item>
   </div>
