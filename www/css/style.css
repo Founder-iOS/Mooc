@@ -85,6 +85,9 @@
   width: 145px;
   height: 64px;
   background-color: #fff;
+  word-wrap: break-word;   
+  word-break: break-all;
+  cursor: pointer;
 }
 
 .lesson_button_visited{

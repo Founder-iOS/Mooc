@@ -2,124 +2,61 @@ var DEBUG = true;
 
 angular.module('starter.services', [])
 
-.factory('userService', function() {
+
+.factory('deviceService', function($cordovaDevice) {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
-  var user ={
-     username:'teacher201503',
-     password:'111111',
-            };
+  var device ;
   return {
     get: function() {
-       return user;
-    },
-    saveUser : function(user){
-    }
-  };
-})
+    document.addEventListener("deviceready", function () {
 
-.factory('deviceService', function() {
-  // Might use a resource here that returns a JSON array
+    var device = $cordovaDevice.getDevice();
 
-  // Some fake testing data
-  var device ={
-     version:'1.0',
-     udid:'lileichuan111fffffffff',
-            };
-  return {
-    get: function() {
+    var cordova = $cordovaDevice.getCordova();
+
+    var model = $cordovaDevice.getModel();
+
+    var platform = $cordovaDevice.getPlatform();
+
+    var uuid = $cordovaDevice.getUUID();
+
+    var version = $cordovaDevice.getVersion();
+    alert('version is'+ version);
+   }, false);
        return device;
     }
   };
 })
 
-.factory('courses', function() {
-  // Might use a resource here that returns a JSON array
-
-  // Some fake testing data
-  var courses = [{
-    id: 0,
-    name: '计算机基础教程0',
-    studynum: '选课人数:10',
-    studytime: '开课时间:2015-03-1',
-    image: 'img/1.jpg'
-  }, {
-    id: 1,
-    name: '计算机基础教程1',
-    studynum: '选课人数:10',
-    studytime: '开课时间:2015-03-1',
-    image: 'img/2.jpg'
-  },{
-    id: 2,
-    name: '计算机基础教程2',
-    studynum: '选课人数:10',
-    studytime: '开课时间:2015-03-1',
-    image: 'img/3.jpg'
-  }, {
-    id: 3,
-    name: '计算机基础教程3',
-    studynum: '选课人数:10',
-    studytime: '开课时间:2015-03-1',
-    image: 'img/4.jpg'
-  }, {
-    id: 4,
-    name: '计算机基础教程4',
-    studynum: '选课人数:10',
-    studytime: '开课时间:2015-03-1',
-    image: 'img/1.jpg'
-  }];
-
+.factory('dbService', function() {
+  var courses;
+  var lesson;
   return {
-    all: function() {
-      return courses;
+    getUser: function() {
+       return user;
     },
-    remove: function(course) {
-      courses.splice(courses.indexOf(course), 1);
+    saveUser : function(user){
     },
-    get: function(courseId) {
-      for (var i = 0; i < courses.length; i++) {
-        if (courses[i].id === parseInt(courseId)) {
-          return courses[i];
-        }
-      }
-      return null;
+    getCourses:function(){
+       return courses;
+    },
+    saveCourse:function(courses){
+
+    },
+    getCourseDetail:function(courseId){
+    },
+    saveCourseDetail:function(course){
+
+    },
+    getLesson:function(lessonId){
+
+    },
+    saveLesson:function(lesson){
     }
   };
 })
-
-
-.factory('chapters', function() {
-  // Might use a resource here that returns a JSON array
-  // Some fake testing data
-  var chaptersName = ['第一章','第二章','第三章','第四章','第五章'];
-  var chapters = chaptersName.map(function(cName,ind){
-    var rObj = {};
-    rObj["id"] = ind;
-    rObj["name"] = cName;
-    rObj["lessons"] = function(){
-      var _lessons = [];
-      var lessonNum = 12;
-      var i=0;
-      while(i++ < lessonNum){
-        var l = {};
-        l["id"] = i;
-        l["name"] = '计算机基础课程'+i;
-        l["visited"] = Math.floor(Math.random()*2) == 0;
-        _lessons.push(l);
-      }
-      return _lessons;
-    }();
-    return rObj;
-  });
-
-  return {
-    all: function() {
-      return chapters;
-    }
-  };
-})
-
 .service('moocService', function($http, $q){
   var baseUrl = 'http://172.19.43.88:8080/api?method=';
           //var baseUrl = 'http://42.62.16.168:88/api?method=';
@@ -139,14 +76,14 @@ angular.module('starter.services', [])
       deferred.resolve(data);
     }).error(function(){
        console.log('faild');
-      deferred.reject('There was an error')
+      deferred.reject('There was an error');
     })
     return deferred.promise;
   }
   // 用户登录
   this.signIn = function(user,device){
     //var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111';
-             var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111' +'&type=1';
+             var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111' +'&type=1';      ///<! 明文密码
     console.log('parms is'+ parms);
     var finalUrl = makeUrl(parms);
     console.log('finalUrl is' + finalUrl);

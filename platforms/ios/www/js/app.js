@@ -10,11 +10,8 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-                       
-                       
-    }
-                       
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);         
+    }              
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
@@ -47,7 +44,7 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
       url: '/courses/:courseId',
       templateUrl: 'templates/course-detail.html',
       controller: 'CourseDetailCtrl'
-    })
+   })
   // Each tab has its own nav history stack:
   // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/sign-in');

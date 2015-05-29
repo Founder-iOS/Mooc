@@ -23,7 +23,7 @@
       <img ng-src="{{course.cover_url}}">
       <h2>{{course.course_name}}</h2>
       <p>{{course.study_num}}</p>
-      <p>{{course.open_time}}</p>
+      <p>{{course.open_time *1000 | date:'yyyy/MM/dd'}}</p>
   </a>
   </div>
   <ion-infinite-scroll on-infinite="loadMore()" distance="5%"></ion-infinite-scroll>
