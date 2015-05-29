@@ -1,3 +1,5 @@
+var DEBUG = true;
+
 angular.module('starter.controllers', [])
 
 .controller('SignInCtrl', function($scope,$rootScope,$state,moocService) {
@@ -80,13 +82,18 @@ angular.module('starter.controllers', [])
 })
 .controller('CourseDetailCtrl', function($scope, $stateParams,courses,chapters) {
 
-  $scope.index = 1;
+  $scope.index = 0;
+  $scope.learningLesson = {chapterNo:0, lessonNo:3};      ///< 正在学习的课程
+  if(DEBUG) {
+    console.log($scope.learningLesson);
+  }
   $scope.course = courses.get($stateParams.courseId);
   $scope.chapters = chapters.all();
   $scope.navItems = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.navViews = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.goPage = function(index){
      $scope.index = index;
+     console.log('go to page: ' + index);
   }
 
 

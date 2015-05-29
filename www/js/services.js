@@ -1,3 +1,5 @@
+var DEBUG = true;
+
 angular.module('starter.services', [])
 
 .factory('user', function() {
@@ -20,31 +22,31 @@ angular.module('starter.services', [])
   // Some fake testing data
   var courses = [{
     id: 0,
-    name: '计算机基础教程',
+    name: '计算机基础教程0',
     studynum: '选课人数:10',
     studytime: '开课时间:2015-03-1',
     image: 'img/1.jpg'
   }, {
     id: 1,
-    name: '计算机基础教程',
+    name: '计算机基础教程1',
     studynum: '选课人数:10',
     studytime: '开课时间:2015-03-1',
     image: 'img/2.jpg'
   },{
     id: 2,
-    name: '计算机基础教程',
+    name: '计算机基础教程2',
     studynum: '选课人数:10',
     studytime: '开课时间:2015-03-1',
     image: 'img/3.jpg'
   }, {
     id: 3,
-    name: '计算机基础教程',
+    name: '计算机基础教程3',
     studynum: '选课人数:10',
     studytime: '开课时间:2015-03-1',
     image: 'img/4.jpg'
   }, {
     id: 4,
-    name: '计算机基础教程',
+    name: '计算机基础教程4',
     studynum: '选课人数:10',
     studytime: '开课时间:2015-03-1',
     image: 'img/1.jpg'
@@ -72,31 +74,30 @@ angular.module('starter.services', [])
 .factory('chapters', function() {
   // Might use a resource here that returns a JSON array
   // Some fake testing data
-  var chapters = [{
-    id: 0,
-    name: '计算机基础教程',
-    lessons:[{
-      id:0,
-      name:'初中生物分支测验'},{
-      id:1,  
-      name:'生态系统分支测验'}]
-  },{
-    id: 1,
-    name: '计算机基础教程',
-    lessons:[{
-      id:0,
-      name:'初中生物分支测验'},{
-      id:1,  
-      name:'生态系统分支测验'}]
-  },{
-    id: 2,
-    name: '计算机基础教程',
-    lessons:[{
-       id:0,
-      name:'初中生物分支测验'},{
-      id:1,  
-      name:'生态系统分支测验'}]
-  }];
+  var chaptersName = ['第一章','第二章','第三章','第四章','第五章'];
+  var chapters = chaptersName.map(function(cName,ind){
+    var rObj = {};
+    rObj["id"] = ind;
+    rObj["name"] = cName;
+    rObj["lessons"] = function(){
+      var _lessons = [];
+      var lessonNum = 12;
+      var i=0;
+      while(i++ < lessonNum){
+        var l = {};
+        l["id"] = i;
+        l["name"] = '计算机基础课程'+i;
+        l["visited"] = Math.floor(Math.random()*2) == 0;
+        _lessons.push(l);
+      }
+      return _lessons;
+    }();
+    return rObj;
+  });
+
+if (DEBUG) {
+  console.log(chapters[0].lessons);
+}
   return {
     all: function() {
       return chapters;

@@ -4,15 +4,54 @@
 }
 
 .course-detail{
+  position: relative;
+  margin: 0 10px 0;
+  height: 300px;
+  /*background-color: red;  */
+  border: 1px,grey;
+}
 
+.course-detail > div {
+  /*position: absolute;*/
 }
 .course-detail-left{
-	float: left;
+  float: left;
+  width:66.67%; 
+  height:300px;
+  /*background-color: pink;*/
+}
+
+.course-detail-left > img {
+  width: 590px;
+  height: 300px;
 }
 
 .course-detail-right{
-	float: left;
-	line-height: 40px;
+  float:left;
+  width: 33.33%;
+  height: 300px;
+	line-height: 30px;
+  /*background-color: green;*/
+}
+
+.course-detail-intro {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0,auto;
+  margin-top: 0;
+  /*background-color: yellow;*/
+} 
+.course-detail-intro >button{
+  width: 40%;
+}
+#btn-start-study {
+  background-color: rgb(139,193,98);
+  border-color: rgb(139,193,98);
+}
+#btn-resume-study{
+  background-color: rgb(255,205,106);
+  border-color: rgb(255,205,106);
 }
 
 .course-nav{
@@ -20,7 +59,7 @@
   line-height: 40px;
   float: left;
   width: 100%;
-  border-bottom: 1px solid red;
+  border-bottom: 1px solid black;
 }
 .course-nav li{
   text-align: center;
@@ -41,13 +80,37 @@
   color: #000;
 }
 
-.lesson-button{
-  padding-left: 20px;
-  width: 200px;
+.lesson_button{
+  margin-right: 20px;
+  width: 145px;
   height: 64px;
+  background-color: #fff;
+}
+
+.lesson_button_visited{
+  border-color: rgb(90,194,227) ; 
+}
+
+.lesson_button_clicked{
+  background-color: rgb(90,194,227); 
+  border-color: rgb(90,194,227);
+  color: #fff;
 }
 
 .iframe-wrapper iframe {
    width: 100%;
    height: 100%;
  }
+
+ .courseSchedule {
+  border: 0;
+ }
+
+ .courseSchedule clicked {
+    background-color: rgb(90,194,227);
+ }
+
+.lessonName {
+  color: rgb(90,194,227);
+}
+
