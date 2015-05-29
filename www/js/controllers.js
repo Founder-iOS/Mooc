@@ -3,7 +3,6 @@ var DEBUG = true;
 angular.module('starter.controllers', [])
 
 .controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,$cordovaSQLite,userService,moocService) {
-
  $rootScope.user = userService.get();
   $scope.signIn = function(user) {
   console.log('Sign-In', user);
@@ -12,7 +11,7 @@ angular.module('starter.controllers', [])
         console.log('返回成功' + eval(data).success);
           if(eval(data).success === 1){
             $rootScope.user = eval(data).data;
-                 $state.go('courses');
+            $state.go('courses');
           }
           else{
             alert(eval(data).message);
@@ -20,10 +19,8 @@ angular.module('starter.controllers', [])
       }, function(data){
         console.log('返回失败' + data);
       })
-
   };
 })
-
 
 .controller('CoursesCtrl', function($scope,$ionicPlatform,$rootScope,courses,moocService) {
  // $scope.courses = courses.all();
@@ -79,7 +76,7 @@ angular.module('starter.controllers', [])
                   console.log('返回成功' + eval(data).success);
                   if(eval(data).success === 1){
                     $scope.courses  =eval(data).data;
-                    $scope.$broadcast('scroll.refreshComplete');
+                    //$scope.$broadcast('scroll.refreshComplete');
                   }
                   else{
                     alert(eval(data).message);
@@ -89,36 +86,36 @@ angular.module('starter.controllers', [])
                })
   };
   $scope.doRefresh();
-
 })
+
 .controller('CourseDetailCtrl', function($scope,$stateParams,moocService,courses,chapters) {
   $scope.index = 1;
   $scope.learningLesson = {chapterNo:0, lessonNo:3};      ///< 正在学习的课程
 //  $scope.course = courses.get($stateParams.courseId);
   console.log($stateParams.courseId);
+  $scope.course = courses.get($stateParams.courseId);
   moocService.courseDetail($stateParams.courseId)
     .then(function(data){
           console.log('返回成功' + eval(data).success);
           if(eval(data).success === 1){
                $scope.course  =eval(data).data;
-             }
-          else{
+             }else{
                alert(eval(data).message);
             }        
            }, function(data){
               console.log('返回失败' + data);
-     })
-  $scope.course = courses.get($stateParams.courseId);
+    })
+   $scope.course = {
+      src:'111'
+    }; 
   $scope.chapters = chapters.all();
   $scope.navItems = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.navViews = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.goPage = function(index){
      $scope.index = index;
-     console.log('go to page: ' + index);
-  }
-
+  };
 })
-.controller('LessonCtrl', function($scope, $stateParams,$sce,user) {
+.controller('LessonCtrl', function($scope,$stateParams,user) {
   $scope.user = user.get();
   if (user.role === 0) {
     console.log('0');

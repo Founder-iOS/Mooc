@@ -164,10 +164,11 @@ angular.module('starter.services', [])
   }
   // 课程详情
   this.courseDetail = function(courseId){
-    var parms = 'courseDetail&course_id='+courseId;
+    // var parms = 'courseDetail&course_id='+courseId;
+    var parms = 'courseDetail&course_id=AB252A87-1C94-3ABA-40BC-1E4AFCD25012';
     console.log('parms is'+ parms);
     var finalUrl =makeUrl(parms);
-    console.log('finalUrl is' + finalUrl);
+    console.log('finalUrl is' +   finalUrl);
     return request(finalUrl);
   }
     //lesson详情
@@ -178,7 +179,5 @@ angular.module('starter.services', [])
       console.log('finalUrl is' + finalUrl);
       return request(finalUrl);
     }
-
-
 });
 
