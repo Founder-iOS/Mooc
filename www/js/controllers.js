@@ -2,13 +2,13 @@ var DEBUG = true;
 
 angular.module('starter.controllers', [])
 
-.controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,moocService,deviceService) {
+.controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,moocService,deviceService,dbService) {
   $rootScope.user = {
-     username:'teacher201503',
+     username:'testls',
      password:'111111',
   };
 
-  deviceService.get();
+  //deviceService.get();
   $scope.signIn = function(user) {
   if(DEBUG){
     console.log('Sign-In: ', user);
@@ -18,6 +18,7 @@ angular.module('starter.controllers', [])
         console.log('返回成功' + eval(data).success);
           if(eval(data).success === 1){
             $rootScope.user = eval(data).data;
+            dbService.saveUser($rootScope.user,$scope);
             $state.go('courses');
           }
           else{

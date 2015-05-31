@@ -30,14 +30,27 @@ angular.module('starter.services', [])
   };
 })
 
-.factory('dbService', function() {
+.factory('dbService', function($ionicPlatform,$cordovaSQLite) {
+  var user;
   var courses;
   var lesson;
   return {
     getUser: function() {
        return user;
     },
-    saveUser : function(user){
+    saveUser : function(user,$scope){
+     $ionicPlatform.ready(function() {
+      alert('saveUser');
+      alert(user.id);
+      var query = "INSERT INTO user (id,name,true_name) VALUES (?,?,?)";
+      var db = $cordovaSQLite.openDB("mooc.db",0);
+      $cordovaSQLite.execute(db, query, [user.id,user.name,user.true_name]).then(function(res) {
+        console.log("insertId: " + res.insertId);
+        alert(res);
+      }, function (err) {
+        console.error(err);
+       });
+     });
     },
     getCourses:function(){
        return courses;
@@ -58,7 +71,7 @@ angular.module('starter.services', [])
   };
 })
 .service('moocService', function($http, $q){
-  var baseUrl = 'http://172.19.43.88:8080/api?method=';
+  var baseUrl = 'http://42.62.16.168:8080/api?method=';
           //var baseUrl = 'http://42.62.16.168:88/api?method=';
   var makeUrl = function(parms){
     var finalUrl = baseUrl + parms + '&callback=JSON_CALLBACK';

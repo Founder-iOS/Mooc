@@ -1,17 +1,24 @@
+var DEBUG = true;
+
 angular.module('starter.controllers', [])
 
-.controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,moocService,deviceService) {
+.controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,moocService,deviceService,dbService) {
   $rootScope.user = {
-     username:'teacher201503',
+     username:'testls',
      password:'111111',
-   };
+  };
+
+  //deviceService.get();
   $scope.signIn = function(user) {
-  console.log('Sign-In', user);
+  if(DEBUG){
+    console.log('Sign-In: ', user);
+  }
     moocService.signIn(user)
     .then(function(data){
         console.log('返回成功' + eval(data).success);
           if(eval(data).success === 1){
             $rootScope.user = eval(data).data;
+            dbService.saveUser($rootScope.user,$scope);
             $state.go('courses');
           }
           else{
@@ -86,34 +93,33 @@ angular.module('starter.controllers', [])
 })
 .controller('CourseDetailCtrl', function($scope,$stateParams,moocService) {
   $scope.index = 1;
+  $scope.learningLesson = {chapterNo:0, lessonNo:3};      ///< 正在学习的课程
   $scope.course;
-  $scope.chapters;
-  console.log($stateParams.courseId);
-  // moocService.courseDetail($stateParams.courseId)
-  //   .then(function(data){
-  //         console.log('返回成功' + eval(data).success);
-  //         if(eval(data).success === 1){
-  //              //$scope.course  =eval(data).data;
-  //            }else{
-  //              alert(eval(data).message);
-  //           }        
-  //          }, function(data){
-  //            console.log('返回失败' + data);
-  // })
+  if(DEBUG){
+    console.log('course detail id: ' + $stateParams.courseId);
+  }
+  
+  moocService.courseDetail($stateParams.courseId)
+    .then(function(data){
+          console.log('课程详情返回成功' + eval(data).success);
+          if(eval(data).success === 1){
+               $scope.course  =eval(data).data;
+             }else{
+               alert(eval(data).message);
+            }        
+           }, function(data){
+             console.log('课程详情返回失败' + data);
+  })
   $scope.navItems = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.navViews = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.goPage = function(index){
      $scope.index = index;
   };
-})
-.controller('LessonCtrl', function($scope,$stateParams,user) {
-  $scope.user = user.get();
-  if (user.role === 0) {
-    console.log('0');
+  $scope.goStudyPlan = function(lessonId) {
+        ///< 跳转到lessonId页面
   }
-  else{
-     console.log('1');
-  };
+})
+.controller('LessonCtrl', function($scope,$stateParams) {
    $scope.tabItems = [{title:'概述'},{title:'资源'}];
    $scope.lesson = {
                     id:'1',
@@ -136,7 +142,7 @@ angular.module('starter.controllers', [])
                               }]
                   };
 
-   $scope.outlineUrl = $sce.trustAsResourceUrl($scope.lesson.outline);
+   $scope.outlineUrl = "http://www.baidu.coom";//$scope.trustAsResourceUrl($scope.lesson.outline);
    console.log($scope.lesson);
 })
 
