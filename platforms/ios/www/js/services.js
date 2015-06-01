@@ -44,7 +44,7 @@ angular.module('starter.services', [])
       alert(user.id);
       var query = "INSERT INTO user (id,name,true_name) VALUES (?,?,?)";
       var db = $cordovaSQLite.openDB("mooc.db",0);
-      $cordovaSQLite.execute(db, query, [user.id,user,name,user.true_name]).then(function(res) {
+      $cordovaSQLite.execute(db, query, [user.id,user.name,user.true_name]).then(function(res) {
         console.log("insertId: " + res.insertId);
         alert(res);
       }, function (err) {

@@ -3,6 +3,22 @@
  text-align: center;
 }
 
+.course_img {
+    margin:0 20px 5px 4px;
+}
+
+.course_item {
+    padding-left: 1px;
+    padding-right: 18px;
+    padding-top: 3px;
+    padding-bottom: 4px;
+}
+
+.course_item > a{
+    padding:0;
+    margin: 0;
+}
+
 .course-detail{
   position: relative;
   margin: 0 10px 0;
