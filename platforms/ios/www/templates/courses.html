@@ -15,15 +15,15 @@
     pulling-text="Pull to refresh..."
     on-refresh="doRefresh()">
   </ion-refresher>
-  <div class="padding-left padding-right padding-top pading-bottom"  collection-repeat="course in courses" collection-item-width="'25%'"
+  <div class="course_item"  collection-repeat="course in courses" collection-item-width="'20%'"
     collection-item-height="getItemHeight(course, $index)"
     ng-style="{height: getItemHeight(course, $index)}">
    <a class="item item-thumbnail-top my-course-item"
     ng-href="#/courses/{{course.course_id}}">
-      <img ng-src="{{course.cover_url}}">
+      <img class="course_img" ng-src="{{course.cover_url}}">
       <h2>{{course.course_name}}</h2>
-      <p>{{course.study_num}}</p>
-      <p>{{course.open_time *1000 | date:'yyyy/MM/dd'}}</p>
+      <p>选课人数：{{course.study_num}}</p>
+      <p>开课时间：{{course.open_time *1000 | date:'yyyy-MM-dd'}}</p>
   </a>
   </div>
   <ion-infinite-scroll on-infinite="loadMore()" distance="5%"></ion-infinite-scroll>

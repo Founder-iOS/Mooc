@@ -11,7 +11,7 @@ angular.module('starter.controllers', [])
   //deviceService.get();
   $scope.signIn = function(user) {
   if(DEBUG){
-    console.log('Sign-In: ', user);
+    console.log('Sign-In: ', user.username, user.password);
   }
     moocService.signIn(user)
     .then(function(data){
@@ -30,7 +30,7 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('CoursesCtrl', function($scope,$ionicPlatform,$rootScope,moocService) {
+.controller('CoursesCtrl', function($scope,$ionicPlatform,$rootScope,moocService,testService) {
     console.log('开始请求课程列表');
     /*
     moocService.clientActive()
@@ -90,6 +90,7 @@ angular.module('starter.controllers', [])
                })
   };
   $scope.doRefresh();
+  //  $scope.courses = testService.getCourses();
 })
 .controller('CourseDetailCtrl', function($scope,$stateParams,moocService) {
   $scope.index = 1;

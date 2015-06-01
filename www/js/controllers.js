@@ -18,7 +18,9 @@ angular.module('starter.controllers', [])
         console.log('返回成功' + eval(data).success);
           if(eval(data).success === 1){
             $rootScope.user = eval(data).data;
-            dbService.saveUser($rootScope.user,$scope);
+              if(ON_BROWSER){
+                  dbService.saveUser($rootScope.user,$scope);
+              }
             $state.go('courses');
           }
           else{
@@ -92,7 +94,7 @@ angular.module('starter.controllers', [])
   $scope.doRefresh();
   //  $scope.courses = testService.getCourses();
 })
-.controller('CourseDetailCtrl', function($scope,$stateParams,moocService) {
+.controller('CourseDetailCtrl', function($scope,$stateParams,moocService,testService) {
   $scope.index = 1;
   $scope.learningLesson = {chapterNo:0, lessonNo:3};      ///< 正在学习的课程
   $scope.course;
@@ -104,13 +106,21 @@ angular.module('starter.controllers', [])
     .then(function(data){
           console.log('课程详情返回成功' + eval(data).success);
           if(eval(data).success === 1){
-               $scope.course  =eval(data).data;
+               //$scope.course  =eval(data).data;
+              if(DEBUG){
+                  console.log($scope.course);
+              }
              }else{
                alert(eval(data).message);
             }        
            }, function(data){
              console.log('课程详情返回失败' + data);
   })
+    if(DEBUG){
+        $scope.course = testService.getCourseDetails().data;
+        console.log("faked data");
+        console.log($scope.course);
+    }
   $scope.navItems = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.navViews = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.goPage = function(index){

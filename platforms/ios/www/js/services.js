@@ -40,13 +40,16 @@ angular.module('starter.services', [])
     },
     saveUser : function(user,$scope){
      $ionicPlatform.ready(function() {
-      alert('saveUser');
-      alert(user.id);
+         if(DEBUG) {
+             console.log("save user: " + user.id);
+         }
       var query = "INSERT INTO user (id,name,true_name) VALUES (?,?,?)";
       var db = $cordovaSQLite.openDB("mooc.db",0);
       $cordovaSQLite.execute(db, query, [user.id,user.name,user.true_name]).then(function(res) {
         console.log("insertId: " + res.insertId);
-        alert(res);
+          if(DEBUG){
+              console.log("insert db result: " + res);
+          }
       }, function (err) {
         console.error(err);
        });
@@ -96,10 +99,10 @@ angular.module('starter.services', [])
   // 用户登录
   this.signIn = function(user,device){
     //var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111';
-             var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111' +'&type=1';      ///<! 明文密码
-    console.log('parms is'+ parms);
+    var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111' +'&type=1';    ///<! 明文密码
+    console.log('parms is '+ parms);
     var finalUrl = makeUrl(parms);
-    console.log('finalUrl is' + finalUrl);
+    console.log('finalUrl is ' + finalUrl);
     return request(finalUrl);
 
   }
@@ -128,6 +131,31 @@ angular.module('starter.services', [])
       var finalUrl = makeUrl(parms);
       console.log('finalUrl is' + finalUrl);
       return request(finalUrl);
+    }
+})
+
+.service('testService', function(){
+    var courses = function(){
+        var res = [];
+        var courseNum = 10;
+        var i = 0;
+        while(i++ < courseNum){
+            var _course = {
+                course_id: i,
+                course_name: "我的课程"+i,
+            cover_url: function(){
+                    return "/img/" + (Math.floor(Math.random()*4)+1) + ".jpg";
+                }(),
+                study_num: Math.floor(Math.random() * 50),
+                open_time: (Date.now() + Math.floor(Math.random()*1000))/1000
+            };
+            res.push(_course);
+        }
+        return res;
+    }();
+    
+    this.getCourses = function(){
+        return courses;
     }
 });
 

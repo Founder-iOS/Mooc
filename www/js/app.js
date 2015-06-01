@@ -1,3 +1,4 @@
+var ON_BROWSER = false;
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
@@ -57,5 +58,5 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
    })
   // Each tab has its own nav history stack:
   // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/sign-in');
+    $urlRouterProvider.otherwise('courses/1');
 }); 

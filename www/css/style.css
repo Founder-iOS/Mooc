@@ -103,6 +103,8 @@
   background-color: #fff;
   word-wrap: break-word;   
   word-break: break-all;
+  white-space:normal;
+  line-height:30px;
   cursor: pointer;
 }
 
