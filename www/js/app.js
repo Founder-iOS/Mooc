@@ -58,5 +58,5 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
    })
   // Each tab has its own nav history stack:
   // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('courses/1');
+    $urlRouterProvider.otherwise('sign-in');
 }); 
