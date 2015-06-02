@@ -74,7 +74,8 @@ angular.module('starter.services', [])
   };
 })
 .service('moocService', function($http, $q){
-  var baseUrl = 'http://172.19.43.55:8080/api?method=';
+  var serverAddress = 'http://42.62.16.168:8080';
+  var baseUrl = 'http://42.62.16.168:8080/api?method=';
           //var baseUrl = 'http://42.62.16.168:88/api?method=';
   var makeUrl = function(parms){
     var finalUrl = baseUrl + parms + '&callback=JSON_CALLBACK';
@@ -96,6 +97,9 @@ angular.module('starter.services', [])
     })
     return deferred.promise;
   }
+   this.getServerAddress = function(){
+    return serverAddress;
+   } 
   // 用户登录
   this.signIn = function(user,device){
     //var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111';
@@ -126,7 +130,6 @@ angular.module('starter.services', [])
   }
     //lesson详情
   this.lessonDetail = function(lessonId){
-      lessonId = 'AB252A87-1C94-3ABA-40BC-1E4AFCD25012';
       var parms ='getSingleStudyPlan&studyplan_id='+lessonId;
       console.log('parms is'+ parms);
       var finalUrl = makeUrl(parms);

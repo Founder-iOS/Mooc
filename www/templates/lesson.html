@@ -12,8 +12,7 @@ navigation history that also transitions its views in and out.
   <ion-view>
 
    <ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">
-     <p>{{outline}}</p>
-     <iframe  ng-src = "http://172.19.43.55:8080/admin/auth/login?name=teacher201503&password=111111&rediurl=http://172.19.43.55:8080/default/study/clientindex/fromouter/1/iscourse/1/id/8996590F-E596-9F0B-7713-6A834BAB75D9/clienttype/gscontent"></iframe>
+     <iframe  ng-src ="{{outlineUrl}}"></iframe>
    </ion-content>
 </ion-view>
   </ion-tab>
@@ -28,33 +27,46 @@ navigation history that also transitions its views in and out.
   </ion-tab>
 
   <ion-tab title="作业" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear">
-    <ion-nav-view name="tab-account"></ion-nav-view>
+      <ion-view>
+          
+          <ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">
+              <iframe  ng-src ="{{homeworkUrl}}"></iframe>
+          </ion-content>
+      </ion-view>
   </ion-tab>
 
     <ion-tab title="测验" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" >
-      <ion-view>
-       <ion-content >
-          <quiz class=""></quiz>
-       </ion-content>
-     </ion-view>
+        <ion-view>
+            <ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">
+                <iframe  ng-src ="{{quizUrl}}"></iframe>
+            </ion-content>
+        </ion-view>
     </ion-tab>
 
 
   <ion-tab title="讨论" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" >
-        <ion-view>
-       <ion-content >
-         <hello class=""></hello>  
-       </ion-content>
-     </ion-view>
+      <ion-view>
+          <ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">
+              <iframe  ng-src ="{{postUrl}}"></iframe>
+          </ion-content>
+      </ion-view>
   </ion-tab>
 
 
   <ion-tab title="评价" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" >
-    <ion-nav-view name="tab-chats"></ion-nav-view>
+      <ion-view>
+          <ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">
+              <iframe  ng-src ="{{evaluationUrl}}"></iframe>
+          </ion-content>
+      </ion-view>
   </ion-tab>
 
   <ion-tab title="笔记" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" >
-    <ion-nav-view name="tab-chats"></ion-nav-view>
+      <ion-view>
+          <ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">
+              <iframe  ng-src ="{{notesUrl}}"></iframe>
+          </ion-content>
+      </ion-view>
   </ion-tab>
 
 </ion-tabs>

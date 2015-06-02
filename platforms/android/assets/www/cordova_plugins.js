@@ -202,6 +202,14 @@ module.exports = [
         "clobbers": [
             "SQLitePlugin"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -216,7 +224,8 @@ module.exports.metadata =
     "org.apache.cordova.file-transfer": "0.5.0",
     "uk.co.whiteoctober.cordova.appversion": "0.1.7",
     "nl.x-services.plugins.actionsheet": "1.1.4",
-    "cordova-sqlite-storage": "0.7.9"
+    "cordova-sqlite-storage": "0.7.9",
+    "cordova-plugin-inappbrowser": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

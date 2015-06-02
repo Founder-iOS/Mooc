@@ -74,7 +74,8 @@ angular.module('starter.services', [])
   };
 })
 .service('moocService', function($http, $q){
-  var baseUrl = 'http://172.19.43.55:8080/api?method=';
+  var serverAddress = 'http://42.62.16.168:8080';
+  var baseUrl = 'http://42.62.16.168:8080/api?method=';
           //var baseUrl = 'http://42.62.16.168:88/api?method=';
   var makeUrl = function(parms){
     var finalUrl = baseUrl + parms + '&callback=JSON_CALLBACK';
@@ -96,6 +97,9 @@ angular.module('starter.services', [])
     })
     return deferred.promise;
   }
+   this.getServerAddress = function(){
+    return serverAddress;
+   } 
   // 用户登录
   this.signIn = function(user,device){
     //var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111';
@@ -126,7 +130,6 @@ angular.module('starter.services', [])
   }
     //lesson详情
   this.lessonDetail = function(lessonId){
-      lessonId = 'AB252A87-1C94-3ABA-40BC-1E4AFCD25012';
       var parms ='getSingleStudyPlan&studyplan_id='+lessonId;
       console.log('parms is'+ parms);
       var finalUrl = makeUrl(parms);
@@ -136,6 +139,7 @@ angular.module('starter.services', [])
 })
 
 .service('testService', function(){
+    /// course profile
     var courses = function(){
         var res = [];
         var courseNum = 10;
@@ -155,8 +159,23 @@ angular.module('starter.services', [])
         return res;
     }();
     
+    /// course details
+    var courseDetails = function(){
+        var chapters = [];
+        var res = {
+            success:1,
+            message:"",
+            data:chapters
+        };
+        
+    }();
+    
     this.getCourses = function(){
         return courses;
+    }
+    
+    this.getCourseDetails = function(){
+        return {"success":1,"message":"","data":{"course_id":"AB252A87-1C94-3ABA-40BC-1E4AFCD25012","course_name":"sfdfsdf","teacher_id":"E2AE0797-96AB-D468-84D4-3A70718985A4","teacher_name":"\u9648\u56fd\u51ac\u8001\u5e08","study_num":"111","open_time":"1425139200","end_time":"1427731200","course_type":"1427731200","credit":"11","period":"11","professional":"\u6863\u6848\u7ba1\u7406","description":"sdfsfwfsdfsdfsdfsf","cover_url":"http:\/\/172.19.43.88:8080\/data\/uploads\/Courses\/AB252A87-1C94-3ABA-40BC-1E4AFCD25012\/bdf624560206c7829dcf13552bcc3735.jpg","chapters":[{"id":"5BF482ED-B5FF-A8FE-3FD1-C34BCE750AAA","name":"1","studyplans":[{"id":"8996590F-E596-9F0B-7713-6A834BAB75D9","name":"78ad497936ad973b3df916b5eae0c0df","pId":"5BF482ED-B5FF-A8FE-3FD1-C34BCE750AAA","creater":"\u9648\u56fd\u51ac\u8001\u5e08","ctime":"1431485564","icon_path":"\/public\/admin\/images\/default1.png"},{"id":"6919F23F-A079-9EB5-20A5-B44B0B050BC6","name":"78ad497936ad973b3df916b5eae0c0df","pId":"5BF482ED-B5FF-A8FE-3FD1-C34BCE750AAA","creater":"\u9648\u56fd\u51ac\u8001\u5e08","ctime":"1431485616","icon_path":"\/public\/admin\/images\/default1.png"},{"id":"D748AB70-7FAA-7E23-3960-918EAAD3C201","name":"78ad497936ad973b3df916b5eae0c0df","pId":"5BF482ED-B5FF-A8FE-3FD1-C34BCE750AAA","creater":"\u9648\u56fd\u51ac\u8001\u5e08","ctime":"1431485645","icon_path":"\/public\/admin\/images\/default1.png"},{"id":"EBCE0BD1-AD24-ACBB-7875-615124321C23","name":"78ad497936ad973b3df916b5eae0c0df","pId":"5BF482ED-B5FF-A8FE-3FD1-C34BCE750AAA","creater":"\u9648\u56fd\u51ac\u8001\u5e08","ctime":"1431502158","icon_path":"\/public\/admin\/images\/default1.png"}]},{"id":"6D5CB29A-BFE4-19E4-3A08-3A4F229D8583","name":"232121","studyplans":[{"id":"DFD2DCBE-7835-2327-A746-CA0A8CDEB96E","name":"q3","pId":"6D5CB29A-BFE4-19E4-3A08-3A4F229D8583","creater":"\u9648\u56fd\u51ac\u8001\u5e08","ctime":"1432882105","icon_path":"http:\/\/172.19.43.88:8080\/data\/uploads\/Courses\/DFD2DCBE-7835-2327-A746-CA0A8CDEB96E\/5881202fe8e50696fcb9dc907aaafa43.jpg"}]}]}};
     }
 });
 
