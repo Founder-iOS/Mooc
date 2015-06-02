@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
 
 .controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,moocService,deviceService,dbService) {
   $rootScope.user = {
-     username:'testls',
+     username:'teacher201503',
      password:'111111',
   };
 
@@ -18,7 +18,7 @@ angular.module('starter.controllers', [])
         console.log('返回成功' + eval(data).success);
           if(eval(data).success === 1){
             $rootScope.user = eval(data).data;
-            dbService.saveUser($rootScope.user,$scope);
+            //dbService.saveUser($rootScope.user,$scope);
             $state.go('courses');
           }
           else{
@@ -119,8 +119,7 @@ angular.module('starter.controllers', [])
         ///< 跳转到lessonId页面
   }
 })
-.controller('LessonCtrl', function($scope,$stateParams) {
-   $scope.tabItems = [{title:'概述'},{title:'资源'}];
+.controller('LessonCtrl', function($scope,$rootScope,$stateParams) {
    $scope.lesson = {
                     id:'1',
                     outline:'http://www.baidu.com',
@@ -141,8 +140,8 @@ angular.module('starter.controllers', [])
                                 fileUrl:'http://172.19.42.53:8080/data/uploads/Courses/644BEAB7-A863-0DF5-6AAB-9FDE5E61526D/44968693f66091eea1dad22a2c42c708.jpg'
                               }]
                   };
+   $scope.outlineUrl = 'http://172.19.43.55:8080/admin/auth/login?name=teacher201503&password=111111&rediurl=http://172.19.43.55:8080/default/study/clientindex/fromouter/1/iscourse/1/id/8996590F-E596-9F0B-7713-6A834BAB75D9/clienttype/gscontent';
 
-   $scope.outlineUrl = "http://www.baidu.coom";//$scope.trustAsResourceUrl($scope.lesson.outline);
    console.log($scope.lesson);
 })
 

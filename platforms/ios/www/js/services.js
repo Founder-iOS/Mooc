@@ -40,11 +40,9 @@ angular.module('starter.services', [])
     },
     saveUser : function(user,$scope){
      $ionicPlatform.ready(function() {
-      alert('saveUser');
-      alert(user.id);
       var query = "INSERT INTO user (id,name,true_name) VALUES (?,?,?)";
       var db = $cordovaSQLite.openDB("mooc.db",0);
-      $cordovaSQLite.execute(db, query, [user.id,user,name,user.true_name]).then(function(res) {
+      $cordovaSQLite.execute(db, query, [user.id,user.name,user.true_name]).then(function(res) {
         console.log("insertId: " + res.insertId);
         alert(res);
       }, function (err) {
@@ -71,7 +69,7 @@ angular.module('starter.services', [])
   };
 })
 .service('moocService', function($http, $q){
-  var baseUrl = 'http://42.62.16.168:8080/api?method=';
+  var baseUrl = 'http://172.19.43.55:8080/api?method=';
           //var baseUrl = 'http://42.62.16.168:88/api?method=';
   var makeUrl = function(parms){
     var finalUrl = baseUrl + parms + '&callback=JSON_CALLBACK';
@@ -123,7 +121,8 @@ angular.module('starter.services', [])
   }
     //lesson详情
   this.lessonDetail = function(lessonId){
-      var parms = 'courseDetail&course_id='+courseId;
+      lessonId = 'AB252A87-1C94-3ABA-40BC-1E4AFCD25012';
+      var parms ='getSingleStudyPlan&studyplan_id='+lessonId;
       console.log('parms is'+ parms);
       var finalUrl = makeUrl(parms);
       console.log('finalUrl is' + finalUrl);
