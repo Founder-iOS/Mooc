@@ -47,6 +47,10 @@
                         {
                             "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"FileOpener2\"><param name=\"ios-package\" value=\"FileOpener2\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -107,6 +111,9 @@
             "PACKAGE_NAME": "com.ionicframework.iosmooc758720"
         },
         "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.ionicframework.iosmooc758720"
+        },
+        "io.github.pwlin.cordova.plugins.fileopener2": {
             "PACKAGE_NAME": "com.ionicframework.iosmooc758720"
         }
     },

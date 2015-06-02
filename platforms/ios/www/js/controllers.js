@@ -130,7 +130,7 @@ angular.module('starter.controllers', [])
         ///< 跳转到lessonId页面
   }
 })
-.controller('LessonCtrl', function($scope,$rootScope,$stateParams,$sce,$cordovaFileTransfer, $ionicPlatform,$cordovaInAppBrowser,$timeout,moocService) {
+.controller('LessonCtrl', function($scope,$rootScope,$stateParams,$sce,$cordovaFileTransfer, $ionicPlatform,$cordovaInAppBrowser,$cordovaFileOpener2,$timeout,moocService) {
   $rootScope.user = {
            name:'xiaoyu0915',
            password: '111111'
@@ -144,24 +144,44 @@ angular.module('starter.controllers', [])
     };
 
    $ionicPlatform.ready(function(){
-    $cordovaInAppBrowser.open(resource.file_path, '_blank', options)
-      .then(function(event) {
-        // success
-            console.log('打开成功');
-      })
-      .catch(function(event) {
-        // error
-             console.log('打开失败');
-
-      });
+        //内置reader打开
+                        var url = resource.file_path;
+                        var file_name = $scope.getFileName(url);
+                        var fileDir = cordova.file.documentsDirectory + file_name;
+        $cordovaFileOpener2.open(
+                        fileDir,
+                         'application/pdf'
+               ).then(function() {
+                                                        // file opened successfully
+          }, function(err) {
+                                                        // An error occurred. Show a message to the user
+        });
+                        
+    //内置浏览器打开
+//    $cordovaInAppBrowser.open(resource.file_path, '_blank', options)
+//      .then(function(event) {
+//        // success
+//            console.log('打开成功');
+//      })
+//      .catch(function(event) {
+//        // error
+//             console.log('打开失败');
+//
+//      });
     //$cordovaInAppBrowser.close();
   }, false);
 
   };
+  $scope.getFileName = function(o){
+            var pos=o.lastIndexOf("/");
+            return o.substring(pos+1);
+    };
   $scope.downloadResource = function(resource){
-    document.addEventListener('deviceready', function () {
+     $ionicPlatform.ready(function(){
         var url = resource.file_path;
-        var fileDir = cordova.file.documentsDirectory + "testImage.png";
+        var file_name = $scope.getFileName(url);
+        var fileDir = cordova.file.documentsDirectory + file_name;
+        console.log('full fileDir is:' + fileDir);
         var download = $cordovaFileTransfer.download(url, fileDir).then(function (success) {
           console.log("success " + JSON.stringify(success));
           $timeout(function () {
@@ -172,6 +192,7 @@ angular.module('starter.controllers', [])
         }, function (progress) {
           $timeout(function () {
             $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+                    console.log(" $scope.downloadProgress " + resource.id  + $scope.downloadProgress);
           });
         });
         if ($scope.downloadProgress > 0.1) {

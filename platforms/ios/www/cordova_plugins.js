@@ -224,6 +224,13 @@ module.exports = [
             "cordova.InAppBrowser.open",
             "window.open"
         ]
+    },
+    {
+        "file": "plugins/io.github.pwlin.cordova.plugins.fileopener2/www/plugins.FileOpener2.js",
+        "id": "io.github.pwlin.cordova.plugins.fileopener2.FileOpener2",
+        "clobbers": [
+            "cordova.plugins.fileOpener2"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -239,7 +246,8 @@ module.exports.metadata =
     "org.apache.cordova.file-transfer": "0.5.0",
     "uk.co.whiteoctober.cordova.appversion": "0.1.7",
     "cordova-sqlite-storage": "0.7.9",
-    "cordova-plugin-inappbrowser": "1.0.0"
+    "cordova-plugin-inappbrowser": "1.0.0",
+    "io.github.pwlin.cordova.plugins.fileopener2": "1.0.11"
 }
 // BOTTOM OF METADATA
 });
