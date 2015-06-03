@@ -35,19 +35,17 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
   // Each state's controller can be found in controllers.js
   $stateProvider
   // setup an abstract state for the tabs directive
-  $stateProvider
-    .state('signin', {
+  .state('signin', {
       url: '/sign-in',
       templateUrl: 'templates/sign-in.html',
       controller: 'SignInCtrl'
     })
-   .state('tab', {
-    url: "/tab",
-    abstract: true,
+   .state('tabs', {
+    url: '/tabs',
+    abstract: false,
     templateUrl: "templates/tabs.html"
   })
-
-    .state('tab.courses', {
+.state('tabs.courses', {
     url: '/courses',
     views: {
       'tab-courses': {
@@ -56,7 +54,7 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
       }
     }
   })
-  .state('tab.offline', {
+  .state('tabs.offline', {
     url: '/offline',
     views: {
       'tab-offline': {
@@ -65,7 +63,7 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
       }
     }
   })
-  .state('tab.user', {
+  .state('tabs.user', {
     url: '/user',
     views: {
       'tab-user': {

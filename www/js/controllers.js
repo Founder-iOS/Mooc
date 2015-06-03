@@ -9,21 +9,21 @@ angular.module('starter.controllers', [])
 })
 
 .controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,users) {
-  $rootScope.user = user.lastLoginUser();
-  $scope.signIn = function(user) {
-            users.requestUser(user.username,user.password).then(
-                                                            function(data){
-                                                            $rootScope.user = data;
-                                                            console.log("signin success");
-                                                                $state.go('tab-courses');
-                                                            },
-                                                            function(err){
-                                                            console.log("signin fail");
-                                                            }
-                                                            );
+            $rootScope.user = users.lastLoginUser();
+            $scope.signIn = function(user) {
+    
+            users.requestUser($rootScope.user.username,$rootScope.user.password).then(
+                                                                                      function(data){
+                                                                                      $rootScope.user = data;
+                                                                                      console.log("signin success");
+                                                                                      $state.go('tabs.courses');
+                                                                                      },
+                                                                                      function(err){
+                                                                                      console.log("signin fail");
+                                                                                      }
+                                                                                      );
             console.log('$scope.resources is'+ ' ' +$scope.resources);
-        };
-  }
+            };
 })
 
 .controller('CoursesCtrl', function($scope,$ionicPlatform,$rootScope,courses,testService) {

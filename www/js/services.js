@@ -3,34 +3,20 @@ var DEBUG = true;
 angular.module('starter.services', [])
 
 .factory('users', function($localstorage,dbService,moocService) {
-  var user ;
+    var user = {
+         username:'xiaoyu0915',
+         password: '111111'
+    };
+    $localstorage.setObject('lastLoginUser',user) ;
   return {
     get: function(userId) {
-      user = {
-            name:'xiaoyu0915',
-            password: '111111'
-      };
-      $localstorage.setObject('lastLoginUser',user);
       return user;
     },
     lastLoginUser: function() {
          return user = $localstorage.getObject('lastLoginUser');
      },
     requestUser: function(name,password){
-            moocService.signIn(name,password)
-            .then(function(data){
-                  console.log('返回成功' + eval(data).success);
-                  if(eval(data).success === 1){
-                    courses  =eval(data).data;
-                    return courses;
-                    //$scope.$broadcast('scroll.refreshComplete');
-                  }
-                  else{
-                    alert(eval(data).message);
-                  }
-                  }, function(data){
-                      console.log('返回失败' + data);
-               })
+         return moocService.signIn(name,password);
     }
   };
 })
