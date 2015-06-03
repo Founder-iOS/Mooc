@@ -4,7 +4,7 @@ angular.module('starter.services', [])
 
 .factory('users', function($localstorage,dbService,moocService) {
     var user = {
-         username:'xiaoyu0915',
+         username:'teacher201503',//'xiaoyu0915',
          password: '111111'
     };
     $localstorage.setObject('lastLoginUser',user) ;
@@ -33,7 +33,7 @@ angular.module('starter.services', [])
 .factory('courseDetail', function(dbService,moocService) {
    var course;
    return {
-       requestCoursesFromServer: function(courseId) {
+       requestCourseDetailFromServer: function(courseId) {
            return moocService.courseDetail(courseId);
        }
    }
@@ -212,7 +212,7 @@ angular.module('starter.services', [])
       url:finalUrl
     }).success(function(data){
       console.log('success' + data);
-      deferred.resolve(eval(data).data);
+      deferred.resolve(data);
     }).error(function(){
       console.log('faild');
       deferred.reject('There was an error');

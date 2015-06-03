@@ -10,19 +10,20 @@ angular.module('starter.controllers', [])
 
 .controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,users) {
             $rootScope.user = users.lastLoginUser();
-            $scope.signIn = function(user) {
-    
-            users.requestUserFromServer($rootScope.user.username,$rootScope.user.password).then(
-                                                                                      function(data){
-                                                                                      $rootScope.user = data;
-                                                                                      console.log("signin success");
-                                                                                      $state.go('tabs.courses');
-                                                                                      },
-                                                                                      function(err){
-                                                                                      console.log("signin fail");
-                                                                                      }
-                                                                                      );
-            };
+
+            users.requestUserFromServer($rootScope.user.username,$rootScope.user.password).then(function(data){
+                console.log('返回成功' + eval(data).success);
+                if(eval(data).success === 1){
+                    $rootScope.user = eval(data).data;
+                    console.log("signin success");
+                    $state.go('tabs.courses');
+                }
+                else{
+                    alert(eval(data).message);
+                }
+            }, function(data) {
+                console.log('返回失败' + data);
+            });
 })
 
 .controller('CoursesCtrl', function($scope,$ionicPlatform,$rootScope,courses,testService) {
@@ -71,16 +72,18 @@ angular.module('starter.controllers', [])
   };
  
             $scope.doRefresh = function() {
-            courses.requestCoursesFromServer($rootScope.user.id).then(
-                                                                            function(data){
-                                                                                                $scope.courses = data;
-                                                                                                console.log("courselist success");
-                                                                      
-                                                                                                },
-                                                                                                function(err){
-                                                                      
-                                                                                                }
-                                                                                                );
+            courses.requestCoursesFromServer($rootScope.user.id).then(function(data){
+                console.log('返回成功' + eval(data).success);
+                if(eval(data).success === 1){
+                    $scope.courses  =eval(data).data;
+                    //$scope.$broadcast('scroll.refreshComplete');
+                }
+                else{
+                    alert(eval(data).message);
+                }
+            }, function(data){
+                console.log('返回失败' + data);
+            });
   };
   $scope.doRefresh();
 
@@ -92,19 +95,20 @@ angular.module('starter.controllers', [])
   if(DEBUG){
     console.log('course detail id: ' + $stateParams.courseId);
   }
-           courseDetail.get($stateParams.courseId)       .then(function(data){
-                                                                                    console.log('返回成功' + eval(data).success);
-                                                                                    if(eval(data).success === 1){
-                                                                                    $scope.course = data;
-                                                               
-                                                                                    //$scope.$broadcast('scroll.refreshComplete');
-                                                                                    }
-                                                                                    else{
-                                                                                    alert(eval(data).message);
-                                                                                    }
-                                                                                    }, function(data){
-                                                                                    console.log('返回失败' + data);
-                                                                                    })
+           courseDetail.requestCourseDetailFromServer($stateParams.courseId).then(function(data){
+               console.log('课程详情返回成功' + eval(data).success);
+               if(eval(data).success === 1){
+                   $scope.course =  eval(data).data;
+                   //$scope.course  =eval(data).data;
+                   if(DEBUG){
+                       console.log($scope.course);
+                   }
+               }else{
+                   alert(eval(data).message);
+               }
+           }, function(data){
+               console.log('课程详情返回失败' + data);
+           });
 
 //  if(DEBUG){
 //        $scope.course = testService.getCourseDetails().data;
@@ -179,15 +183,19 @@ angular.module('starter.controllers', [])
    console.log('$scope.outlineUrl is' + $scope.outlineUrl);
    console.log($scope.lesson);
    $scope.doRefresh = function() {
-   lesson.getResources($stateParams.lessonId).then(
-         function(data){
-             $scope.resources = data;
-             console.log("getResources success");
-         },
-         function(err){
-             console.log("getResources fail");
-         }
-     );
+   lesson.getResourcesFromServer($stateParams.lessonId).then(function(data){
+       console.log('课时详情返回成功' + eval(data).success);
+       if(eval(data).success === 1){
+           console.log('11' + eval(data).data.resources);
+           $scope.resources = eval(data).data.resources;
+           console.log("getResources success");
+       }else{
+           console.log("getResources fail");
+       }
+   }, function(data){
+       deferred.reject(data);
+       console.log('课时详情返回失败' + data);
+   });
      console.log('$scope.resources is'+ ' ' +$scope.resources);
   };       
    $scope.doRefresh();
