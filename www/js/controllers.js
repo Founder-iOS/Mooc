@@ -2,10 +2,17 @@ var DEBUG = true;
 
 angular.module('starter.controllers', [])
 
+.controller('UserCenterCtrl', function() {
+})
+
+.controller('OfflineCtrl', function() {
+})
+
 .controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,users) {
   $rootScope.user = {
      username:'xiaoyu0915',
      password:'111111',
+     id :'111',
   };
 
   //deviceService.get();
@@ -17,8 +24,13 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('CoursesCtrl', function($scope,$ionicPlatform,$rootScope,moocService,testService) {
+.controller('CoursesCtrl', function($scope,$ionicPlatform,$rootScope,courses,testService) {
     console.log('开始请求课程列表');
+      $rootScope.user = {
+     username:'xiaoyu0915',
+     password:'111111',
+     id :'111'
+  };
     /*
     moocService.clientActive()
     .then(function(data){
@@ -61,9 +73,9 @@ angular.module('starter.controllers', [])
   $scope.gotoCourseDetail = function(courseId) {
     Courses.remove(chat);
   };
-  courses.get($rootScope.user.id);
+ 
   $scope.doRefresh = function() {
-
+   $scope.courses = courses.get($rootScope.user.id);
   };
   $scope.doRefresh();
   //  $scope.courses = testService.getCourses();
