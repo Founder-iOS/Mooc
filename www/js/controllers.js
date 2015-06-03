@@ -5,7 +5,7 @@ angular.module('starter.controllers', [])
 .controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,users) {
   $rootScope.user = {
      username:'xiaoyu0915',
-     password:'111111',
+     password:'111111'
   };
 
   //deviceService.get();
@@ -149,7 +149,15 @@ angular.module('starter.controllers', [])
    console.log('$scope.outlineUrl is' + $scope.outlineUrl);
    console.log($scope.lesson);
    $scope.doRefresh = function() {
-     $scope.resources = lesson.getResources($stateParams.lessonId);
+   lesson.getResources($stateParams.lessonId).then(
+         function(data){
+             $scope.resources = data;
+             console.log("getResources success");
+         },
+         function(err){
+             console.log("getResources fail");
+         }
+     );
      console.log('$scope.resources is'+ ' ' +$scope.resources);
   };       
    $scope.doRefresh();
