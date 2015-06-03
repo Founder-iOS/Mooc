@@ -12,7 +12,7 @@ angular.module('starter.controllers', [])
             $rootScope.user = users.lastLoginUser();
             $scope.signIn = function(user) {
     
-            users.requestUser($rootScope.user.username,$rootScope.user.password).then(
+            users.requestUserFromServer($rootScope.user.username,$rootScope.user.password).then(
                                                                                       function(data){
                                                                                       $rootScope.user = data;
                                                                                       console.log("signin success");
@@ -22,17 +22,11 @@ angular.module('starter.controllers', [])
                                                                                       console.log("signin fail");
                                                                                       }
                                                                                       );
-            console.log('$scope.resources is'+ ' ' +$scope.resources);
             };
 })
 
 .controller('CoursesCtrl', function($scope,$ionicPlatform,$rootScope,courses,testService) {
     console.log('开始请求课程列表');
-      $rootScope.user = {
-     username:'xiaoyu0915',
-     password:'111111',
-     id :'111'
-  };
     /*
     moocService.clientActive()
     .then(function(data){
@@ -76,11 +70,20 @@ angular.module('starter.controllers', [])
     Courses.remove(chat);
   };
  
-  $scope.doRefresh = function() {
-   $scope.courses = courses.get($rootScope.user.id);
+            $scope.doRefresh = function() {
+            courses.requestCoursesFromServer($rootScope.user.id).then(
+                                                                            function(data){
+                                                                                                $scope.courses = data;
+                                                                                                console.log("courselist success");
+                                                                      
+                                                                                                },
+                                                                                                function(err){
+                                                                      
+                                                                                                }
+                                                                                                );
   };
- // $scope.doRefresh();
-    $scope.courses = testService.getCourses();
+  $scope.doRefresh();
+
 })
 .controller('CourseDetailCtrl', function($scope,$stateParams,courseDetail) {
   $scope.index = 1;
@@ -89,12 +92,25 @@ angular.module('starter.controllers', [])
   if(DEBUG){
     console.log('course detail id: ' + $stateParams.courseId);
   }
-  $scope.course =courseDetail.get($stateParams.courseId);
-  if(DEBUG){
-        $scope.course = testService.getCourseDetails().data;
-        console.log("faked data");
-        console.log($scope.course);
-  }
+           courseDetail.get($stateParams.courseId)       .then(function(data){
+                                                                                    console.log('返回成功' + eval(data).success);
+                                                                                    if(eval(data).success === 1){
+                                                                                    $scope.course = data;
+                                                               
+                                                                                    //$scope.$broadcast('scroll.refreshComplete');
+                                                                                    }
+                                                                                    else{
+                                                                                    alert(eval(data).message);
+                                                                                    }
+                                                                                    }, function(data){
+                                                                                    console.log('返回失败' + data);
+                                                                                    })
+
+//  if(DEBUG){
+//        $scope.course = testService.getCourseDetails().data;
+//        console.log("faked data");
+//        console.log($scope.course);
+//  }
   $scope.navItems = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.navViews = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.goPage = function(index){

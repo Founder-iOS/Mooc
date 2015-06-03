@@ -15,239 +15,191 @@ angular.module('starter.services', [])
     lastLoginUser: function() {
          return user = $localstorage.getObject('lastLoginUser');
      },
-    requestUser: function(name,password){
+    requestUserFromServer: function(name,password){
          return moocService.signIn(name,password);
     }
   };
-})
+         })
 
 .factory('courses', function(dbService,moocService) {
-   var courses;
-  return {
-       get: function(userId) {
-          moocService.courseList(userId)
-            .then(function(data){
-                  console.log('返回成功' + eval(data).success);
-                  if(eval(data).success === 1){
-                    courses  =eval(data).data;
-                    return courses;
-                    //$scope.$broadcast('scroll.refreshComplete');
-                  }
-                  else{
-                    alert(eval(data).message);
-                  }
-                  }, function(data){
-                      console.log('返回失败' + data);
-               })
-   }
-  };
-
+    var courses;
+    return {
+        requestCoursesFromServer: function(userId) {
+           return moocService.courseList(userId);
+        }
+    };
 })
 
 .factory('courseDetail', function(dbService,moocService) {
    var course;
    return {
-    get: function(courseId) {
-     moocService.courseDetail(courseId)
-    .then(function(data){
-          console.log('课程详情返回成功' + eval(data).success);
-          if(eval(data).success === 1){
-               return  eval(data).data;;
-               //$scope.course  =eval(data).data;
-              if(DEBUG){
-                  console.log($scope.course);
-              }
-             }else{
-               alert(eval(data).message);
-            }        
-           }, function(data){
-             console.log('课程详情返回失败' + data);
-    })
+       requestCoursesFromServer: function(courseId) {
+           return moocService.courseDetail(courseId);
+       }
    }
-  };
-
 })
 
 
 .factory('lesson', function($sce,dbService,moocService,$q) {
     var baseUrl = function(username,password,lessonId) {
-      var url = moocService.getServerAddress() + "/admin/auth/login?name=" + username + "&password="+ password + "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+lessonId + "/clienttype/";
-      return url;
+        var url = moocService.getServerAddress() + "/admin/auth/login?name=" + username + "&password="+ password + "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+lessonId + "/clienttype/";
+        return url;
     };
-  return {
-    outlineUrl: function(username,password,lessonId) {
-      var url = $sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'gscontent');
-      return url;
-    },
-    homeworkUrl: function(username,password,lessonId) {
-      var url =$sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'assignment');
-      return url;
-    },
-    quizUrl: function(username,password,lessonId) {
-      var url =$sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'quiz');
-      return url;
-    },
-    postUrl: function(username,password,lessonId) {
-      var url = $sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'post');
-      return url;
-    },
-    notesUrl: function(username,password,lessonId) {
-      var url = $sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'notes');
-      return url;
-    },
-    evaluationUrl: function(username,password,lessonId) {
-      var url = $sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'evaluation');
-      return url;
-    },
-    getResources: function(lessonId){
-        var deferred =$q.defer();
-        moocService.lessonDetail(lessonId)
-          .then(function(data){
-                  console.log('课时详情返回成功' + eval(data).success);
-                  if(eval(data).success === 1){
-                     console.log('11' + eval(data).data.resources);
-                     deferred.resolve(eval(data).data.resources);
-                     console.log("moocService success");
-                  }else{
-                     deferred.reject(eval(data).message);
-                  }
-                }, function(data){
-                    deferred.reject(data);
-                    console.log('课时详情返回失败' + data);
-              });
-        return deferred.promise;
-   }
-
-  };
+    return {
+        outlineUrl: function(username,password,lessonId) {
+            var url = $sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'gscontent');
+            return url;
+        },
+        homeworkUrl: function(username,password,lessonId) {
+            var url =$sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'assignment');
+            return url;
+        },
+        quizUrl: function(username,password,lessonId) {
+            var url =$sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'quiz');
+            return url;
+        },
+        postUrl: function(username,password,lessonId) {
+            var url = $sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'post');
+            return url;
+        },
+        notesUrl: function(username,password,lessonId) {
+            var url = $sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'notes');
+            return url;
+        },
+        evaluationUrl: function(username,password,lessonId) {
+            var url = $sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'evaluation');
+            return url;
+        },
+        getResourcesFromServer: function(lessonId) {
+            return moocService.lessonDetail(lessonId);
+        }
+   };
 })
 
 
 .factory('deviceService', function($cordovaDevice) {
-  // Might use a resource here that returns a JSON array
+    // Might use a resource here that returns a JSON array
 
-  // Some fake testing data
-  var device ;
-  return {
-    get: function() {
-    document.addEventListener("deviceready", function () {
+    // Some fake testing data
+    var device ;
+    return {
+        get: function() {
+            document.addEventListener("deviceready", function () {
+                var device = $cordovaDevice.getDevice();
 
-    var device = $cordovaDevice.getDevice();
+                var cordova = $cordovaDevice.getCordova();
 
-    var cordova = $cordovaDevice.getCordova();
+                var model = $cordovaDevice.getModel();
 
-    var model = $cordovaDevice.getModel();
+                var platform = $cordovaDevice.getPlatform();
 
-    var platform = $cordovaDevice.getPlatform();
+                var uuid = $cordovaDevice.getUUID();
 
-    var uuid = $cordovaDevice.getUUID();
-
-    var version = $cordovaDevice.getVersion();
-    alert('version is'+ version);
-   }, false);
-       return device;
-    }
-  };
+                var version = $cordovaDevice.getVersion();
+                alert('version is'+ version);
+            }, false);
+            return device;
+        }
+    };
 })
 
 
 .factory('$localstorage', ['$window', function($window) {
-                           return {
-                           set: function(key, value) {
-                           $window.localStorage[key] = value;
-                           },
-                           get: function(key, defaultValue) {
-                           return $window.localStorage[key] || defaultValue;
-                           },
-                           setObject: function(key, value) {
-                           $window.localStorage[key] = JSON.stringify(value);
-                           },
-                           getObject: function(key) {
-                           return JSON.parse($window.localStorage[key] || '{}');
-                           }
-                           }
-    }])
+    return {
+        set: function(key, value) {
+            $window.localStorage[key] = value;
+        },
+        get: function(key, defaultValue) {
+            return $window.localStorage[key] || defaultValue;
+        },
+        setObject: function(key, value) {
+            $window.localStorage[key] = JSON.stringify(value);
+        },
+        getObject: function(key) {
+            return JSON.parse($window.localStorage[key] || '{}');
+        }
+    }
+}])
 
 .factory('downloadService', function($ionicPlatform,$cordovaFileTransfer) {
-       return {
+    return {
         getFileName:function(o){
             var pos=o.lastIndexOf("/");
             return o.substring(pos+1);
-          }, 
-         addDownloadTask: function(resouce) {
-              $ionicPlatform.ready(function(){
-                      var url = resource.file_path;
-                      var file_name = getFileName(url);
-                      var fileDir = cordova.file.documentsDirectory + file_name;
-                      console.log('full fileDir is:' + fileDir);
-                      var download = $cordovaFileTransfer.download(url, fileDir).then(function (success) {
-                      console.log("success " + JSON.stringify(success));
-            $timeout(function () {
-                     $scope.downloadProgress = 100
-          }, 1000);
-        }, function (error) {
-          console.log("Error " + JSON.stringify(error));
-        }, function (progress) {
-          $timeout(function () {
-              console.log("progress" + resource.id  + 'is' +$scope.downloadProgress);
-            // $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-            //         console.log(" $scope.downloadProgress " + resource.id  + $scope.downloadProgress);
-          });
-        });
-        if ($scope.downloadProgress > 0.1) {
-          download.abort();
+        },
+        addDownloadTask: function(resouce) {
+            $ionicPlatform.ready(function(){
+                var url = resource.file_path;
+                var file_name = getFileName(url);
+                var fileDir = cordova.file.documentsDirectory + file_name;
+                console.log('full fileDir is:' + fileDir);
+                var download = $cordovaFileTransfer.download(url, fileDir).then(function (success) {
+                    if(DEBUG)   console.log("success " + JSON.stringify(success));
+                    $timeout(function () {
+                         $scope.downloadProgress = 100
+                    }, 1000);
+                }, function (error) {
+                    console.log("Error " + JSON.stringify(error));
+                }, function (progress) {
+                    $timeout(function () {
+                        console.log("progress" + resource.id  + 'is' +$scope.downloadProgress);
+                        // $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+                        //         console.log(" $scope.downloadProgress " + resource.id  + $scope.downloadProgress);
+                    });
+                });
+                if ($scope.downloadProgress > 0.1) {
+                    download.abort();
+                }
+            })
+        },
+        removeDownloadTask: function(resouce) {
         }
-      })
-      },
-      removeDownloadTask: function(resouce) { 
-       }
-     }
+    }
 })
 .factory('dbService', function($ionicPlatform,$cordovaSQLite) {
-  var user;
-  var courses;
-  var lesson;
-  return {
-    getUser: function() {
-       return user;
-    },
-    saveUser : function(user,$scope){
-     $ionicPlatform.ready(function() {
-         if(DEBUG) {
-             console.log("save user: " + user.id);
-         }
-      var query = "INSERT INTO user (id,name,true_name) VALUES (?,?,?)";
-      var db = $cordovaSQLite.openDB("mooc.db",0);
-      $cordovaSQLite.execute(db, query, [user.id,user.name,user.true_name]).then(function(res) {
-        console.log("insertId: " + res.insertId);
-          if(DEBUG){
-              console.log("insert db result: " + res);
-          }
-      }, function (err) {
-        console.error(err);
-       });
-     });
-    },
-    getCourses:function(){
-       return courses;
-    },
-    saveCourse:function(courses){
+    var user;
+    var courses;
+    var lesson;
+    return {
+        getUser: function() {
+            return user;
+        },
+        saveUser : function(user,$scope){
+            $ionicPlatform.ready(function() {
+                if(DEBUG) {
+                    console.log("save user: " + user.id);
+                }
+                var query = "INSERT INTO user (id,name,true_name) VALUES (?,?,?)";
+                var db = $cordovaSQLite.openDB("mooc.db",0);
+                $cordovaSQLite.execute(db, query, [user.id,user.name,user.true_name]).then(function(res) {
+                    console.log("insertId: " + res.insertId);
+                    if(DEBUG){
+                        console.log("insert db result: " + res);
+                    }
+                }, function (err) {
+                    console.error(err);
+                });
+            });
+        },
+        getCourses:function(){
+            return courses;
+        },
+        saveCourse:function(courses){
+        },
+        getCourseDetail:function(courseId){
+        },
+        saveCourseDetail:function(course){
+        },
+        getLesson:function(lessonId){
+        },
+        saveLesson:function(lesson){
 
-    },
-    getCourseDetail:function(courseId){
-    },
-    saveCourseDetail:function(course){
-
-    },
-    getLesson:function(lessonId){
-
-    },
-    saveLesson:function(lesson){
-    }
-  };
+        }
+    };
 })
 .service('moocService', function($http, $q){
-  var serverAddress = 'http://42.62.16.168:8080';
-  var baseUrl = 'http://42.62.16.168:8080/api?method=';
+  var serverAddress = 'http://172.19.43.55:8080';
+  var baseUrl = 'http://172.19.43.55:8080/api?method=';
   var makeUrl = function(parms){
     var finalUrl = baseUrl + parms + '&callback=JSON_CALLBACK';
     return finalUrl;
@@ -259,8 +211,8 @@ angular.module('starter.services', [])
       method: 'JSONP',
       url:finalUrl
     }).success(function(data){
-      console.log('success');
-      deferred.resolve(data);
+      console.log('success' + data);
+      deferred.resolve(eval(data).data);
     }).error(function(){
       console.log('faild');
       deferred.reject('There was an error');
@@ -284,7 +236,7 @@ angular.module('starter.services', [])
     var parms = 'courseList&user_id=' + userId;
     console.log('courseList parms is'+ parms);
         var finalUrl =makeUrl(parms);
-    console.log('finalUrl is' + finalUrl);
+    console.log('finalUrl is ' + finalUrl);
     return request(finalUrl);
   }
   // 课程详情
