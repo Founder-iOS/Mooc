@@ -35,29 +35,62 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
   // Each state's controller can be found in controllers.js
   $stateProvider
   // setup an abstract state for the tabs directive
+  $stateProvider
     .state('signin', {
       url: '/sign-in',
       templateUrl: 'templates/sign-in.html',
       controller: 'SignInCtrl'
     })
-  .state('lesson', {
-    url: "/lesson/:lessonId",
-    templateUrl: "templates/lesson.html",
-    controller: 'LessonCtrl'
+   .state('tab', {
+    url: "/tab",
+    abstract: true,
+    templateUrl: "templates/tabs.html"
   })
-  .state('courses', {
-    url: "/courses",
-    templateUrl: "templates/courses.html",
-    controller: 'CoursesCtrl'
+
+    .state('tab.courses', {
+    url: '/courses',
+    views: {
+      'tab-courses': {
+        templateUrl: 'templates/tab-courses.html',
+        controller: 'CoursesCtrl'
+      }
+    }
+  })
+  .state('tab.offline', {
+    url: '/offline',
+    views: {
+      'tab-offline': {
+        templateUrl: 'templates/tab-offline.html',
+        controller: 'OfflineCtrl'
+      }
+    }
+  })
+  .state('tab.user', {
+    url: '/user',
+    views: {
+      'tab-user': {
+        templateUrl: 'templates/tab-user.html',
+        controller: 'OfflineCtrl'
+      }
+    }
   })
   .state('course-detail', {
       url: '/courses/:courseId',
       templateUrl: 'templates/course-detail.html',
       controller: 'CourseDetailCtrl'
    })
+  .state('lesson', {
+    url: "/lesson/:lessonId",
+    templateUrl: "templates/lesson.html",
+    controller: 'LessonCtrl'
+  })
+
+
   // Each tab has its own nav history stack:
   // if none of the above states are matched, use this as the fallback
 
-  $urlRouterProvider.otherwise('/lesson/2209F611-7FE9-1BF9-CD89-CD328F7D2F67');
-    //$urlRouterProvider.otherwise('sign-in');
+   //$urlRouterProvider.otherwise('/lesson/2209F611-7FE9-1BF9-CD89-CD328F7D2F67');
+    $urlRouterProvider.otherwise('sign-in');
+   //$urlRouterProvider.otherwise('/tab/courses');
+
 }); 
