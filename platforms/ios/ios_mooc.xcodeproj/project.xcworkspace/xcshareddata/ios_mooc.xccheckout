@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>14AB54D9-82D9-4914-9993-9FC6050DFA16</string>
 	<key>IDESourceControlProjectName</key>
-	<string>ios_mooc</string>
+	<string>Ios_mooc</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>26CD3E130B69B1B7075615BF4E93B4BBEE27A3B1</key>
 		<string>https://github.com/Founder-iOS/Mooc.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>platforms/ios/ios_mooc.xcodeproj</string>
+	<string>platforms/ios/Ios_mooc.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>26CD3E130B69B1B7075615BF4E93B4BBEE27A3B1</key>

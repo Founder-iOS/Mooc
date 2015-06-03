@@ -83,7 +83,7 @@ angular.module('starter.services', [])
 })
 
 
-.factory('lesson', function($sce,dbService,moocService) {
+.factory('lesson', function($sce,dbService,moocService,$q) {
     var baseUrl = function(username,password,lessonId) {
       var url = moocService.getServerAddress() + "/admin/auth/login?name=" + username + "&password="+ password + "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+lessonId + "/clienttype/";
       return url;
@@ -114,19 +114,22 @@ angular.module('starter.services', [])
       return url;
     },
     getResources: function(lessonId){
-         moocService.lessonDetail(lessonId)
+        var deferred =$q.defer();
+        moocService.lessonDetail(lessonId)
           .then(function(data){
                   console.log('课时详情返回成功' + eval(data).success);
                   if(eval(data).success === 1){
                      console.log('11' + eval(data).data.resources);
-                     return eval(data).data.resources;
-                   
+                     deferred.resolve(eval(data).data.resources);
+                     console.log("moocService success");
                   }else{
-                  alert(eval(data).message);
+                     deferred.reject(eval(data).message);
                   }
-                  }, function(data){
-                  console.log('课时详情返回失败' + data);
-              })
+                }, function(data){
+                    deferred.reject(data);
+                    console.log('课时详情返回失败' + data);
+              });
+        return deferred.promise;
    }
 
   };
@@ -270,17 +273,16 @@ angular.module('starter.services', [])
       method: 'JSONP',
       url:finalUrl
     }).success(function(data){
-       console.log('success');
-      
+      console.log('success');
       deferred.resolve(data);
     }).error(function(){
-       console.log('faild');
+      console.log('faild');
       deferred.reject('There was an error');
-    })
+    });
     return deferred.promise;
   }
    this.getServerAddress = function(){
-    return serverAddress;
+       return serverAddress;
    } 
   // 用户登录
   this.signIn = function(name,password){

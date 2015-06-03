@@ -11,7 +11,18 @@ angular.module('starter.controllers', [])
 .controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,users) {
   $rootScope.user = user.lastLoginUser();
   $scope.signIn = function(user) {
-    $rootScope.user = users.requestUser(user.username,user.password);
+            users.requestUser(user.username,user.password).then(
+                                                            function(data){
+                                                            $rootScope.user = data;
+                                                            console.log("signin success");
+                                                                $state.go('tab-courses');
+                                                            },
+                                                            function(err){
+                                                            console.log("signin fail");
+                                                            }
+                                                            );
+            console.log('$scope.resources is'+ ' ' +$scope.resources);
+        };
   }
 })
 
@@ -68,8 +79,8 @@ angular.module('starter.controllers', [])
   $scope.doRefresh = function() {
    $scope.courses = courses.get($rootScope.user.id);
   };
-  $scope.doRefresh();
-  //  $scope.courses = testService.getCourses();
+ // $scope.doRefresh();
+    $scope.courses = testService.getCourses();
 })
 .controller('CourseDetailCtrl', function($scope,$stateParams,courseDetail) {
   $scope.index = 1;
@@ -152,7 +163,15 @@ angular.module('starter.controllers', [])
    console.log('$scope.outlineUrl is' + $scope.outlineUrl);
    console.log($scope.lesson);
    $scope.doRefresh = function() {
-     $scope.resources = lesson.getResources($stateParams.lessonId);
+   lesson.getResources($stateParams.lessonId).then(
+         function(data){
+             $scope.resources = data;
+             console.log("getResources success");
+         },
+         function(err){
+             console.log("getResources fail");
+         }
+     );
      console.log('$scope.resources is'+ ' ' +$scope.resources);
   };       
    $scope.doRefresh();
