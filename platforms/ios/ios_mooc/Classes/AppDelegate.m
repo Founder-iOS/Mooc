@@ -56,6 +56,16 @@
     return self;
 }
 
++ (void)initialize {
+    // Set user agent (the only problem is that we can't modify the User-Agent later in the program)
+    UIWebView   *webView=[[UIWebView alloc]initWithFrame:CGRectZero];
+    NSString    *secretAgent=[webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+    //    NSString *defaultUserAgent = [[NSUserDefaults standardUserDefaults]objectForKey:@"UserAgent"];
+    NSString *newAgent = [secretAgent stringByAppendingFormat:@"webview"];
+    NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
+}
+
 #pragma mark UIApplicationDelegate implementation
 
 /**

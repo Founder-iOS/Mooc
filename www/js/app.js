@@ -19,7 +19,6 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
     }
     //创建db文件
     var db = $cordovaSQLite.openDB("mooc.db",0);
-      
     //创建用户表
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS user (id text primary key,name text,true_name text,email text,qq text,mobile text,phone text,address text,icon_path text,role integer,sex integer)",'');
     //创建课程表
@@ -58,5 +57,7 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
    })
   // Each tab has its own nav history stack:
   // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/courses');
+
+  $urlRouterProvider.otherwise('/lesson/2209F611-7FE9-1BF9-CD89-CD328F7D2F67');
+    //$urlRouterProvider.otherwise('sign-in');
 }); 

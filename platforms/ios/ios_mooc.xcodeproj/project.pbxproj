@@ -54,6 +54,8 @@
 		66513F9170954CDF992980CF /* AppVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = C11D06F0D7C44A99B5FAE6E0 /* AppVersion.m */; };
 		CF498AF1D0954066902FECFE /* SQLitePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D463DC83DB4A6589FE98D6 /* SQLitePlugin.m */; };
 		57A3245FAC3E4BF8B881C258 /* sqlite3.c in Resources */ = {isa = PBXBuildFile; fileRef = 91199E98F44E4D9386D97F35 /* sqlite3.c */; };
+		35BF42E2E3D74A0182383910 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 094E28B0D1F84B749C9AED80 /* CDVInAppBrowser.m */; };
+		A7431648004A4EA0B129034B /* FileOpener2.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C95878263F34D5DB6A92DB1 /* FileOpener2.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +151,10 @@
 		91199E98F44E4D9386D97F35 /* sqlite3.c */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "sqlite3.c"; path = "cordova-sqlite-storage/sqlite3.c"; sourceTree = "<group>"; fileEncoding = 4; };
 		66715C997D7C4E69BA1571C0 /* SQLitePlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SQLitePlugin.h"; path = "cordova-sqlite-storage/SQLitePlugin.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		855A88CDE2BE47579EAAF6C0 /* sqlite3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "sqlite3.h"; path = "cordova-sqlite-storage/sqlite3.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		094E28B0D1F84B749C9AED80 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVInAppBrowser.m"; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		11603E8BF5994D2586D75E65 /* CDVInAppBrowser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVInAppBrowser.h"; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		2C95878263F34D5DB6A92DB1 /* FileOpener2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "FileOpener2.m"; path = "io.github.pwlin.cordova.plugins.fileopener2/FileOpener2.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		0A077317EA794624BB92D7A8 /* FileOpener2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "FileOpener2.h"; path = "io.github.pwlin.cordova.plugins.fileopener2/FileOpener2.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,6 +283,10 @@
 				91199E98F44E4D9386D97F35 /* sqlite3.c */,
 				66715C997D7C4E69BA1571C0 /* SQLitePlugin.h */,
 				855A88CDE2BE47579EAAF6C0 /* sqlite3.h */,
+				094E28B0D1F84B749C9AED80 /* CDVInAppBrowser.m */,
+				11603E8BF5994D2586D75E65 /* CDVInAppBrowser.h */,
+				2C95878263F34D5DB6A92DB1 /* FileOpener2.m */,
+				0A077317EA794624BB92D7A8 /* FileOpener2.h */,
 			);
 			name = Plugins;
 			path = "ios_mooc/Plugins";
@@ -476,6 +486,8 @@
 				66513F9170954CDF992980CF /* AppVersion.m in Sources */,
 				CF498AF1D0954066902FECFE /* SQLitePlugin.m in Sources */,
 				57A3245FAC3E4BF8B881C258 /* sqlite3.c in Resources */,
+				35BF42E2E3D74A0182383910 /* CDVInAppBrowser.m in Sources */,
+				A7431648004A4EA0B129034B /* FileOpener2.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -4,7 +4,7 @@ angular.module('starter.controllers', [])
 
 .controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,moocService,deviceService,dbService) {
   $rootScope.user = {
-     username:'testls',
+     username:'xiaoyu0915',
      password:'111111',
   };
 
@@ -18,7 +18,9 @@ angular.module('starter.controllers', [])
         console.log('返回成功' + eval(data).success);
           if(eval(data).success === 1){
             $rootScope.user = eval(data).data;
-            dbService.saveUser($rootScope.user,$scope);
+              if(ON_BROWSER){
+                  dbService.saveUser($rootScope.user,$scope);
+              }
             $state.go('courses');
           }
           else{
@@ -92,7 +94,7 @@ angular.module('starter.controllers', [])
   $scope.doRefresh();
   //  $scope.courses = testService.getCourses();
 })
-.controller('CourseDetailCtrl', function($scope,$stateParams,moocService) {
+.controller('CourseDetailCtrl', function($scope,$stateParams,moocService,testService) {
   $scope.index = 1;
   $scope.learningLesson = {chapterNo:0, lessonNo:3};      ///< 正在学习的课程
   $scope.course;
@@ -104,13 +106,21 @@ angular.module('starter.controllers', [])
     .then(function(data){
           console.log('课程详情返回成功' + eval(data).success);
           if(eval(data).success === 1){
-               $scope.course  =eval(data).data;
+               //$scope.course  =eval(data).data;
+              if(DEBUG){
+                  console.log($scope.course);
+              }
              }else{
                alert(eval(data).message);
             }        
            }, function(data){
              console.log('课程详情返回失败' + data);
   })
+    if(DEBUG){
+        $scope.course = testService.getCourseDetails().data;
+        console.log("faked data");
+        console.log($scope.course);
+    }
   $scope.navItems = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.navViews = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.goPage = function(index){
@@ -120,30 +130,120 @@ angular.module('starter.controllers', [])
         ///< 跳转到lessonId页面
   }
 })
-.controller('LessonCtrl', function($scope,$stateParams) {
-   $scope.tabItems = [{title:'概述'},{title:'资源'}];
-   $scope.lesson = {
-                    id:'1',
-                    outline:'http://www.baidu.com',
-                    homework:'http://www.baidu.com',
-                    quiz:'http://www.baidu.com',
-                    discuss:'http://www.baidu.com',
-                    comment:'http://www.baidu.com',
-                    note:'http://www.baidu.com',
-                    resources:[{
+.controller('LessonCtrl', function($scope,$rootScope,$stateParams,$sce,$cordovaFileTransfer, $ionicPlatform,$cordovaInAppBrowser,$cordovaFileOpener2,$timeout,moocService) {
+  $rootScope.user = {
+           name:'xiaoyu0915',
+           password: '111111'
+  };
+  $scope.openResource = function(resource){
+    console.log(resource.file_path);
+     var options = {
+      location: 'yes',
+      clearcache: 'yes',
+      toolbar: 'yes'
+    };
+
+   $ionicPlatform.ready(function(){
+        //内置reader打开
+                        var url = resource.file_path;
+                        var file_name = $scope.getFileName(url);
+                        var fileDir = cordova.file.documentsDirectory + file_name;
+        $cordovaFileOpener2.open(
+                        fileDir,
+                         'application/pdf'
+               ).then(function() {
+                                                        // file opened successfully
+          }, function(err) {
+                                                        // An error occurred. Show a message to the user
+        });
+                        
+    //内置浏览器打开
+//    $cordovaInAppBrowser.open(resource.file_path, '_blank', options)
+//      .then(function(event) {
+//        // success
+//            console.log('打开成功');
+//      })
+//      .catch(function(event) {
+//        // error
+//             console.log('打开失败');
+//
+//      });
+    //$cordovaInAppBrowser.close();
+  }, false);
+
+  };
+  $scope.getFileName = function(o){
+            var pos=o.lastIndexOf("/");
+            return o.substring(pos+1);
+    };
+  $scope.downloadResource = function(resource){
+     $ionicPlatform.ready(function(){
+        var url = resource.file_path;
+        var file_name = $scope.getFileName(url);
+        var fileDir = cordova.file.documentsDirectory + file_name;
+        console.log('full fileDir is:' + fileDir);
+        var download = $cordovaFileTransfer.download(url, fileDir).then(function (success) {
+          console.log("success " + JSON.stringify(success));
+          $timeout(function () {
+            $scope.downloadProgress = 100
+          }, 1000);
+        }, function (error) {
+          console.log("Error " + JSON.stringify(error));
+        }, function (progress) {
+          $timeout(function () {
+            $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+                    console.log(" $scope.downloadProgress " + resource.id  + $scope.downloadProgress);
+          });
+        });
+        if ($scope.downloadProgress > 0.1) {
+          download.abort();
+        }
+      })
+  };
+  $scope.doRefresh = function() {
+            moocService.lessonDetail($stateParams.lessonId)
+            .then(function(data){
+                  console.log('课时详情返回成功' + eval(data).success);
+                  if(eval(data).success === 1){
+                  $scope.resources  =eval(data).data.resources;
+                  if(DEBUG){
+                  console.log($scope.resources);
+                  }
+                  }else{
+                  alert(eval(data).message);
+                  }
+                  }, function(data){
+                  console.log('课时详情返回失败' + data);
+                  })
+    };
+            
+  if (DEBUG) {   
+    $scope.resources =[{
                                 id: 0,
                                 name: '计算机基础教程',
                                 image: 'img/1.jpg',
-                                fileUrl:'http://172.19.42.53:8080/data/uploads/Courses/644BEAB7-A863-0DF5-6AAB-9FDE5E61526D/44968693f66091eea1dad22a2c42c708.jpg'
+                                file_path:'http://172.19.42.53:8080/data/uploads/Courses/644BEAB7-A863-0DF5-6AAB-9FDE5E61526D/44968693f66091eea1dad22a2c42c708.jpg',
+                                mine_type:"video/mp4",
+                                original_name:'111'
                               },{
                                 id: 0,
                                 name: '计算机基础教程',
                                 image: 'img/2.jpg',
-                                fileUrl:'http://172.19.42.53:8080/data/uploads/Courses/644BEAB7-A863-0DF5-6AAB-9FDE5E61526D/44968693f66091eea1dad22a2c42c708.jpg'
+                                file_path:'http://172.19.42.53:8080/data/uploads/Courses/644BEAB7-A863-0DF5-6AAB-9FDE5E61526D/44968693f66091eea1dad22a2c42c708.jpg',
+                                mine_type:"video/mp4",
+                                original_name:'111'
                               }]
-                  };
-
-   $scope.outlineUrl = "http://www.baidu.coom";//$scope.trustAsResourceUrl($scope.lesson.outline);
+      };
+  $scope.doRefresh();
+   $scope.outlineUrl = $sce.trustAsResourceUrl(moocService.getServerAddress() + "/admin/auth/login?name=" +$rootScope.user.name + "&password="+$rootScope.user.password+ "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+$stateParams.lessonId +"/clienttype/gscontent");
+   $scope.homeworkUrl = $sce.trustAsResourceUrl(moocService.getServerAddress() + "/admin/auth/login?name=" +$rootScope.user.name + "&password="+$rootScope.user.password+ "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+$stateParams.lessonId +"/clienttype/assignment");
+   $scope.quizUrl = $sce.trustAsResourceUrl(moocService.getServerAddress() + "/admin/auth/login?name=" +$rootScope.user.name + "&password="+$rootScope.user.password+ "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+$stateParams.lessonId +"/clienttype/quiz");
+   $scope.postUrl = $sce.trustAsResourceUrl(moocService.getServerAddress() + "/admin/auth/login?name=" +$rootScope.user.name + "&password="+$rootScope.user.password+ "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+$stateParams.lessonId +"/clienttype/post");
+    $scope.notesUrl = $sce.trustAsResourceUrl(moocService.getServerAddress() + "/admin/auth/login?name=" +$rootScope.user.name + "&password="+$rootScope.user.password+ "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+$stateParams.lessonId +"/clienttype/notes");
+    $scope.evaluationUrl = $sce.trustAsResourceUrl(moocService.getServerAddress() + "/admin/auth/login?name=" +$rootScope.user.name + "&password="+$rootScope.user.password+ "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+$stateParams.lessonId +"/clienttype/evaluation");
+   console.log('$scope.outlineUrl is' + $scope.outlineUrl);
    console.log($scope.lesson);
+
+
 })
 

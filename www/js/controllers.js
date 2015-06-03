@@ -2,34 +2,19 @@ var DEBUG = true;
 
 angular.module('starter.controllers', [])
 
-.controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,moocService,deviceService,dbService) {
+.controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,users) {
   $rootScope.user = {
-     username:'testls',
+     username:'xiaoyu0915',
      password:'111111',
   };
 
   //deviceService.get();
   $scope.signIn = function(user) {
   if(DEBUG){
-    console.log('Sign-In: ', user.username, user.password);
+     console.log('Sign-In: ', user.username, user.password);
   }
-    moocService.signIn(user)
-    .then(function(data){
-        console.log('返回成功' + eval(data).success);
-          if(eval(data).success === 1){
-            $rootScope.user = eval(data).data;
-              if(ON_BROWSER){
-                  dbService.saveUser($rootScope.user,$scope);
-              }
-            $state.go('courses');
-          }
-          else{
-            alert(eval(data).message);
-          }
-      }, function(data){
-        console.log('返回失败' + data);
-      })
-  };
+  $rootScope.user = users.requestUser(user.username,user.password);
+  }
 })
 
 .controller('CoursesCtrl', function($scope,$ionicPlatform,$rootScope,moocService,testService) {
@@ -76,51 +61,26 @@ angular.module('starter.controllers', [])
   $scope.gotoCourseDetail = function(courseId) {
     Courses.remove(chat);
   };
+  courses.get($rootScope.user.id);
   $scope.doRefresh = function() {
-          moocService.courseList($rootScope.user)
-            .then(function(data){
-                  console.log('返回成功' + eval(data).success);
-                  if(eval(data).success === 1){
-                    $scope.courses  =eval(data).data;
-                    //$scope.$broadcast('scroll.refreshComplete');
-                  }
-                  else{
-                    alert(eval(data).message);
-                  }
-                  }, function(data){
-                      console.log('返回失败' + data);
-               })
+
   };
  // $scope.doRefresh();
     $scope.courses = testService.getCourses();
 })
-.controller('CourseDetailCtrl', function($scope,$stateParams,moocService,testService) {
+.controller('CourseDetailCtrl', function($scope,$stateParams,courseDetail) {
   $scope.index = 1;
   $scope.learningLesson = {chapterNo:0, lessonNo:3};      ///< 正在学习的课程
   $scope.course;
   if(DEBUG){
     console.log('course detail id: ' + $stateParams.courseId);
   }
-  
-  moocService.courseDetail($stateParams.courseId)
-    .then(function(data){
-          console.log('课程详情返回成功' + eval(data).success);
-          if(eval(data).success === 1){
-               //$scope.course  =eval(data).data;
-              if(DEBUG){
-                  console.log($scope.course);
-              }
-             }else{
-               alert(eval(data).message);
-            }        
-           }, function(data){
-             console.log('课程详情返回失败' + data);
-  })
-    if(DEBUG){
+  $scope.course =courseDetail.get($stateParams.courseId);
+  if(DEBUG){
         $scope.course = testService.getCourseDetails().data;
         console.log("faked data");
         console.log($scope.course);
-    }
+  }
   $scope.navItems = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.navViews = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.goPage = function(index){
@@ -130,30 +90,70 @@ angular.module('starter.controllers', [])
         ///< 跳转到lessonId页面
   }
 })
-.controller('LessonCtrl', function($scope,$stateParams) {
-   $scope.tabItems = [{title:'概述'},{title:'资源'}];
-   $scope.lesson = {
-                    id:'1',
-                    outline:'http://www.baidu.com',
-                    homework:'http://www.baidu.com',
-                    quiz:'http://www.baidu.com',
-                    discuss:'http://www.baidu.com',
-                    comment:'http://www.baidu.com',
-                    note:'http://www.baidu.com',
-                    resources:[{
-                                id: 0,
-                                name: '计算机基础教程',
-                                image: 'img/1.jpg',
-                                fileUrl:'http://172.19.42.53:8080/data/uploads/Courses/644BEAB7-A863-0DF5-6AAB-9FDE5E61526D/44968693f66091eea1dad22a2c42c708.jpg'
-                              },{
-                                id: 0,
-                                name: '计算机基础教程',
-                                image: 'img/2.jpg',
-                                fileUrl:'http://172.19.42.53:8080/data/uploads/Courses/644BEAB7-A863-0DF5-6AAB-9FDE5E61526D/44968693f66091eea1dad22a2c42c708.jpg'
-                              }]
-                  };
+.controller('LessonCtrl', function($scope,$rootScope,$stateParams,$cordovaFileTransfer, $ionicPlatform,$cordovaInAppBrowser,$cordovaFileOpener2,lesson) {
+  $rootScope.user = {
+           name:'xiaoyu0915',
+           password: '111111'
+  };
+   console.log($rootScope.user.name);
+  $scope.openResource = function(resource){
+    console.log(resource.file_path);
+     var options = {
+      location: 'yes',
+      clearcache: 'yes',
+      toolbar: 'yes'
+    };
+    $ionicPlatform.ready(function(){
+        //内置reader打开
+        var url = resource.file_path;
+        var file_name = $scope.getFileName(url);
+        var fileDir = cordova.file.documentsDirectory + file_name;
+        $cordovaFileOpener2.open(
+                        fileDir,
+                         'application/pdf'
+               ).then(function() {
+                                                        // file opened successfully
+          }, function(err) {
+                                                        // An error occurred. Show a message to the user
+        });
+                        
+    //内置浏览器打开
+//    $cordovaInAppBrowser.open(resource.file_path, '_blank', options)
+//      .then(function(event) {
+//        // success
+//            console.log('打开成功');
+//      })
+//      .catch(function(event) {
+//        // error
+//             console.log('打开失败');
+//
+//      });
+    //$cordovaInAppBrowser.close();
+  }, false);
 
-   $scope.outlineUrl = "http://www.baidu.coom";//$scope.trustAsResourceUrl($scope.lesson.outline);
+  };
+  $scope.getFileName = function(o){
+            var pos=o.lastIndexOf("/");
+            return o.substring(pos+1);
+    };
+  $scope.downloadResource = function(resource){
+
+  };
+
+   $scope.outlineUrl = lesson.outlineUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);
+   $scope.homeworkUrl =lesson.homeworkUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);;
+   $scope.quizUrl = lesson.quizUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);;
+   $scope.postUrl = lesson.postUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);;
+   $scope.notesUrl = lesson.notesUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);;
+   $scope.evaluationUrl = lesson.evaluationUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);;
+   console.log('$scope.outlineUrl is' + $scope.outlineUrl);
    console.log($scope.lesson);
+   $scope.doRefresh = function() {
+     $scope.resources = lesson.getResources($stateParams.lessonId);
+     console.log('$scope.resources is'+ ' ' +$scope.resources);
+  };       
+   $scope.doRefresh();
+
+
 })
 

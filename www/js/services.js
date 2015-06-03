@@ -2,6 +2,132 @@ var DEBUG = true;
 
 angular.module('starter.services', [])
 
+.factory('users', function(dbService,moocService) {
+  var user ;
+  return {
+    get: function(userId) {
+      user = {
+            name:'xiaoyu0915',
+            password: '111111'
+      };
+      return user;
+    },
+    requestUser: function(name,password){
+            moocService.signIn(name,password)
+            .then(function(data){
+                  console.log('返回成功' + eval(data).success);
+                  if(eval(data).success === 1){
+                    courses  =eval(data).data;
+                    return courses;
+                    //$scope.$broadcast('scroll.refreshComplete');
+                  }
+                  else{
+                    alert(eval(data).message);
+                  }
+                  }, function(data){
+                      console.log('返回失败' + data);
+               })
+    }
+  };
+})
+
+.factory('courses', function(dbService,moocService) {
+   var courses;
+  return {
+       get: function(userId) {
+          moocService.courseList(userId)
+            .then(function(data){
+                  console.log('返回成功' + eval(data).success);
+                  if(eval(data).success === 1){
+                    courses  =eval(data).data;
+                    return courses;
+                    //$scope.$broadcast('scroll.refreshComplete');
+                  }
+                  else{
+                    alert(eval(data).message);
+                  }
+                  }, function(data){
+                      console.log('返回失败' + data);
+               })
+   }
+  };
+
+})
+
+.factory('courseDetail', function(dbService,moocService) {
+   var course;
+   return {
+    get: function(courseId) {
+     moocService.courseDetail(courseId)
+    .then(function(data){
+          console.log('课程详情返回成功' + eval(data).success);
+          if(eval(data).success === 1){
+               return  eval(data).data;;
+               //$scope.course  =eval(data).data;
+              if(DEBUG){
+                  console.log($scope.course);
+              }
+             }else{
+               alert(eval(data).message);
+            }        
+           }, function(data){
+             console.log('课程详情返回失败' + data);
+    })
+   }
+  };
+
+})
+
+
+.factory('lesson', function($sce,dbService,moocService) {
+    var baseUrl = function(username,password,lessonId) {
+      var url = moocService.getServerAddress() + "/admin/auth/login?name=" + username + "&password="+ password + "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+lessonId + "/clienttype/";
+      return url;
+    };
+  return {
+    outlineUrl: function(username,password,lessonId) {
+      var url = $sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'gscontent');
+      return url;
+    },
+    homeworkUrl: function(username,password,lessonId) {
+      var url =$sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'assignment');
+      return url;
+    },
+    quizUrl: function(username,password,lessonId) {
+      var url =$sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'quiz');
+      return url;
+    },
+    postUrl: function(username,password,lessonId) {
+      var url = $sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'post');
+      return url;
+    },
+    notesUrl: function(username,password,lessonId) {
+      var url = $sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'notes');
+      return url;
+    },
+    evaluationUrl: function(username,password,lessonId) {
+      var url = $sce.trustAsResourceUrl(baseUrl(username,password,lessonId) + 'evaluation');
+      return url;
+    },
+    getResources: function(lessonId){
+         moocService.lessonDetail(lessonId)
+          .then(function(data){
+                  console.log('课时详情返回成功' + eval(data).success);
+                  if(eval(data).success === 1){
+                     console.log('11' + eval(data).data.resources);
+                     return eval(data).data.resources;
+                   
+                  }else{
+                  alert(eval(data).message);
+                  }
+                  }, function(data){
+                  console.log('课时详情返回失败' + data);
+              })
+   }
+
+  };
+})
+
 
 .factory('deviceService', function($cordovaDevice) {
   // Might use a resource here that returns a JSON array
@@ -30,6 +156,59 @@ angular.module('starter.services', [])
   };
 })
 
+
+.factory('$localstorage', ['$window', function($window) {
+                           return {
+                           set: function(key, value) {
+                           $window.localStorage[key] = value;
+                           },
+                           get: function(key, defaultValue) {
+                           return $window.localStorage[key] || defaultValue;
+                           },
+                           setObject: function(key, value) {
+                           $window.localStorage[key] = JSON.stringify(value);
+                           },
+                           getObject: function(key) {
+                           return JSON.parse($window.localStorage[key] || '{}');
+                           }
+                           }
+    }])
+
+.factory('downloadService', function($ionicPlatform,$cordovaFileTransfer) {
+       return {
+        getFileName:function(o){
+            var pos=o.lastIndexOf("/");
+            return o.substring(pos+1);
+          }, 
+         addDownloadTask: function(resouce) {
+              $ionicPlatform.ready(function(){
+                      var url = resource.file_path;
+                      var file_name = getFileName(url);
+                      var fileDir = cordova.file.documentsDirectory + file_name;
+                      console.log('full fileDir is:' + fileDir);
+                      var download = $cordovaFileTransfer.download(url, fileDir).then(function (success) {
+                      console.log("success " + JSON.stringify(success));
+            $timeout(function () {
+                     $scope.downloadProgress = 100
+          }, 1000);
+        }, function (error) {
+          console.log("Error " + JSON.stringify(error));
+        }, function (progress) {
+          $timeout(function () {
+              console.log("progress" + resource.id  + 'is' +$scope.downloadProgress);
+            // $scope.downloadProgress = (progress.loaded / progress.total) * 100;
+            //         console.log(" $scope.downloadProgress " + resource.id  + $scope.downloadProgress);
+          });
+        });
+        if ($scope.downloadProgress > 0.1) {
+          download.abort();
+        }
+      })
+      },
+      removeDownloadTask: function(resouce) { 
+       }
+     }
+})
 .factory('dbService', function($ionicPlatform,$cordovaSQLite) {
   var user;
   var courses;
@@ -74,8 +253,8 @@ angular.module('starter.services', [])
   };
 })
 .service('moocService', function($http, $q){
+  var serverAddress = 'http://42.62.16.168:8080';
   var baseUrl = 'http://42.62.16.168:8080/api?method=';
-          //var baseUrl = 'http://42.62.16.168:88/api?method=';
   var makeUrl = function(parms){
     var finalUrl = baseUrl + parms + '&callback=JSON_CALLBACK';
     return finalUrl;
@@ -96,24 +275,25 @@ angular.module('starter.services', [])
     })
     return deferred.promise;
   }
+   this.getServerAddress = function(){
+    return serverAddress;
+   } 
   // 用户登录
-  this.signIn = function(user,device){
+  this.signIn = function(name,password){
     //var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111';
-    var parms = 'userAuth&user_name='+ user.username +'&user_pwd='+ user.password +'&udid='+'11111' +'&type=1';    ///<! 明文密码
+    var parms = 'userAuth&user_name='+ name +'&user_pwd='+ password +'&udid='+'11111' +'&type=1';    ///<! 明文密码
     console.log('parms is '+ parms);
     var finalUrl = makeUrl(parms);
     console.log('finalUrl is ' + finalUrl);
     return request(finalUrl);
-
   }
   // 课程列表
-  this.courseList = function(user,device){
-    var parms = 'courseList&user_id=' + user.id;
+  this.courseList = function(userId){
+    var parms = 'courseList&user_id=' + userId;
     console.log('courseList parms is'+ parms);
         var finalUrl =makeUrl(parms);
     console.log('finalUrl is' + finalUrl);
     return request(finalUrl);
-
   }
   // 课程详情
   this.courseDetail = function(courseId){
@@ -126,7 +306,7 @@ angular.module('starter.services', [])
   }
     //lesson详情
   this.lessonDetail = function(lessonId){
-      var parms = 'courseDetail&course_id='+courseId;
+      var parms ='getSingleStudyPlan&studyplan_id='+lessonId;
       console.log('parms is'+ parms);
       var finalUrl = makeUrl(parms);
       console.log('finalUrl is' + finalUrl);
