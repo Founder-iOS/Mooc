@@ -8,13 +8,19 @@ angular.module('starter.controllers', [])
 .controller('OfflineCtrl', function() {
 })
 
-.controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,users) {
-            $rootScope.user = users.lastLoginUser();
+.controller('SignInCtrl', function($scope,$ionicPlatform,$state,users) {
+    $scope.user = users.lastLoginUser();
+    if (user) {
+       console.log(user);
 
-            users.requestUserFromServer($rootScope.user.username,$rootScope.user.password).then(function(data){
+    }
+    $scope.signIn = function() {
+               users.getFromServer($scope.user.name,$scope.user.password).then(function(data){
                 console.log('返回成功' + eval(data).success);
                 if(eval(data).success === 1){
-                    $rootScope.user = eval(data).data;
+                    var user  = eval(data).data;
+                    user.password =  $scope.pwd;
+                    users.save(user);
                     console.log("signin success");
                     $state.go('tabs.courses');
                 }
@@ -24,9 +30,10 @@ angular.module('starter.controllers', [])
             }, function(data) {
                 console.log('返回失败' + data);
             });
+    }
 })
 
-.controller('CoursesCtrl', function($scope,$ionicPlatform,$rootScope,courses,testService) {
+.controller('CoursesCtrl', function($scope,$ionicPlatform,courses,users,testService) {
     console.log('开始请求课程列表');
     /*
     moocService.clientActive()
@@ -59,7 +66,7 @@ angular.module('starter.controllers', [])
 //            };
 //            $scope.downloadFile();
 
-
+  $scope.user = users.lastLoginUser();
   $scope.getItemHeight = function(item, index) {
     //使索引项平均都有10px高，例如
     return 280;
@@ -70,9 +77,8 @@ angular.module('starter.controllers', [])
   $scope.gotoCourseDetail = function(courseId) {
     Courses.remove(chat);
   };
- 
-            $scope.doRefresh = function() {
-            courses.requestCoursesFromServer($rootScope.user.id).then(function(data){
+   $scope.doRefresh = function() {
+            courses.requestCoursesFromServer($scope.user.id).then(function(data){
                 console.log('返回成功' + eval(data).success);
                 if(eval(data).success === 1){
                     $scope.courses  =eval(data).data;

@@ -2,24 +2,27 @@ var DEBUG = true;
 
 angular.module('starter.services', [])
 
-.factory('users', function($localstorage,dbService,moocService) {
-    var user = {
-         username:'teacher201503',//'xiaoyu0915',
-         password: '111111'
-    };
-    $localstorage.setObject('lastLoginUser',user) ;
+.factory('users', function($localstorage,dbService,moocService) {  
+     // var user = {
+     //     username:'xiaoyu0915',
+     //     username:'teacher201503',//'xiaoyu0915',
+     //      password: '111111'
+     // };
+
   return {
-    get: function(userId) {
-      return user;
+    getFromServer: function(name,password){
+        alert(password);
+         return moocService.signIn(name,password);
     },
     lastLoginUser: function() {
          return user = $localstorage.getObject('lastLoginUser');
      },
-    requestUserFromServer: function(name,password){
-         return moocService.signIn(name,password);
+    save: function(user){
+        console.log('save user  is ' + user);
+       $localstorage.setObject('lastLoginUser',user) ;
     }
   };
-         })
+ })
 
 .factory('courses', function(dbService,moocService) {
     var courses;
@@ -198,8 +201,8 @@ angular.module('starter.services', [])
     };
 })
 .service('moocService', function($http, $q){
-  var serverAddress = 'http://172.19.43.55:8080';
-  var baseUrl = 'http://172.19.43.55:8080/api?method=';
+  var serverAddress = 'http://42.62.16.168:8080';
+  var baseUrl = serverAddress + '/api?method=';
   var makeUrl = function(parms){
     var finalUrl = baseUrl + parms + '&callback=JSON_CALLBACK';
     return finalUrl;
