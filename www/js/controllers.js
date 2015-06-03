@@ -91,8 +91,8 @@ angular.module('starter.controllers', [])
                       console.log('返回失败' + data);
                })
   };
-  $scope.doRefresh();
-  //  $scope.courses = testService.getCourses();
+ // $scope.doRefresh();
+    $scope.courses = testService.getCourses();
 })
 .controller('CourseDetailCtrl', function($scope,$stateParams,moocService,testService) {
   $scope.index = 1;
