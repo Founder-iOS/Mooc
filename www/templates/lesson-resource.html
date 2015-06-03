@@ -17,11 +17,11 @@
 <ion-refresher
     pulling-text="Pull to refresh..."
     on-refresh="doRefresh()">
-</ion-refresher>
+    </ion-refresher>
     <ion-list>
-      <ion-item collection-repeat="resource in resources" ng-click="openResource(resource)">
-     {{resource.name}}
-            <button class="button" ng-click="downloadResource(resource)">下载</button>
+      <ion-item class="item-button-right" collection-repeat="resource in resources" ng-click="openResource(resource)">
+      {{resource.name}}
+      <a class="button button-clear icon ion-ios-cloud-download-outline" ng-click="downloadResource(resource)"></a>
       </ion-item>
     </ion-list>
 

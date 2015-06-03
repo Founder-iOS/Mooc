@@ -2,7 +2,7 @@ var DEBUG = true;
 
 angular.module('starter.controllers', [])
 
-.controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,moocService,deviceService,dbService) {
+.controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,users) {
   $rootScope.user = {
      username:'xiaoyu0915',
      password:'111111',
@@ -11,25 +11,10 @@ angular.module('starter.controllers', [])
   //deviceService.get();
   $scope.signIn = function(user) {
   if(DEBUG){
-    console.log('Sign-In: ', user.username, user.password);
+     console.log('Sign-In: ', user.username, user.password);
   }
-    moocService.signIn(user)
-    .then(function(data){
-        console.log('返回成功' + eval(data).success);
-          if(eval(data).success === 1){
-            $rootScope.user = eval(data).data;
-              if(ON_BROWSER){
-                  dbService.saveUser($rootScope.user,$scope);
-              }
-            $state.go('courses');
-          }
-          else{
-            alert(eval(data).message);
-          }
-      }, function(data){
-        console.log('返回失败' + data);
-      })
-  };
+  $rootScope.user = users.requestUser(user.username,user.password);
+  }
 })
 
 .controller('CoursesCtrl', function($scope,$ionicPlatform,$rootScope,moocService,testService) {
@@ -76,51 +61,26 @@ angular.module('starter.controllers', [])
   $scope.gotoCourseDetail = function(courseId) {
     Courses.remove(chat);
   };
+  courses.get($rootScope.user.id);
   $scope.doRefresh = function() {
-          moocService.courseList($rootScope.user)
-            .then(function(data){
-                  console.log('返回成功' + eval(data).success);
-                  if(eval(data).success === 1){
-                    $scope.courses  =eval(data).data;
-                    //$scope.$broadcast('scroll.refreshComplete');
-                  }
-                  else{
-                    alert(eval(data).message);
-                  }
-                  }, function(data){
-                      console.log('返回失败' + data);
-               })
+
   };
   $scope.doRefresh();
   //  $scope.courses = testService.getCourses();
 })
-.controller('CourseDetailCtrl', function($scope,$stateParams,moocService,testService) {
+.controller('CourseDetailCtrl', function($scope,$stateParams,courseDetail) {
   $scope.index = 1;
   $scope.learningLesson = {chapterNo:0, lessonNo:3};      ///< 正在学习的课程
   $scope.course;
   if(DEBUG){
     console.log('course detail id: ' + $stateParams.courseId);
   }
-  
-  moocService.courseDetail($stateParams.courseId)
-    .then(function(data){
-          console.log('课程详情返回成功' + eval(data).success);
-          if(eval(data).success === 1){
-               //$scope.course  =eval(data).data;
-              if(DEBUG){
-                  console.log($scope.course);
-              }
-             }else{
-               alert(eval(data).message);
-            }        
-           }, function(data){
-             console.log('课程详情返回失败' + data);
-  })
-    if(DEBUG){
+  $scope.course =courseDetail.get($stateParams.courseId);
+  if(DEBUG){
         $scope.course = testService.getCourseDetails().data;
         console.log("faked data");
         console.log($scope.course);
-    }
+  }
   $scope.navItems = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.navViews = [{title:'简介',index:0},{title:'课时',index:1}];
   $scope.goPage = function(index){
@@ -130,11 +90,12 @@ angular.module('starter.controllers', [])
         ///< 跳转到lessonId页面
   }
 })
-.controller('LessonCtrl', function($scope,$rootScope,$stateParams,$sce,$cordovaFileTransfer, $ionicPlatform,$cordovaInAppBrowser,$cordovaFileOpener2,$timeout,moocService) {
+.controller('LessonCtrl', function($scope,$rootScope,$stateParams,$cordovaFileTransfer, $ionicPlatform,$cordovaInAppBrowser,$cordovaFileOpener2,lesson) {
   $rootScope.user = {
            name:'xiaoyu0915',
            password: '111111'
   };
+   console.log($rootScope.user.name);
   $scope.openResource = function(resource){
     console.log(resource.file_path);
      var options = {
@@ -142,12 +103,11 @@ angular.module('starter.controllers', [])
       clearcache: 'yes',
       toolbar: 'yes'
     };
-
-   $ionicPlatform.ready(function(){
+    $ionicPlatform.ready(function(){
         //内置reader打开
-                        var url = resource.file_path;
-                        var file_name = $scope.getFileName(url);
-                        var fileDir = cordova.file.documentsDirectory + file_name;
+        var url = resource.file_path;
+        var file_name = $scope.getFileName(url);
+        var fileDir = cordova.file.documentsDirectory + file_name;
         $cordovaFileOpener2.open(
                         fileDir,
                          'application/pdf'
@@ -177,72 +137,22 @@ angular.module('starter.controllers', [])
             return o.substring(pos+1);
     };
   $scope.downloadResource = function(resource){
-     $ionicPlatform.ready(function(){
-        var url = resource.file_path;
-        var file_name = $scope.getFileName(url);
-        var fileDir = cordova.file.documentsDirectory + file_name;
-        console.log('full fileDir is:' + fileDir);
-        var download = $cordovaFileTransfer.download(url, fileDir).then(function (success) {
-          console.log("success " + JSON.stringify(success));
-          $timeout(function () {
-            $scope.downloadProgress = 100
-          }, 1000);
-        }, function (error) {
-          console.log("Error " + JSON.stringify(error));
-        }, function (progress) {
-          $timeout(function () {
-            $scope.downloadProgress = (progress.loaded / progress.total) * 100;
-                    console.log(" $scope.downloadProgress " + resource.id  + $scope.downloadProgress);
-          });
-        });
-        if ($scope.downloadProgress > 0.1) {
-          download.abort();
-        }
-      })
+
   };
-  $scope.doRefresh = function() {
-            moocService.lessonDetail($stateParams.lessonId)
-            .then(function(data){
-                  console.log('课时详情返回成功' + eval(data).success);
-                  if(eval(data).success === 1){
-                  $scope.resources  =eval(data).data.resources;
-                  if(DEBUG){
-                  console.log($scope.resources);
-                  }
-                  }else{
-                  alert(eval(data).message);
-                  }
-                  }, function(data){
-                  console.log('课时详情返回失败' + data);
-                  })
-    };
-            
-  if (DEBUG) {   
-    $scope.resources =[{
-                                id: 0,
-                                name: '计算机基础教程',
-                                image: 'img/1.jpg',
-                                file_path:'http://172.19.42.53:8080/data/uploads/Courses/644BEAB7-A863-0DF5-6AAB-9FDE5E61526D/44968693f66091eea1dad22a2c42c708.jpg',
-                                mine_type:"video/mp4",
-                                original_name:'111'
-                              },{
-                                id: 0,
-                                name: '计算机基础教程',
-                                image: 'img/2.jpg',
-                                file_path:'http://172.19.42.53:8080/data/uploads/Courses/644BEAB7-A863-0DF5-6AAB-9FDE5E61526D/44968693f66091eea1dad22a2c42c708.jpg',
-                                mine_type:"video/mp4",
-                                original_name:'111'
-                              }]
-      };
-  $scope.doRefresh();
-   $scope.outlineUrl = $sce.trustAsResourceUrl(moocService.getServerAddress() + "/admin/auth/login?name=" +$rootScope.user.name + "&password="+$rootScope.user.password+ "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+$stateParams.lessonId +"/clienttype/gscontent");
-   $scope.homeworkUrl = $sce.trustAsResourceUrl(moocService.getServerAddress() + "/admin/auth/login?name=" +$rootScope.user.name + "&password="+$rootScope.user.password+ "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+$stateParams.lessonId +"/clienttype/assignment");
-   $scope.quizUrl = $sce.trustAsResourceUrl(moocService.getServerAddress() + "/admin/auth/login?name=" +$rootScope.user.name + "&password="+$rootScope.user.password+ "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+$stateParams.lessonId +"/clienttype/quiz");
-   $scope.postUrl = $sce.trustAsResourceUrl(moocService.getServerAddress() + "/admin/auth/login?name=" +$rootScope.user.name + "&password="+$rootScope.user.password+ "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+$stateParams.lessonId +"/clienttype/post");
-    $scope.notesUrl = $sce.trustAsResourceUrl(moocService.getServerAddress() + "/admin/auth/login?name=" +$rootScope.user.name + "&password="+$rootScope.user.password+ "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+$stateParams.lessonId +"/clienttype/notes");
-    $scope.evaluationUrl = $sce.trustAsResourceUrl(moocService.getServerAddress() + "/admin/auth/login?name=" +$rootScope.user.name + "&password="+$rootScope.user.password+ "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+$stateParams.lessonId +"/clienttype/evaluation");
+
+   $scope.outlineUrl = lesson.outlineUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);
+   $scope.homeworkUrl =lesson.homeworkUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);;
+   $scope.quizUrl = lesson.quizUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);;
+   $scope.postUrl = lesson.postUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);;
+   $scope.notesUrl = lesson.notesUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);;
+   $scope.evaluationUrl = lesson.evaluationUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);;
    console.log('$scope.outlineUrl is' + $scope.outlineUrl);
    console.log($scope.lesson);
+   $scope.doRefresh = function() {
+     $scope.resources = lesson.getResources($stateParams.lessonId);
+     console.log('$scope.resources is'+ ' ' +$scope.resources);
+  };       
+   $scope.doRefresh();
 
 
 })
