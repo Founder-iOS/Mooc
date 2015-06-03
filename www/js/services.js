@@ -2,7 +2,7 @@ var DEBUG = true;
 
 angular.module('starter.services', [])
 
-.factory('users', function(dbService,moocService) {
+.factory('users', function($localstorage,dbService,moocService) {
   var user ;
   return {
     get: function(userId) {
@@ -10,8 +10,12 @@ angular.module('starter.services', [])
             name:'xiaoyu0915',
             password: '111111'
       };
+      $localstorage.setObject('lastLoginUser',user);
       return user;
     },
+    lastLoginUser: function() {
+         return user = $localstorage.getObject('lastLoginUser');
+     },
     requestUser: function(name,password){
             moocService.signIn(name,password)
             .then(function(data){

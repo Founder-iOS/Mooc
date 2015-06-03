@@ -9,18 +9,9 @@ angular.module('starter.controllers', [])
 })
 
 .controller('SignInCtrl', function($scope,$rootScope,$ionicPlatform,$state,users) {
-  $rootScope.user = {
-     username:'xiaoyu0915',
-     password:'111111',
-     id :'111',
-  };
-
-  //deviceService.get();
+  $rootScope.user = user.lastLoginUser();
   $scope.signIn = function(user) {
-  if(DEBUG){
-     console.log('Sign-In: ', user.username, user.password);
-  }
-  $rootScope.user = users.requestUser(user.username,user.password);
+    $rootScope.user = users.requestUser(user.username,user.password);
   }
 })
 
