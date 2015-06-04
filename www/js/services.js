@@ -3,11 +3,11 @@ var DEBUG = true;
 angular.module('starter.services', [])
 
 .factory('users', function($localstorage,dbService,moocService) {  
-     // var user = {
-     //     username:'xiaoyu0915',
-     //     username:'teacher201503',//'xiaoyu0915',
-     //      password: '111111'
-     // };
+//     var user = {
+//          username:'xiaoyu0915',
+////          username:'teacher201503',//'xiaoyu0915',
+//           password: '111111'
+//     };
 
   return {
     getFromServer: function(name,password){
