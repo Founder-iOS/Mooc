@@ -42,7 +42,6 @@ angular.module('starter.services', [])
    }
 })
 
-
 .factory('lesson', function($sce,dbService,moocService,$q) {
     var baseUrl = function(username,password,lessonId) {
         var url = moocService.getServerAddress() + "/admin/auth/login?name=" + username + "&password="+ password + "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+lessonId + "/clienttype/";
@@ -79,7 +78,6 @@ angular.module('starter.services', [])
    };
 })
 
-
 .factory('deviceService', function($cordovaDevice) {
     // Might use a resource here that returns a JSON array
 
@@ -105,7 +103,6 @@ angular.module('starter.services', [])
         }
     };
 })
-
 
 .factory('$localstorage', ['$window', function($window) {
     return {
@@ -159,6 +156,7 @@ angular.module('starter.services', [])
         }
     }
 })
+
 .factory('dbService', function($ionicPlatform,$cordovaSQLite) {
     var user;
     var courses;
@@ -200,8 +198,10 @@ angular.module('starter.services', [])
         }
     };
 })
+
 .service('moocService', function($http, $q){
-  var serverAddress = 'http://42.62.16.168:8080';
+//  var serverAddress = 'http://42.62.16.168:8080';
+  var serverAddress = 'http://172.19.43.55:8080';
   var baseUrl = serverAddress + '/api?method=';
   var makeUrl = function(parms){
     var finalUrl = baseUrl + parms + '&callback=JSON_CALLBACK';
