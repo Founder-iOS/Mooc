@@ -14,10 +14,10 @@ angular.module('starter.controllers')
                 console.log('返回成功' + eval(data).success);
                 if(eval(data).success === 1){
                     var user  = eval(data).data;
-                    user.password =  $scope.pwd;
+                    user.password =  $scope.password;
                     users.save(user);
                     console.log("signin success");
-                    $state.go('tabs.courses');
+                    $state.go('tab.courses');
                 }
                 else{
                     alert(eval(data).message);

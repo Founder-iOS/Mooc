@@ -11,7 +11,6 @@ angular.module('starter.services', [])
 
   return {
     getFromServer: function(name,password){
-        alert(password);
          return moocService.signIn(name,password);
     },
     lastLoginUser: function() {
