@@ -6,8 +6,7 @@ angular.module('starter.controllers')
     .controller('SignInCtrl', function($scope,$ionicPlatform,$state,users) {
         $scope.user = users.lastLoginUser();
         if (user) {
-            console.log(user);
-
+            console.log("last login user: ",user);
         }
         $scope.signIn = function() {
             users.getFromServer($scope.user.name,$scope.user.password).then(function(data){
