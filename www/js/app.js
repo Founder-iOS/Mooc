@@ -99,5 +99,6 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
 
         //$urlRouterProvider.otherwise('tab/courses/1');
         $urlRouterProvider.otherwise('/sign-in');
+//        $urlRouterProvider.otherwise('/tab/lesson/11');
 
     });
