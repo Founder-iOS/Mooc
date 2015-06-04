@@ -3,12 +3,8 @@
  */
 
 angular.module('starter.controllers')
-.controller('LessonCtrl', function($scope,$rootScope,$stateParams,$cordovaFileTransfer, $ionicPlatform,$cordovaInAppBrowser,$cordovaFileOpener2,lesson) {
-    $rootScope.user = {
-        name:'xiaoyu0915',
-        password: '111111'
-    };
-    console.log($rootScope.user.name);
+.controller('LessonCtrl', function($scope,$rootScope,$stateParams,$cordovaFileTransfer, $ionicPlatform,$cordovaInAppBrowser,$cordovaFileOpener2,lesson,users) {
+    $scope.user = users.lastLoginUser();
     $scope.openResource = function(resource){
         console.log(resource.file_path);
         var options = {
@@ -53,12 +49,12 @@ angular.module('starter.controllers')
 
     };
 
-    $scope.outlineUrl = lesson.outlineUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);
-    $scope.homeworkUrl =lesson.homeworkUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);
-    $scope.quizUrl = lesson.quizUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);
-    $scope.postUrl = lesson.postUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);
-    $scope.notesUrl = lesson.notesUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);
-    $scope.evaluationUrl = lesson.evaluationUrl($rootScope.user.name,$rootScope.user.password,$stateParams.lessonId);
+    $scope.outlineUrl = lesson.outlineUrl($scope.user.name,$scope.user.password,$stateParams.lessonId);
+    $scope.homeworkUrl =lesson.homeworkUrl($scope.user.name,$scope.user.password,$stateParams.lessonId);
+    $scope.quizUrl = lesson.quizUrl($scope.user.name,$scope.user.password,$stateParams.lessonId);
+    $scope.postUrl = lesson.postUrl($scope.user.name,$scope.user.password,$stateParams.lessonId);
+    $scope.notesUrl = lesson.notesUrl($scope.user.name,$scope.user.password,$stateParams.lessonId);
+    $scope.evaluationUrl = lesson.evaluationUrl($scope.user.name,$scope.user.password,$stateParams.lessonId);
     console.log('$scope.outlineUrl is' + $scope.outlineUrl);
     console.log($scope.lesson);
     $scope.doRefresh = function() {

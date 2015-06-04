@@ -8,13 +8,7 @@ navigation history that also transitions its views in and out.
 </ion-view>
 <ion-tabs class="tabs-icon-top tabs-color-active-positive">
 
-  <ion-tab title="概述" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" >
-  <ion-view>
-   <ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">
-     <iframe  ng-src ="{{outlineUrl}}"></iframe>
-   </ion-content>
-</ion-view>
-  </ion-tab>
+
  
    <ion-tab title="资源" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear">
          <ion-view>
@@ -25,6 +19,14 @@ navigation history that also transitions its views in and out.
    
   </ion-tab>
 
+  <ion-tab title="概述" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" >
+  <ion-view>
+   <ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">
+     <iframe  ng-src ="{{outlineUrl}}"></iframe>
+   </ion-content>
+</ion-view>
+  </ion-tab>
+  
   <ion-tab title="作业" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear">
       <ion-view>
           
