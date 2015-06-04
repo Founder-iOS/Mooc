@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6f197d18-cbe5-49ca-98bf-02e6a49c87ad" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/app.js" afterPath="$PROJECT_DIR$/www/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/course-detail.html" afterPath="$PROJECT_DIR$/www/templates/course-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/services.js" afterPath="$PROJECT_DIR$/www/js/services.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/signInCtrl.js" afterPath="$PROJECT_DIR$/www/js/signInCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/tab-courses.html" afterPath="$PROJECT_DIR$/www/templates/tab-courses.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/tabs.html" afterPath="$PROJECT_DIR$/www/templates/tabs.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="6f197d18-cbe5-49ca-98bf-02e6a49c87ad" name="Default" comment="" />
     <ignored path="Mooc.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -325,7 +317,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="279" y="23" width="1400" height="860" extended-state="0" />
+    <frame x="279" y="23" width="1400" height="860" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
