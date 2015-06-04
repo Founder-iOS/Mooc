@@ -88,7 +88,7 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
   // if none of the above states are matched, use this as the fallback
 
 //   $urlRouterProvider.otherwise('/lesson/2209F611-7FE9-1BF9-CD89-CD328F7D2F67');
-    $urlRouterProvider.otherwise('/courses/1');
-   //$urlRouterProvider.otherwise('/tab/courses');
+    //$urlRouterProvider.otherwise('/courses/1');
+    $urlRouterProvider.otherwise('/sign-in');
 
 }); 
