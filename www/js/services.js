@@ -200,8 +200,8 @@ angular.module('starter.services', [])
 })
 
 .service('moocService', function($http, $q){
-//  var serverAddress = 'http://42.62.16.168:8080';
-  var serverAddress = 'http://172.19.43.55:8080';
+  var serverAddress = 'http://42.62.16.168:8080';
+//  var serverAddress = 'http://172.19.43.55:8080';
   var baseUrl = serverAddress + '/api?method=';
   var makeUrl = function(parms){
     var finalUrl = baseUrl + parms + '&callback=JSON_CALLBACK';
