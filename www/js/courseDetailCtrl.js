@@ -4,6 +4,7 @@
 
 angular.module('starter.controllers')
 .controller('CourseDetailCtrl', function($scope,$stateParams,courseDetail,testService) {
+
     $scope.index = 1;
     $scope.learningLesson = {chapterNo:0, lessonNo:3};      ///< 正在学习的课程
     $scope.course;

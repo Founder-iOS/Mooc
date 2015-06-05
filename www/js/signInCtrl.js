@@ -12,9 +12,10 @@ angular.module('starter.controllers')
             users.getFromServer($scope.user.name,$scope.user.password).then(function(data){
                 console.log('返回成功' + eval(data).success);
                 if(eval(data).success === 1){
-                    var user  = eval(data).data;
-                    user.password =  $scope.password;
-                    users.save(user);
+                    var password = $scope.user.password;
+                    $scope.user = eval(data).data;
+                    $scope.user.password = password;
+                    users.save($scope.user );
                     console.log("signin success");
                     $state.go('tab.courses');
                 }
