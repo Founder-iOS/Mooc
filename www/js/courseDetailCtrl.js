@@ -7,7 +7,6 @@ angular.module('starter.controllers')
 
     $scope.index = 1;
     $scope.learningLesson = {chapterNo:0, lessonNo:3};      ///< 正在学习的课程
-    $scope.course;
     if(DEBUG){
         console.log('course detail id: ' + $stateParams.courseId);
     }

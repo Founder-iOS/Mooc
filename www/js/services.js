@@ -269,7 +269,7 @@ angular.module('starter.services', [])
             var _course = {
                 course_id: i,
                 course_name: "我的课程"+i,
-            cover_url: function(){
+                cover_url: function(){
                     return "/img/" + (Math.floor(Math.random()*4)+1) + ".jpg";
                 }(),
                 study_num: Math.floor(Math.random() * 50),

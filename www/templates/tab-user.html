@@ -7,22 +7,23 @@
 <ion-view  view-title="个人中心" hide-back-button="true">
 <ion-content>
     <ion-list>
-      <ion-item class="item-button-right">
-       头像－{{user.name}}
-   </ion-item>
-         <ion-item class="item-button-right">
-       学习记录
-        <i class="icon ion-chevron-right icon-accessory"></i>
-   </ion-item>
-            <ion-item class="item-button-right">
-       版本号 1.0.0
-   </ion-item>
-               <ion-item class="item-button-right">
-       关于我们
-   </ion-item>
-                  <ion-item class="item-button-right">
-       注销
-   </ion-item>
+        <ion-item class="item-avatar item-divider">
+            <img src="{{user.icon_path}}">
+            <h2>{{user.name}}</h2>
+            <p>{{user.true_name}}</p>
+        </ion-item>
+        <div class="item-divider">
+        <ion-item ng-repeat="item in listItems" style="" class="item-icon-left" ng-class="{'item-icon-right':{{item.hasDetails}}}"
+                ng-click="click($index)">
+            <i style="font-size: 20px" class="icon {{item.iconClass}}"></i>
+            <p>{{item.text}}</p>
+            <i class="icon ion-chevron-right icon-accessory" ng-if="item.hasDetails"></i>
+        </ion-item>
+
+        </div>
+        <ion-item style="border-width: 0; margin-top: 2px;" class="item-divider">
+            <button class="button button-block button-positive" ng-click="logout()">注销</button>
+        </ion-item>
     </ion-list>
 </ion-content>
 </ion-view>
