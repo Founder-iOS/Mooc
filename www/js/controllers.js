@@ -3,8 +3,7 @@ var FAKE_DATA = false;
 
 angular.module('starter.controllers', [])
 
-.controller('OfflineCtrl', function() {
-});
+
 
 
 

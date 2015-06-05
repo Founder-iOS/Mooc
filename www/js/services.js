@@ -163,11 +163,12 @@ angular.module('starter.services', [])
                           finishDownload(resource)
                     }, function (error) {
                         console.log("download Error " + JSON.stringify(error));
+                        faildDownload(resource);
                     }, function (progress) {
                         $timeout(function () {
                             resource.progress = (progress.loaded / progress.total) * 100;
                             console.log("download progress " + resource.progress);
-                            faildDownload(resource);
+
                         });
                     });
             })
@@ -185,6 +186,7 @@ angular.module('starter.services', [])
         };
         var faildDownload = function(resource){
             downloadTasks.splice(downloadTasks.indexOf(resource), 1);
+            console.log('下载失败' + resource);
             lesson.updateResourceToDB(resource);
             if(downloadTasks.length > 0){
                 var resource = downloadTasks[0]
@@ -202,12 +204,17 @@ angular.module('starter.services', [])
                 }
             },
             removeDownloadTask: function(resource) {
-                if(download){
-                    download.abort();
+                var index = downloadTasks.indexOf(resource);
+                if(index === 0){
+                    console.log('取消下载为当前下载');
+                    if(download){
+                        download.abort();
+                    }
                 }
-                lesson.updateResourceToDB(resource);
+                console.log('停止下载');
+                //lesson.updateResourceToDB(resource);
                 resource.downloading = false;
-                downloadTasks.splice(downloadTasks.indexOf(resource), 1);
+                downloadTasks.splice(index, 1);
             },
             getDownloadResource:function(resource){
                 for( var i=0,len=downloadTasks.length; i<len; i++ ){

@@ -22,6 +22,7 @@
       <ion-item class="item-button-right" collection-repeat="resource in lesson.resources" ng-click="openResource(resource)" >
       <h2>{{resource.name}}</h2>
       <p>下载进度:{{resource.progress}}%</p>
+       <p>文档类型:{{resource.mime_type}}</p>
       <a  class="button button-clear icon" ng-class= "{'ion-ios-cloud-download-outline':!resource.downloading,'ion-ios-pause-outline':resource.downloading}" ng-click="downloadResource(resource)" ng-if = '!resources.finishDownload'></a>
       </ion-item>
     </ion-list>

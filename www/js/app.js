@@ -69,12 +69,12 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
                     }
                 }
             })
-            .state('tab.offline', {
-                url: '/offline',
+            .state('tab.downloaded', {
+                url: '/downloaded',
                 views: {
                     'tab-offline': {
-                        templateUrl: 'templates/tab-offline.html',
-                        controller: 'OfflineCtrl'
+                        templateUrl: 'templates/tab-downloaded.html',
+                        controller: 'DownloadedCtrl'
                     }
                 }
             })
@@ -84,6 +84,24 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
                     'tab-user': {
                         templateUrl: 'templates/tab-user.html',
                         controller: 'UserCenterCtrl'
+                    }
+                }
+            })
+            .state('tab.lesson-history', {
+                url: '/lesson-history',
+                views: {
+                    'tab-user': {
+                        templateUrl: 'templates/lesson-history.html',
+                        controller: 'LessonHistoryCtrl'
+                    }
+                }
+            })
+            .state('tab.about', {
+                url: '/about',
+                views: {
+                    'tab-user': {
+                        templateUrl: 'templates/about.html',
+                        controller: 'AboutCtrl'
                     }
                 }
             })

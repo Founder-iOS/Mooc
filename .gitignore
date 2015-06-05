@@ -26,4 +26,5 @@ gdb.setup
 gdbserver
 ios/output
 *.db
-/.idea--
+platforms
+.idea
