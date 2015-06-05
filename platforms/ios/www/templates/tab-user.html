@@ -1,0 +1,28 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view  view-title="个人中心" hide-back-button="true">
+<ion-content>
+    <ion-list>
+      <ion-item class="item-button-right">
+       头像－{{user.name}}
+   </ion-item>
+         <ion-item class="item-button-right">
+       学习记录
+        <i class="icon ion-chevron-right icon-accessory"></i>
+   </ion-item>
+            <ion-item class="item-button-right">
+       版本号 1.0.0
+   </ion-item>
+               <ion-item class="item-button-right">
+       关于我们
+   </ion-item>
+                  <ion-item class="item-button-right">
+       注销
+   </ion-item>
+    </ion-list>
+</ion-content>
+</ion-view>

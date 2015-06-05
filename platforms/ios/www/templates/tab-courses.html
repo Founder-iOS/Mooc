@@ -4,28 +4,35 @@
   The FriendsCtrl pulls data from the Friends service (service.js)
   The Friends service returns an array of friend data
 -->
+<!-- <ion-view  view-title="我的课程" hide-back-button="true">
+<ion-content>
+<p>我的课程
+</p>
+</ion-content>
+</ion-view> -->
+
 <ion-view  view-title="我的课程" hide-back-button="true">
-      <ion-nav-buttons side="left">
+<!--       <ion-nav-buttons side="left">
         <a class="button"  ng-href="#/sign-in">
           注销
         </a>
-      </ion-nav-buttons>
+      </ion-nav-buttons> -->
   <ion-content class="padding">
    <ion-refresher
     pulling-text="Pull to refresh..."
     on-refresh="doRefresh()">
-  </ion-refresher>
-  <div class="course_item"  collection-repeat="course in courses" collection-item-width="'20%'"
-    collection-item-height="getItemHeight(course, $index)"
-    ng-style="{height: getItemHeight(course, $index)}">
-   <a class="item item-thumbnail-top my-course-item"
-    ng-href="#/courses/{{course.course_id}}">
-      <img class="course_img" ng-src="{{course.cover_url}}">
+   </ion-refresher>
+  
+  
+  <div class="course_item"  collection-repeat="course in courses" collection-item-width="20%" collection-item-height="getItemHeight(course, $index)">
+   <a class="item item-thumbnail-top" ng-href="#/tab/courses/{{course.course_id}}">
+      <img ng-src="{{course.cover_url}}">
       <h2>{{course.course_name}}</h2>
       <p>选课人数：{{course.study_num}}</p>
       <p>开课时间：{{course.open_time *1000 | date:'yyyy-MM-dd'}}</p>
   </a>
   </div>
+
   <ion-infinite-scroll on-infinite="loadMore()" distance="5%"></ion-infinite-scroll>
 </ion-content>
 </ion-view>

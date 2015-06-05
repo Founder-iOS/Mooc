@@ -20,7 +20,6 @@ angular.module('starter.controllers')
                     resource.progress = 0;
                     resource.downloading = false;
                     resource.finishDownload = false;
-                    resource.lesson_id = lesson.id;
                 }
                 lesson.saveResourceToDB(resource);
             }
