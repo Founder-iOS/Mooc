@@ -87,14 +87,10 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
                     }
                 }
             })
-            .state('tab.course-detail', {
+            .state('course-detail', {
                 url: '/courses/:courseId',
-                views: {
-                    'tab-courses': {
-                        templateUrl: 'templates/course-detail.html',
-                        controller: 'CourseDetailCtrl'
-                    }
-                }
+                templateUrl: 'templates/course-detail.html',
+                controller: 'CourseDetailCtrl'
             })
             .state('tab.lesson', {
                 url: "/lesson/:lessonId",
@@ -112,8 +108,8 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
 
 //   $urlRouterProvider.otherwise('/lesson/2209F611-7FE9-1BF9-CD89-CD328F7D2F67');
 
-        //$urlRouterProvider.otherwise('tab/courses/1');
-         $urlRouterProvider.otherwise('/sign-in');
+       // $urlRouterProvider.otherwise('/courses/1');
+         $urlRouterProvider.otherwise('/tab/user');
        //$urlRouterProvider.otherwise('/tab/lesson/11');
 
     });

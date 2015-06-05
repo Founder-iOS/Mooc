@@ -61,6 +61,7 @@ ctime:创建时间；
 icon_path:课时封面
 enter_time:进入时间
 exit_time:退出时间
+studyed:是否学习过
 
 
 }
@@ -73,6 +74,8 @@ file_path:文件类型
 progress:下载进度
 downloading:是否正在下载
 finishDownload:是否下载完成
+lesson_id:课时id;
+
 }
 
 

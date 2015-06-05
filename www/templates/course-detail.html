@@ -13,7 +13,7 @@
       <div class="course-detail-right">
         <div>
          <h2>{{course.course_name}}</h2>
-         <p>分  类:{{course.description}}</p>
+         <p>分  类:</p>
          <p>任课老师：{{course.teacher_name}}</p>
          <p>类  型:{{course.course_type}}</p>
          <p>学  分:{{course.credit}}分</p>
@@ -27,13 +27,12 @@
   <ul class="course-nav">
     <li  ng-repeat ="item in navItems" ng-class= "{active:index === item.index}"  ng-click="goPage({{item.index}})">{{item.title}}</li>
   </ul>
-  <div class ="padding-top" ng-if = "index === 0">我是简介</div>
+  <div class ="padding-top" ng-if = "index === 0">{{course.description}}</div>
   <div  class ="padding-top" ng-if = "index === 1" >
     <ion-item class=" padding-top padding-bottom courseSchedule" ng-repeat = "chapter in course.chapters">
           <h2 class= "padding-bottom lessonName" style="">{{chapter.name}}</h2>
           <ion-scroll  direction= "x" scrollbar-x ="false">
           <a ng-repeat = "lesson in chapter.studyplans" ng-class="{button:true, lesson_button:true,lesson_button_visited:lesson.visited, lesson_button_clicked:lesson.id===learningLesson.lessonNo && chapter.id===learningLesson.chapterNo}" ng-href="#/tab/lesson/{{lesson.id}}">{{lesson.name}}</a>
-          
           </ion-scroll>
     </ion-item>
   </div>

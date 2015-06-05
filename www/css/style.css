@@ -2,10 +2,7 @@
 
 /*  courses.html */
 .course_item {
-    padding-left: 1px;
-    padding-right: 18px;
-    padding-top: 3px;
-    padding-bottom: 4px;
+    margin-left: -9px;
 }
 
 .course_item > a{
@@ -17,7 +14,6 @@
 }
 
 .course_item img {
-    margin:0 20px 5px 4px;
     width: 100%;
     height: 70%;
 }

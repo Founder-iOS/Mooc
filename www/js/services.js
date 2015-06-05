@@ -310,7 +310,8 @@ angular.module('starter.services', [])
         this.courseDetail = function(courseId){
             var parms = 'courseDetail&course_id='+courseId;
 //    var parms = 'courseDetail&course_id=AB252A87-1C94-3ABA-40BC-1E4AFCD25012';
-            console.log('parms is'+ parms);
+<<<<<<< HEAD
+            console.log('parms is '+ parms);
             var finalUrl =makeUrl(parms);
             return request(finalUrl);
         }

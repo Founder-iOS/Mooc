@@ -2,26 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6f197d18-cbe5-49ca-98bf-02e6a49c87ad" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/db.json" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/www/templates/courses.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/platforms/ios/www/templates/lesson.html" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/ios_mooc.xcodeproj/project.xcworkspace/xcuserdata/lileichuan.xcuserdatad/UserInterfaceState.xcuserstate" afterPath="$PROJECT_DIR$/platforms/ios/ios_mooc.xcodeproj/project.xcworkspace/xcuserdata/lileichuan.xcuserdatad/UserInterfaceState.xcuserstate" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/test/1.html" afterPath="$PROJECT_DIR$/platforms/ios/www/test/1.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/js/app.js" afterPath="$PROJECT_DIR$/platforms/ios/www/js/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/app.js" afterPath="$PROJECT_DIR$/www/js/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/js/controllers.js" afterPath="$PROJECT_DIR$/platforms/ios/www/js/controllers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/templates/course-detail.html" afterPath="$PROJECT_DIR$/platforms/ios/www/templates/course-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/course-lesson.html" afterPath="$PROJECT_DIR$/www/templates/course-lesson.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/index.html" afterPath="$PROJECT_DIR$/platforms/ios/www/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/ios_mooc.xcodeproj/project.xcworkspace/xcshareddata/ios_mooc.xccheckout" afterPath="$PROJECT_DIR$/platforms/ios/ios_mooc.xcodeproj/project.xcworkspace/xcshareddata/ios_mooc.xccheckout" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/templates/lesson-resource.html" afterPath="$PROJECT_DIR$/platforms/ios/www/templates/lesson-resource.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/lesson-resource.html" afterPath="$PROJECT_DIR$/www/templates/lesson-resource.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/lessonCtrl.js" afterPath="$PROJECT_DIR$/www/js/lessonCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/js/services.js" afterPath="$PROJECT_DIR$/platforms/ios/www/js/services.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/course-detail.html" afterPath="$PROJECT_DIR$/www/templates/course-detail.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/courseDetailCtrl.js" afterPath="$PROJECT_DIR$/www/js/courseDetailCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/db.json" afterPath="$PROJECT_DIR$/www/db.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/services.js" afterPath="$PROJECT_DIR$/www/js/services.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/templates/sign-in.html" afterPath="$PROJECT_DIR$/platforms/ios/www/templates/sign-in.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/css/style.css" afterPath="$PROJECT_DIR$/platforms/ios/www/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/css/style.css" afterPath="$PROJECT_DIR$/www/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/tab-courses.html" afterPath="$PROJECT_DIR$/www/templates/tab-courses.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/tab-user.html" afterPath="$PROJECT_DIR$/www/templates/tab-user.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/tabs.html" afterPath="$PROJECT_DIR$/www/templates/tabs.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/userCenterCtrl.js" afterPath="$PROJECT_DIR$/www/js/userCenterCtrl.js" />
     </list>
     <ignored path="Mooc.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -47,17 +38,13 @@
       <file leaf-file-name="services.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/services.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17127071" vertical-offset="581" max-vertical-offset="2460">
-              <caret line="80" column="14" selection-start-line="80" selection-start-column="14" selection-end-line="80" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.37845305" vertical-offset="1166" max-vertical-offset="3450">
+              <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
               <folding>
                 <element signature="e#127#733#0" expanded="false" />
                 <element signature="e#792#974#0" expanded="false" />
-                <element signature="e#1038#1229#0" expanded="false" />
-                <element signature="e#4705#5455#0" expanded="false" />
                 <element signature="e#5518#6037#0" expanded="false" />
-                <element signature="e#9377#10558#0" expanded="false" />
-                <element signature="e#10608#12847#0" expanded="false" />
-                <element signature="e#12888#15989#0" expanded="false" />
+                <element signature="e#10608#16967#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -66,8 +53,8 @@
       <file leaf-file-name="db.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/db.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="461" max-vertical-offset="1260">
-              <caret line="73" column="11" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="11" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="491" max-vertical-offset="1305">
+              <caret line="75" column="11" selection-start-line="75" selection-start-column="11" selection-end-line="75" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -76,9 +63,12 @@
       <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="97" max-vertical-offset="1875">
-              <caret line="39" column="222" selection-start-line="39" selection-start-column="222" selection-end-line="39" selection-end-column="222" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="37" max-vertical-offset="1815">
+              <caret line="35" column="111" selection-start-line="35" selection-start-column="111" selection-end-line="35" selection-end-column="111" />
+              <folding>
+                <marker date="1433497243000" expanded="true" signature="4080:4249" placeholder="{...}" />
+                <marker date="1433497243000" expanded="true" signature="4110:4192" placeholder="{&quot;templateUrl&quot;: 'templates/course-detail.html'...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,8 +76,8 @@
       <file leaf-file-name="course-detail.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/templates/course-detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.5" vertical-offset="27" max-vertical-offset="750">
-              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+            <state vertical-scroll-proportion="-14.5" vertical-offset="12" max-vertical-offset="735">
+              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -96,9 +86,11 @@
       <file leaf-file-name="style.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.346154" vertical-offset="1524" max-vertical-offset="2235">
-              <caret line="123" column="19" selection-start-line="123" selection-start-column="13" selection-end-line="123" selection-end-column="19" />
-              <folding />
+            <state vertical-scroll-proportion="-12.346154" vertical-offset="1464" max-vertical-offset="2175">
+              <caret line="119" column="19" selection-start-line="119" selection-start-column="13" selection-end-line="119" selection-end-column="19" />
+              <folding>
+                <marker date="1433497243000" expanded="true" signature="229:267" placeholder="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -344,7 +336,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996207" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2244373" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2244373" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -404,9 +396,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4635">
           <caret line="259" column="5" selection-start-line="259" selection-start-column="5" selection-end-line="259" selection-end-column="5" />
           <folding>
-            <element signature="e#1038#1229#0" expanded="false" />
+            <element signature="e#792#974#0" expanded="false" />
             <element signature="e#5518#6037#0" expanded="false" />
-            <element signature="e#10608#12847#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -415,7 +406,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="893" max-vertical-offset="1650">
           <caret line="101" column="51" selection-start-line="101" selection-start-column="51" selection-end-line="101" selection-end-column="51" />
-          <folding />
+          <folding>
+            <marker date="1433497243000" expanded="true" signature="4080:4249" placeholder="{...}" />
+            <marker date="1433497243000" expanded="true" signature="4110:4192" placeholder="{&quot;templateUrl&quot;: 'templates/course-detail.html'...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -495,9 +489,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="2340" max-vertical-offset="4650">
           <caret line="156" column="5" selection-start-line="156" selection-start-column="5" selection-end-line="156" selection-end-column="5" />
           <folding>
-            <element signature="e#1038#1229#0" expanded="false" />
+            <element signature="e#792#974#0" expanded="false" />
             <element signature="e#5518#6037#0" expanded="false" />
-            <element signature="e#10608#12847#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -522,9 +515,8 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="4560" max-vertical-offset="4650">
           <caret line="304" column="0" selection-start-line="304" selection-start-column="0" selection-end-line="304" selection-end-column="0" />
           <folding>
-            <element signature="e#1038#1229#0" expanded="false" />
+            <element signature="e#792#974#0" expanded="false" />
             <element signature="e#5518#6037#0" expanded="false" />
-            <element signature="e#10608#12847#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -618,16 +610,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.346154" vertical-offset="1524" max-vertical-offset="2235">
-          <caret line="123" column="19" selection-start-line="123" selection-start-column="13" selection-end-line="123" selection-end-column="19" />
-          <folding />
+        <state vertical-scroll-proportion="-12.346154" vertical-offset="1464" max-vertical-offset="2175">
+          <caret line="119" column="19" selection-start-line="119" selection-start-column="13" selection-end-line="119" selection-end-column="19" />
+          <folding>
+            <marker date="1433497243000" expanded="true" signature="229:267" placeholder="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/course-detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.5" vertical-offset="27" max-vertical-offset="750">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+        <state vertical-scroll-proportion="-14.5" vertical-offset="12" max-vertical-offset="735">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -658,17 +652,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/db.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="461" max-vertical-offset="1260">
-          <caret line="73" column="11" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="11" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="491" max-vertical-offset="1305">
+          <caret line="75" column="11" selection-start-line="75" selection-start-column="11" selection-end-line="75" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="97" max-vertical-offset="1875">
-          <caret line="39" column="222" selection-start-line="39" selection-start-column="222" selection-end-line="39" selection-end-column="222" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="37" max-vertical-offset="1815">
+          <caret line="35" column="111" selection-start-line="35" selection-start-column="111" selection-end-line="35" selection-end-column="111" />
+          <folding>
+            <marker date="1433497243000" expanded="true" signature="4080:4249" placeholder="{...}" />
+            <marker date="1433497243000" expanded="true" signature="4110:4192" placeholder="{&quot;templateUrl&quot;: 'templates/course-detail.html'...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -682,17 +679,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/services.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17127071" vertical-offset="581" max-vertical-offset="2460">
-          <caret line="80" column="14" selection-start-line="80" selection-start-column="14" selection-end-line="80" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.37845305" vertical-offset="1166" max-vertical-offset="3450">
+          <caret line="122" column="0" selection-start-line="122" selection-start-column="0" selection-end-line="122" selection-end-column="0" />
           <folding>
             <element signature="e#127#733#0" expanded="false" />
             <element signature="e#792#974#0" expanded="false" />
-            <element signature="e#1038#1229#0" expanded="false" />
-            <element signature="e#4705#5455#0" expanded="false" />
             <element signature="e#5518#6037#0" expanded="false" />
-            <element signature="e#9377#10558#0" expanded="false" />
-            <element signature="e#10608#12847#0" expanded="false" />
-            <element signature="e#12888#15989#0" expanded="false" />
+            <element signature="e#10608#16967#0" expanded="false" />
           </folding>
         </state>
       </provider>
