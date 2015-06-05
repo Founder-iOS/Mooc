@@ -6,7 +6,7 @@ var ON_BROWSER = false;
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.services','starter.directives'])
 
-    .run(function($ionicPlatform,$cordovaSQLite) {
+    .run(function($ionicPlatform,dbService) {
         $ionicPlatform.ready(function() {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -27,19 +27,7 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
                 StatusBar.styleDefault();
             }
             //创建db文件
-            var db = $cordovaSQLite.openDB("mooc.db",0);
-            //创建用户表
-            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS user (id text primary key,name text,true_name text,email text,qq text,mobile text,phone text,address text,icon_path text,role integer,sex integer)",'');
-            //创建课程表
-            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS course (id text primary key,name text,description text,teacher_id text,teacher_name text,study_num integer,open_time double,course_type integer,credit integer,period integer,professional text,cover_url text)",'');
-            //章节表
-            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS chapter (id text primary key,name text)",'')
-            //课时表
-            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS lesson(id text primary key,name text,creater text,ctime double,icon_path text,enter_time double,exit_time double,studyed bool)",'');
-
-            $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS resource (id text primary key,name text,original_name text,mime_type text,file_path text,progress float,downloading bool,finishDownload bool,lesson_id text)",'');
-
-            //deviceService.get();
+            dbService.initDB();
         });
     })
     .config(function($stateProvider, $urlRouterProvider) {
@@ -72,7 +60,7 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
             .state('tab.downloaded', {
                 url: '/downloaded',
                 views: {
-                    'tab-offline': {
+                    'tab-downloaded': {
                         templateUrl: 'templates/tab-downloaded.html',
                         controller: 'DownloadedCtrl'
                     }
@@ -105,10 +93,15 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
                     }
                 }
             })
-            .state('course-detail', {
+            .state('tab.course-detail', {
                 url: '/courses/:courseId',
-                templateUrl: 'templates/course-detail.html',
-                controller: 'CourseDetailCtrl'
+                views: {
+                    'tab-courses': {
+                        templateUrl: 'templates/course-detail.html',
+                        controller: 'CourseDetailCtrl'
+                    }
+                }
+
             })
             .state('tab.lesson', {
                 url: "/lesson/:lessonId",

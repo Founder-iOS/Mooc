@@ -7,7 +7,7 @@ angular.module('starter.controllers')
         $scope.user = users.lastLoginUser();
         var formatResource = function(){
             console.log('课时详情结果:' +  JSON.stringify($scope.lesson.resources));
-
+            //downloadService.getAllResourceFromDB('11');
             for( var i=0,len= $scope.lesson.resources.length; i<len; i++ ){
                 resource = $scope.lesson.resources[i];
                 console.log('resource is ' +  JSON.stringify(resource));
@@ -20,9 +20,9 @@ angular.module('starter.controllers')
                     resource.progress = 0;
                     resource.downloading = false;
                     resource.finishDownload = false;
-                    resource.lesson_id = lesson.id;
+                    resource.lesson_id = $scope.lesson.id;
                 }
-                lesson.saveResourceToDB(resource);
+//                lesson.saveResourceToDB(resource);
             }
         };
 
