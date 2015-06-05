@@ -42,7 +42,7 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
     })
   .state('lesson', {
     url: "/lesson/:lessonId",
-    templateUrl: "templates/lesson.html",
+    templateUrl: "templates/course-lesson.html",
     controller: 'LessonCtrl'
   })
   .state('courses', {

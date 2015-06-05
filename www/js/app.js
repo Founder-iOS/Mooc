@@ -85,7 +85,7 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
                 url: "/lesson/:lessonId",
                 views: {
                     'tab-courses': {
-                        templateUrl: 'templates/lesson.html',
+                        templateUrl: 'templates/course-lesson.html',
                         controller: 'LessonCtrl'
                     }
                 }

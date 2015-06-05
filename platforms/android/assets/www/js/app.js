@@ -27,7 +27,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.services','st
   // setup an abstract state for the tabs directive
   .state('lesson', {
     url: "/lesson/:lessonId",
-    templateUrl: "templates/lesson.html",
+    templateUrl: "templates/course-lesson.html",
     controller: 'LessonCtrl'
   })
   .state('courses', {

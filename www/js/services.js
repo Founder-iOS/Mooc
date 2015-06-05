@@ -131,7 +131,7 @@ angular.module('starter.services', [])
                 var url = resource.file_path;
                 var file_name = getFileName(url);
                 var fileDir = cordova.file.documentsDirectory + file_name;
-                console.log('full fileDir is:' + fileDir);
+                console.log('full fileDir is: ' + fileDir);
                 var download = $cordovaFileTransfer.download(url, fileDir).then(function (success) {
                     if(DEBUG)   console.log("success " + JSON.stringify(success));
                     $timeout(function () {
@@ -204,6 +204,7 @@ angular.module('starter.services', [])
   var baseUrl = serverAddress + '/api?method=';
   var makeUrl = function(parms){
     var finalUrl = baseUrl + parms + '&callback=JSON_CALLBACK';
+    console.log('finalUrl is ' + finalUrl);
     return finalUrl;
   }
 
@@ -230,7 +231,6 @@ angular.module('starter.services', [])
     var parms = 'userAuth&user_name='+ name +'&user_pwd='+ password +'&udid='+'11111' +'&type=1';    ///<! 明文密码
     console.log('parms is '+ parms);
     var finalUrl = makeUrl(parms);
-    console.log('finalUrl is ' + finalUrl);
     return request(finalUrl);
   }
   // 课程列表
@@ -238,7 +238,7 @@ angular.module('starter.services', [])
     var parms = 'courseList&user_id=' + userId;
     console.log('courseList parms is'+ parms);
         var finalUrl =makeUrl(parms);
-    console.log('finalUrl is ' + finalUrl);
+
     return request(finalUrl);
   }
   // 课程详情
@@ -247,7 +247,6 @@ angular.module('starter.services', [])
 //    var parms = 'courseDetail&course_id=AB252A87-1C94-3ABA-40BC-1E4AFCD25012';
     console.log('parms is'+ parms);
     var finalUrl =makeUrl(parms);
-    console.log('finalUrl is' +   finalUrl);
     return request(finalUrl);
   }
     //lesson详情
@@ -255,7 +254,7 @@ angular.module('starter.services', [])
       var parms ='getSingleStudyPlan&studyplan_id='+lessonId;
       console.log('parms is'+ parms);
       var finalUrl = makeUrl(parms);
-      console.log('finalUrl is' + finalUrl);
+
       return request(finalUrl);
     }
 })

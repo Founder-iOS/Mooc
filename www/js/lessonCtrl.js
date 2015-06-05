@@ -55,7 +55,7 @@ angular.module('starter.controllers')
     $scope.postUrl = lesson.postUrl($scope.user.name,$scope.user.password,$stateParams.lessonId);
     $scope.notesUrl = lesson.notesUrl($scope.user.name,$scope.user.password,$stateParams.lessonId);
     $scope.evaluationUrl = lesson.evaluationUrl($scope.user.name,$scope.user.password,$stateParams.lessonId);
-    console.log('$scope.outlineUrl is' + $scope.outlineUrl);
+    console.log('$scope.outlineUrl is ' + $scope.outlineUrl);
     console.log($scope.lesson);
     $scope.doRefresh = function() {
         lesson.getResourcesFromServer($stateParams.lessonId).then(function(data){
