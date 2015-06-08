@@ -103,5 +103,18 @@ angular.module('starter.controllers')
                 console.log('课时详情返回失败' + data);
             });
         };
+        $scope.index = 0;
+        $scope.footerBarItems = [
+                                 {title:'概述',index:0,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'},
+                                 {title:'资源',index:1,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'},
+                                 {title:'作业',index:2,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'},
+                                 {title:'测验',index:3,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'},
+                                 {title:'讨论',index:4,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'},
+                                 {title:'评价',index:5,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'},
+                                 {title:'笔记',index:6,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'}
+                                ];
+        $scope.switchPage = function(index){
+            $scope.index = index;
+        };
         $scope.doRefresh();
     });

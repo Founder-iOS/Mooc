@@ -7,50 +7,59 @@ navigation history that also transitions its views in and out.
 <ion-view view-title="{{course.name}}">
 
     <ion-content >
-        <resource></resource>
+        <resource ng-if = "index === 0"></resource>
+        <!--<p  ng-if = "index === 0">aaaaaredosu</p>-->
+        <iframe  ng-src ="{{homeworkUrl}}" ng-if = "index != 0"></iframe>
     </ion-content>
-
 </ion-view>
 
+:
+
+<ion-footer-bar class="bar-light">
+    <div class="button-bar">
+        <!--<a class="button button-clear icon " ng-repeat ="item in footerBarItems" ng-class= "{'ion-ios-loop':index === item.index,'item.icon':index !== item.index}">item.title</a>-->
+        <a class="button button-clear icon " ng-repeat ="item in footerBarItems" ng-class= "{'{{item.icon}}':!(index === item.index),'{{item.selectIcon}}':index === item.index }" ng-click="switchPage({{item.index}})">{{item.title}}</a>
+    </div>
+</ion-footer-bar>
 
 <!--<ion-tabs class="tabs-icon-top tabs-color-active-positive">-->
+
+    <!--<ion-tab title="概述" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" >-->
+        <!--<ion-content >-->
+        <!--</ion-content>-->
+
+    <!--</ion-tab>-->
+
     <!--<ion-tab title="资源" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear">-->
-        <!--<ion-view>-->
-            <!--<ion-content >-->
-                <!--&lt;!&ndash;<resource></resource>&ndash;&gt;-->
-            <!--</ion-content>-->
-        <!--</ion-view>-->
     <!--</ion-tab>-->
 <!--</ion-tabs>-->
 
 
-<!--<ion-tabs class="tabs-icon-top tabs-color-active-positive">-->
+    <!--<ion-tabs class="tabs-icon-top tabs-color-active-positive">-->
 
-   <!--<ion-tab title="资源" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear">-->
-         <!--<ion-view>-->
-       <!--<ion-content >-->
-           <!--<resource></resource>-->
-       <!--</ion-content>-->
-     <!--</ion-view>-->
+    <!--<ion-tab title="概述" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" href="#/tab/lesson/11">-->
+        <!--<ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">-->
+            <!--<iframe  ng-src ="{{outlineUrl}}"></iframe>-->
+        <!--</ion-content>-->
+    <!--</ion-tab>-->
 
-  <!--</ion-tab>-->
+    <!--<ion-tab title="资源" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear"  href="#/tab/lesson/11">-->
+        <!--<ion-view>-->
+            <!--<ion-content >-->
+                <!--<resource></resource>-->
+            <!--</ion-content>-->
+        <!--</ion-view>-->
 
-  <!--<ion-tab title="概述" icon-off="ion-ios-pulse" icon-on="ion-ios-pulse-strong" >-->
-  <!--<ion-view>-->
-   <!--<ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">-->
-    <!--<iframe  ng-src ="{{outlineUrl}}"></iframe>-->
-   <!--</ion-content>-->
-<!--</ion-view>-->
-  <!--</ion-tab>-->
+    <!--</ion-tab>-->
 
-  <!--<ion-tab title="作业" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear">-->
-      <!--<ion-view>-->
 
-          <!--<ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">-->
-              <!--<iframe  ng-src ="{{homeworkUrl}}"></iframe>-->
-          <!--</ion-content>-->
-      <!--</ion-view>-->
-  <!--</ion-tab>-->
+
+    <!--<ion-tab title="作业" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear">-->
+        <!--<ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">-->
+            <!--<iframe  ng-src ="{{homeworkUrl}}"></iframe>-->
+        <!--</ion-content>-->
+        <!--</ion-view>-->
+    <!--</ion-tab>-->
 
     <!--<ion-tab title="测验" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" >-->
         <!--<ion-view>-->
@@ -61,29 +70,29 @@ navigation history that also transitions its views in and out.
     <!--</ion-tab>-->
 
 
-  <!--<ion-tab title="讨论" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" >-->
-      <!--<ion-view>-->
-          <!--<ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">-->
-              <!--<iframe  ng-src ="{{postUrl}}"></iframe>-->
-          <!--</ion-content>-->
-      <!--</ion-view>-->
-  <!--</ion-tab>-->
+    <!--<ion-tab title="讨论" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes"  href="#">-->
+        <!--<ion-view>-->
+            <!--<ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">-->
+                <!--<iframe  ng-src ="{{postUrl}}"></iframe>-->
+            <!--</ion-content>-->
+        <!--</ion-view>-->
+    <!--</ion-tab>-->
 
 
-  <!--<ion-tab title="评价" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" >-->
-      <!--<ion-view>-->
-          <!--<ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">-->
-              <!--<iframe  ng-src ="{{evaluationUrl}}"></iframe>-->
-          <!--</ion-content>-->
-      <!--</ion-view>-->
-  <!--</ion-tab>-->
+    <!--<ion-tab title="评价" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes"  href="#">-->
+        <!--<ion-view>-->
+            <!--<ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">-->
+                <!--<iframe  ng-src ="{{evaluationUrl}}"></iframe>-->
+            <!--</ion-content>-->
+        <!--</ion-view>-->
+    <!--</ion-tab>-->
 
-  <!--<ion-tab title="笔记" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" >-->
-      <!--<ion-view>-->
-          <!--<ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">-->
-              <!--<iframe  ng-src ="{{notesUrl}}"></iframe>-->
-          <!--</ion-content>-->
-      <!--</ion-view>-->
-  <!--</ion-tab>-->
+    <!--<ion-tab title="笔记" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes"  href="#">-->
+        <!--<ion-view>-->
+            <!--<ion-content scroll="true" overflow-scroll="true"  class="padding iframe-wrapper">-->
+                <!--<iframe  ng-src ="{{notesUrl}}"></iframe>-->
+            <!--</ion-content>-->
+        <!--</ion-view>-->
+    <!--</ion-tab>-->
 
 <!--</ion-tabs>-->
