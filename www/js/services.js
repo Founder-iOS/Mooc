@@ -37,6 +37,23 @@ angular.module('starter.services', [])
         return {
             requestCourseDetailFromServer: function(courseId) {
                 return moocService.courseDetail(courseId);
+            },
+            saveCourseToDB: function(course){
+                var query = "INSERT INTO course (id,name,description,teacher_id,teacher_name,study_num,open_time,course_type,credit,period,professional,cover_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+                var params =[course.course_id,course.name,course.description,course.teacher_id,course.study_num,course.open_time,course.course_type,course.credit,course.period,course.professional,course.cover_url];
+                return dbService.executeSql(query,params);
+            },
+            updateCourseToDB: function(course){
+                var query = "UPDATE course SET name='"+course.name+"',description='"+course.description+"',teacher_id='"+course.teacher_id+
+                    "',study_num='"+course.study_num+"',open_time="+course.open_time+",course_type='"+course.course_type+"',credit='"+course.credit+
+                    "',period='"+course.period+"',professional='"+course.professional+"',cover_url='" +course.cover_url + "' WHERE id='"+course.id+"'";
+                var params =[];
+                return dbService.executeSql(query,params);
+            },
+            getAllCoursesFromDB: function(){
+                var query = "select * from course";
+                var params = '';
+                return dbService.executeSql(query,params);
             }
         }
     })

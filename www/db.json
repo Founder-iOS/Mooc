@@ -51,6 +51,7 @@ cover_url:封面地址
 {
 id:章节id
 name:章节名称
+course_id:
 }
 课时(lesson)
 {
