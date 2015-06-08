@@ -103,6 +103,17 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
                 }
 
             })
+            .state('tab.lesson.outline', {
+                url: '/outline',
+                views: {
+                    '': {
+                        templateUrl: 'templates/about.html',
+                        controller: 'aboutCtrl'
+                    }
+                }
+            })
+
+
             .state('tab.lesson', {
                 url: "/lesson/:lessonId",
                 views: {

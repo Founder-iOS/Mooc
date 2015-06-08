@@ -100,6 +100,19 @@ angular.module('starter.controllers')
                 console.log('课时详情返回失败' + data);
             });
         };
+        $scope.index = 0;
+        $scope.footerBarItems = [
+                                 {title:'概述',index:0,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'},
+                                 {title:'资源',index:1,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'},
+                                 {title:'作业',index:2,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'},
+                                 {title:'测验',index:3,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'},
+                                 {title:'讨论',index:4,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'},
+                                 {title:'评价',index:5,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'},
+                                 {title:'笔记',index:6,icon:'ion-ios-loop',selectIcon:'ion-ios-skipbackward'}
+                                ];
+        $scope.switchPage = function(index){
+            $scope.index = index;
+        };
         $scope.doRefresh();
 
 //        var resource = {"id":"62148D41-9311-B5AD-129C-34EEE8B896AB"+Math.random()*10000,"name":"互联网思维01","original_name":"互联网思维01","mime_type":"video/mp4","size":"372450294","file_path":"http://42.62.16.168:8080/data/uploads/Courses/60C0FC3C-251B-9A7B-3C02-0CA02B0ED809/f05d55a4f3161e69e24044df614e71c2.mp4",
