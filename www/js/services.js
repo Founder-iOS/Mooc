@@ -272,13 +272,15 @@ angular.module('starter.services', [])
             },
 
             executeSql: function(query,params){
+                console.log('executeSql');
                 var deferred = $q.defer();
                 $ionicPlatform.ready(function() {
                     //query = "select * from resource";
                     //params = '';
                     console.log('query and params is ',query,params);
                     $cordovaSQLite.execute(db, query, params).then(function(res) {
-                        if(DEBUG) console.log('操作数据库结果:' + JSON.stringify(res));
+                        // if(DEBUG) console.log('操作数据库结果:' + JSON.stringify(res));
+                        console.log('操作数据库结果:' + JSON.stringify(res));
                         deferred.resolve(res);
                     }, function (err) {
                         console.error(err);
@@ -286,7 +288,27 @@ angular.module('starter.services', [])
                     });
                 });
                 return deferred.promise;
+            },
+            addChapter: function(){
+                var query = "INSERT INTO chapter (id,name) VALUES (?,?)";
+                var params =['1','li'];
+                executeSql(query,params);
+                var params1 =['2','leichuan'];
+                executeSql(query,params);
+
+            },
+            updateChapter: function(){
+                var query = "update chapter set name = ? where id = '1'";
+                var params =['zhiwei'];
+                executeSql(query,params);
+                executeSql(query,params);
+            },
+            getAllChapters: function(){
+               var query = "select * from chapter";
+                var params =[];
+            executeSql(query,params);
             }
+
         }
     })
 
