@@ -37,11 +37,28 @@ angular.module('starter.services', [])
         return {
             requestCourseDetailFromServer: function(courseId) {
                 return moocService.courseDetail(courseId);
+            },
+            saveCourseToDB: function(course){
+                var query = "INSERT INTO course (id,name,description,teacher_id,teacher_name,study_num,open_time,course_type,credit,period,professional,cover_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+                var params =[course.course_id,course.name,course.description,course.teacher_id,course.study_num,course.open_time,course.course_type,course.credit,course.period,course.professional,course.cover_url];
+                return dbService.executeSql(query,params);
+            },
+            updateCourseToDB: function(course){
+                var query = "UPDATE course SET name='"+course.name+"',description='"+course.description+"',teacher_id='"+course.teacher_id+
+                    "',study_num='"+course.study_num+"',open_time="+course.open_time+",course_type='"+course.course_type+"',credit='"+course.credit+
+                    "',period='"+course.period+"',professional='"+course.professional+"',cover_url='" +course.cover_url + "' WHERE id='"+course.id+"'";
+                var params =[];
+                return dbService.executeSql(query,params);
+            },
+            getAllCoursesFromDB: function(){
+                var query = "select * from course";
+                var params = '';
+                return dbService.executeSql(query,params);
             }
         }
     })
 
-    .factory('lesson', function($sce,dbService,moocService,$q) {
+    .factory('lesson', function($ionicPlatform,$sce,dbService,moocService) {
         var baseUrl = function(username,password,lessonId) {
             var url = moocService.getServerAddress() + "/admin/auth/login?name=" + username + "&password="+ password + "&rediurl="+moocService.getServerAddress()+"/default/study/clientindex/fromouter/1/iscourse/1/id/"+lessonId + "/clienttype/";
             return url;
@@ -77,12 +94,14 @@ angular.module('starter.services', [])
             saveResourceToDB: function(resource){
                 var query = "INSERT INTO resource (id,name,original_name,mime_type,file_path,progress,downloading,finishDownload,lesson_id) VALUES (?,?,?,?,?,?,?,?,?)";
                 var params =[resource.id,resource.name,resource.original_name,resource.mime_type,resource.file_path,resource.progress,resource.downloading,resource.finishDownloadresource,resource.lesson_id];
-                dbService.executeSql(query,params);
+                return dbService.executeSql(query,params);
             },
             updateResourceToDB: function(resource){
-//                var query = "INSERT INTO resource (id,name,original_name,mime_type,file_path,progress,downloading,finishDownload) VALUES (?,?,?,?,?,?,?,?,?)";
-//                var params =[resource.id,resource.name,resource.original_name,resource.mime_type,resource.file_path,resource.progress,resource.downloading,resource.finishDownload];
-//                dbService.executeSql(query,params);
+                var query = "UPDATE resource SET name='"+resource.name+"',original_name='"+resource.original_name+"',mime_type='"+resource.mime_type+
+                    "',file_path='"+resource.file_path+"',progress="+resource.progress+",downloading='"+resource.downloading+"',finishDownload='"+resource.finishDownload+
+                    "',lesson_id='"+resource.lesson_id+"' WHERE id='"+resource.id+"'";
+                var params =[];
+                return dbService.executeSql(query,params);
             },
             getResourceFromDB: function(resource){
 //                var query = "SELECT * frmo resource (id,name,true_name,original_name,mime_type,file_path,progress,downloading,finishDownload) VALUES (?,?,?,?,?,?,?,?,?)";
@@ -90,11 +109,10 @@ angular.module('starter.services', [])
 //                dbService.executeSql(query,params);
 
             },
-            getAllResourceFromDB: function(lessonId){
+            getAllResourceFromDB: function(){
                 var query = "select * from resource";
                 var params = '';
-                dbService.executeSql(query,params);
-
+                return dbService.executeSql(query,params);
             },
             getFinishDownloadResourceFromDB: function(){
 
@@ -232,7 +250,7 @@ angular.module('starter.services', [])
         }
     })
 
-    .factory('dbService', function($ionicPlatform,$cordovaSQLite) {
+    .factory('dbService', function($ionicPlatform,$cordovaSQLite,$q) {
         var db;
         var  openDB = function(){
             db =  $cordovaSQLite.openDB("mooc.db",0);
@@ -246,26 +264,28 @@ angular.module('starter.services', [])
                 //创建课程表
                 $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS course (id text primary key,name text,description text,teacher_id text,teacher_name text,study_num integer,open_time double,course_type integer,credit integer,period integer,professional text,cover_url text)",'');
                 //章节表
-                $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS chapter (id text primary key,name text)",'')
+                $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS chapter (id text primary key,name text)",'');
                 //课时表
-                $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS lesson(id text primary key,name text,creater text,ctime double,icon_path text,enter_time double,exit_time double,studyed bool)",'');
+                $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS lesson (id text primary key,name text,creater text,ctime double,icon_path text,enter_time double,exit_time double,studyed bool)",'');
 
                 $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS resource (id text primary key,name text,original_name text,mime_type text,file_path text,progress float,downloading bool,finishDownload bool,lesson_id text)",'');
             },
 
             executeSql: function(query,params){
-                console.log('query and params is'+query,params);
+                var deferred = $q.defer();
                 $ionicPlatform.ready(function() {
-                    query = "select * from resource";
-                    params = '';
+                    //query = "select * from resource";
+                    //params = '';
+                    console.log('query and params is ',query,params);
                     $cordovaSQLite.execute(db, query, params).then(function(res) {
-                        console.log('查询数据库结果:' + JSON.stringify(res));
-                        return res;
-
+                        if(DEBUG) console.log('操作数据库结果:' + JSON.stringify(res));
+                        deferred.resolve(res);
                     }, function (err) {
                         console.error(err);
+                        deferred.reject(err);
                     });
-                })
+                });
+                return deferred.promise;
             }
         }
     })
@@ -324,10 +344,10 @@ angular.module('starter.services', [])
         //lesson详情
         this.lessonDetail = function(lessonId){
             var parms ='getSingleStudyPlan&studyplan_id='+lessonId;
-            console.log('parms is'+ parms);
+            console.log('parms is '+ parms);
             var finalUrl = makeUrl(parms);
             return request(finalUrl);
-        }
+        };
     })
 
     .service('testService', function(){

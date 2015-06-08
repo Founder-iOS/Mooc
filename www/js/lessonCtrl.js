@@ -8,6 +8,7 @@ angular.module('starter.controllers')
         var formatResource = function(){
             console.log('课时详情结果:' +  JSON.stringify($scope.lesson.resources));
             //downloadService.getAllResourceFromDB('11');
+            
             for( var i=0,len= $scope.lesson.resources.length; i<len; i++ ){
                 resource = $scope.lesson.resources[i];
                 console.log('resource is ' +  JSON.stringify(resource));
@@ -22,7 +23,7 @@ angular.module('starter.controllers')
                     resource.finishDownload = false;
                     resource.lesson_id = $scope.lesson.id;
                 }
-//                lesson.saveResourceToDB(resource);
+                //lesson.saveResourceToDB(resource);
             }
         };
 
@@ -62,9 +63,6 @@ angular.module('starter.controllers')
                     //$cordovaInAppBrowser.close();
                 }, false);
             }
-
-
-
         };
         $scope.getFileName = function(o){
             var pos=o.lastIndexOf("/");
@@ -78,7 +76,6 @@ angular.module('starter.controllers')
                 downloadService.addDownloadTask(resource);
             }
         };
-
 
         $scope.outlineUrl = lesson.outlineUrl($scope.user.name,$scope.user.password,$stateParams.lessonId);
         $scope.homeworkUrl =lesson.homeworkUrl($scope.user.name,$scope.user.password,$stateParams.lessonId);
@@ -117,4 +114,79 @@ angular.module('starter.controllers')
             $scope.index = index;
         };
         $scope.doRefresh();
+
+//        var resource = {"id":"62148D41-9311-B5AD-129C-34EEE8B896AB"+Math.random()*10000,"name":"互联网思维01","original_name":"互联网思维01","mime_type":"video/mp4","size":"372450294","file_path":"http://42.62.16.168:8080/data/uploads/Courses/60C0FC3C-251B-9A7B-3C02-0CA02B0ED809/f05d55a4f3161e69e24044df614e71c2.mp4",
+//                "progress":0,"downloading":false,"finishDownload":false};
+//        $scope.lesson = {"resources":[resource]};
+//
+//        $ionicPlatform.ready(function(){
+//            console.log("begin outer test");
+//            // get
+//            lesson.getAllResourceFromDB().then(function(res){
+//                var len = res.rows.length;
+//                console.log("getAllResourceFromDB resources length: ",len);
+//
+//                if(len>0){
+//                    for (var i = 0; i < len; i++){
+//                        console.log(i+" row: ",res.rows.item(i)['name']);
+//                    }
+//                } else {
+//                    console.log("no rows");
+//                }
+//            },function(err){
+//            },function(progress){
+//            });
+//            console.log("end outer test");
+//
+//            // save
+//            lesson.saveResourceToDB(resource).then(function(res){
+//                if(res.rowsAffected === 1) console.log("save success");
+//                else                       console.log("save fail");
+//            },function(err){
+//            },function(progress){
+//            });
+//
+//            // get
+//            lesson.getAllResourceFromDB().then(function(res){
+//                var len = res.rows.length;
+//                console.log("getAllResourceFromDB resources length: ",len);
+//
+//                if(len>0){
+//                    for (var i = 0; i < len; i++){
+//                        console.log(i+" row: ",res.rows.item(i)['name']);
+//                    }
+//                } else {
+//                    console.log("no rows");
+//                }
+//            },function(err){
+//            },function(progress){
+//            });
+//
+//            // update
+//            resource.name = "name changed";
+//            lesson.updateResourceToDB(resource).then(function(res){
+//                if(res.rowsAffected === 1) console.log("update success");
+//                else                       console.log("update fail");
+//            },function(err){
+//                console.log("update fail:",err);
+//            },function(progress){
+//            });
+//
+//            // get
+//            lesson.getAllResourceFromDB().then(function(res){
+//                var len = res.rows.length;
+//                console.log("getAllResourceFromDB resources length: ",len);
+//
+//                if(len>0){
+//                    for (var i = 0; i < len; i++){
+//                        console.log(i+" row: ",res.rows.item(i)['name']);
+//                    }
+//                } else {
+//                    console.log("no rows");
+//                }
+//            },function(err){
+//            },function(progress){
+//            });
+//        });
+
     });
