@@ -10,73 +10,71 @@ angular.module('starter.controllers')
 
     var updateDatabase = function(courseFromServer){
         $ionicPlatform.ready(function(){
-            console.log("begin outer test");
-            // get
-            lesson.getAllResourceFromDB().then(function(res){
-                var len = res.rows.length;
-                console.log("getAllResourceFromDB resources length: ",len);
 
-                if(len>0){
-                    for (var i = 0; i < len; i++){
-                        console.log(i+" row: ",res.rows.item(i)['name']);
-                    }
-                } else {
-                    console.log("no rows");
-                }
+            // save course
+            courseDetail.saveCourseToDB(courseFromServer).then(function(res){
+                if(res.rowsAffected === 1) console.log("course save success");
+                else                       console.log("course save fail");
             },function(err){
-            },function(progress){
-            });
-            console.log("end outer test");
-
-            // save
-            lesson.saveResourceToDB(resource).then(function(res){
-                if(res.rowsAffected === 1) console.log("save success");
-                else                       console.log("save fail");
-            },function(err){
+                console.log('error: ',err);
+                courseDetail.updateCourseToDB(courseFromServer).then(function(res2){
+                    if(res2.rowsAffected === 1) console.log("course update success");
+                    else                        console.log("course update fail");
+                },function(err2){
+                },function(progress2){
+                });
             },function(progress){
             });
 
-            // get
-            lesson.getAllResourceFromDB().then(function(res){
-                var len = res.rows.length;
-                console.log("getAllResourceFromDB resources length: ",len);
+            // save chapter
+            //for(var i = 0; i < courseFromServer.chapters.length; i++){
+            var updateChapter = function(chapterInd){
+                if(chapterInd >= courseFromServer.chapters.length) return;
+                console.log("chapter id ",chapterInd);
+                var chapter = courseFromServer.chapters[chapterInd];
+                courseDetail.saveChapterToDB(chapter,courseFromServer.course_id).then(function(res){
+                    if(res.rowsAffected === 1) console.log("chapter save success");
+                    else                       console.log("chapter save fail");
+                    updateChapter(++chapterInd);
+                },function(err){
+                    console.log('error: ',err);
+                    courseDetail.updateChapterToDB(chapter,courseFromServer.course_id).then(function(res2){
+                        if(res2.rowsAffected === 1) console.log("chpater update success");
+                        else                        console.log("chapter update fail");
+                        updateChapter(++chapterInd);
+                    },function(err2){
+                    },function(progress2){
+                    });
+                },function(progress){
+                });
 
-                if(len>0){
-                    for (var i = 0; i < len; i++){
-                        console.log(i+" row: ",res.rows.item(i)['name']);
-                    }
-                } else {
-                    console.log("no rows");
-                }
-            },function(err){
-            },function(progress){
-            });
+                // update lesson
+                var updateLesson = function(lessonInd){
+                    if(lessonInd >= chapter.studyplans.length) return;
+                    var l = chapter.studyplans[lessonInd];
+                    courseDetail.getLessonFromDB(l.id).then(function(res){
+                        var len = res.rows.length;
+                        console.log("lesson "+lessonInd, l.id, 'len ', len);
+                        if(len === 1){
+                            var item = res.rows.item(0);
+                            l.enter_time = item.enter_time;
+                            l.exit_time = item.exit_time;
+                            l.studyed = item.studyed;
+                            courseDetail.updateLessonToDB(l, l.enter_time, l.exit_time, l.studyed, chapter.id);
+                        } else {
+                            courseDetail.saveLessonToDB(l, 0, 0, false, chapter.id);
+                        }
+                        updateLesson(++lessonInd);
+                    },function(err){
+                        console.log('error: ',err);
+                    },function(progress){
+                    });
+                };
 
-            // update
-            resource.name = "name changed";
-            lesson.updateResourceToDB(resource).then(function(res){
-                if(res.rowsAffected === 1) console.log("update success");
-                else                       console.log("update fail");
-            },function(err){
-                console.log("update fail:",err);
-            },function(progress){
-            });
+                updateLesson(0);
+            };
 
-            // get
-            lesson.getAllResourceFromDB().then(function(res){
-                var len = res.rows.length;
-                console.log("getAllResourceFromDB resources length: ",len);
-
-                if(len>0){
-                    for (var i = 0; i < len; i++){
-                        console.log(i+" row: ",res.rows.item(i)['name']);
-                    }
-                } else {
-                    console.log("no rows");
-                }
-            },function(err){
-            },function(progress){
-            });
+            updateChapter(0);
         });
     };
 
@@ -91,8 +89,8 @@ angular.module('starter.controllers')
         courseDetail.requestCourseDetailFromServer($stateParams.courseId).then(function(data){
             console.log('课程详情返回成功' + eval(data).success);
             if(eval(data).success === 1){
-                $scope.course =  updateDatabase(eval(data).data);
-                //$scope.course  =eval(data).data;
+                $scope.course =  eval(data).data;
+                updateDatabase($scope.course);
                 if(DEBUG){
                     console.log($scope.course);
                 }
