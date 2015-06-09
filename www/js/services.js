@@ -118,21 +118,27 @@ angular.module('starter.services', [])
                 return moocService.lessonDetail(lessonId);
             },
             saveResourceToDB: function(resource){
-                var query = "INSERT INTO resource (id,name,original_name,mime_type,file_path,progress,downloading,finishDownload,lesson_id) VALUES (?,?,?,?,?,?,?,?,?)";
-                var params =[resource.id,resource.name,resource.original_name,resource.mime_type,resource.file_path,resource.progress,resource.downloading,resource.finishDownloadresource,resource.lesson_id];
+                var query = "INSERT INTO resource (id,name,original_name,mime_type,file_path,progress,finishDownload,lesson_id) VALUES (?,?,?,?,?,?,?,?)";
+                var params =[resource.id,resource.name,resource.original_name,resource.mime_type,resource.file_path,resource.progress,resource.finishDownloadresource,resource.lesson_id];
                 return dbService.executeSql(query,params);
             },
             updateResourceToDB: function(resource){
                 var query = "UPDATE resource SET name='"+resource.name+"',original_name='"+resource.original_name+"',mime_type='"+resource.mime_type+
-                    "',file_path='"+resource.file_path+"',progress="+resource.progress+",downloading='"+resource.downloading+"',finishDownload='"+resource.finishDownload+
-                    "',lesson_id='"+resource.lesson_id+"' WHERE id='"+resource.id+"'";
+                    "',file_path='"+resource.file_path+"',lesson_id='"+resource.lesson_id+"' WHERE id='"+resource.id+"'";
                 var params =[];
                 return dbService.executeSql(query,params);
             },
+            updateFinishResourceToDB: function(resource){
+                var query = "UPDATE resource SET progress='"+resource.progress+"',finishDownload='"+resource.finishDownload+
+                    "'WHERE id='"+resource.id+"'";
+
+                var params ='';
+                return dbService.executeSql(query,params);
+            },
             getResourceFromDB: function(resource){
-//                var query = "SELECT * frmo resource (id,name,true_name,original_name,mime_type,file_path,progress,downloading,finishDownload) VALUES (?,?,?,?,?,?,?,?,?)";
-//                var params =[resource.id,resource.name,resource.true_name,resource.original_name,resource.mime_type,resource.file_path,resource.progress,resource.downloading,resource.finishDownload];
-//                dbService.executeSql(query,params);
+                var query = "select * from resource where id = '" + resource.id + "'";
+                var params ='';
+                return dbService.executeSql(query,params);
 
             },
             getAllResourceFromDB: function(){
@@ -141,7 +147,9 @@ angular.module('starter.services', [])
                 return dbService.executeSql(query,params);
             },
             getFinishDownloadResourceFromDB: function(){
-
+                var query = "select * from resource where finishDownload = 'true'";
+                var params ='';
+                return dbService.executeSql(query,params);
             }
 
         };
@@ -223,7 +231,7 @@ angular.module('starter.services', [])
         var finishDownload = function(resource){
             resource.finishDownload = true;
             console.log('完成下载' + resource);
-            lesson.updateResourceToDB(resource);
+            lesson.updateFinishResourceToDB(resource);
             downloadTasks.splice(downloadTasks.indexOf(resource), 1);
             if(downloadTasks.length > 0){
                 var resource = downloadTasks[0]
@@ -234,7 +242,7 @@ angular.module('starter.services', [])
         var faildDownload = function(resource){
             downloadTasks.splice(downloadTasks.indexOf(resource), 1);
             console.log('下载失败' + resource);
-            lesson.updateResourceToDB(resource);
+            lesson.updateFinishResourceToDB(resource);
             if(downloadTasks.length > 0){
                 var resource = downloadTasks[0]
                 console.log('下载失败后开启新的下载' + resource);
@@ -259,7 +267,7 @@ angular.module('starter.services', [])
                     }
                 }
                 console.log('停止下载');
-                //lesson.updateResourceToDB(resource);
+                lesson.updateResourceToDB(resource);
                 resource.downloading = false;
                 downloadTasks.splice(index, 1);
             },
@@ -294,7 +302,7 @@ angular.module('starter.services', [])
                 //课时表
                 $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS lesson (id text primary key,name text,creater text,ctime double,icon_path text,enter_time double,exit_time double,studyed bool, chapter_id text)",'');
 
-                $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS resource (id text primary key,name text,original_name text,mime_type text,file_path text,progress float,downloading bool,finishDownload bool,lesson_id text)",'');
+                $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS resource (id text primary key,name text,original_name text,mime_type text,file_path text,progress float,finishDownload bool,lesson_id text)",'');
             },
 
             executeSql: function(query,params){

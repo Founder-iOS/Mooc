@@ -28,9 +28,9 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
             }
             //创建db文件
             dbService.initDB();
-            dbService.addChapter();
-            dbService.updaterChapter();
-            dbService.getAllChapters();
+//            dbService.addChapter();
+//            dbService.updaterChapter();
+//            dbService.getAllChapters();
         });
     })
     .config(function($stateProvider, $urlRouterProvider) {
@@ -115,8 +115,6 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
                     }
                 }
             })
-
-
             .state('tab.lesson', {
                 url: "/lesson/:lessonId",
                 views: {
