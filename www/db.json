@@ -35,7 +35,7 @@ icon_path:头像地址
 课程(course):
 {
 course_id:课程id
-name: 课程名称
+course_name: 课程名称
 description:课程简介
 teacher_id:教师id
 teacher_name:教师名称
@@ -58,13 +58,12 @@ course_id:
 id:课时id;
 name:课时名称
 creater:创建者
-ctime:创建时间；
+ctime:创建时间;
 icon_path:课时封面
 enter_time:进入时间
 exit_time:退出时间
-studyed:是否学习过
-
-
+studyed:是否学习过s
+chapter_id;
 }
 资源（resource）{
 id:资源id

@@ -39,19 +39,45 @@ angular.module('starter.services', [])
                 return moocService.courseDetail(courseId);
             },
             saveCourseToDB: function(course){
-                var query = "INSERT INTO course (id,name,description,teacher_id,teacher_name,study_num,open_time,course_type,credit,period,professional,cover_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-                var params =[course.course_id,course.name,course.description,course.teacher_id,course.study_num,course.open_time,course.course_type,course.credit,course.period,course.professional,course.cover_url];
+                var query = "INSERT INTO course (id,course_name,description,teacher_id,teacher_name,study_num,open_time,course_type,credit,period,professional,cover_url) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+                var params =[course.course_id,course.course_name,course.description,course.teacher_id,course.teacher_name,course.study_num,course.open_time,course.course_type,course.credit,course.period,course.professional,course.cover_url];
                 return dbService.executeSql(query,params);
             },
             updateCourseToDB: function(course){
-                var query = "UPDATE course SET name='"+course.name+"',description='"+course.description+"',teacher_id='"+course.teacher_id+
+                var query = "UPDATE course SET course_name='"+course.course_name+"',description='"+course.description+"',teacher_id='"+course.teacher_id+
                     "',study_num='"+course.study_num+"',open_time="+course.open_time+",course_type='"+course.course_type+"',credit='"+course.credit+
-                    "',period='"+course.period+"',professional='"+course.professional+"',cover_url='" +course.cover_url + "' WHERE id='"+course.id+"'";
+                    "',period='"+course.period+"',professional='"+course.professional+"',cover_url='" +course.cover_url + "' WHERE id='"+course.course_id+"'";
                 var params =[];
                 return dbService.executeSql(query,params);
             },
             getAllCoursesFromDB: function(){
                 var query = "select * from course";
+                var params = '';
+                return dbService.executeSql(query,params);
+            },
+            saveChapterToDB: function(chapter,course_id){
+                var query = "INSERT INTO chapter (id,name,course_id) VALUES (?,?,?)";
+                var params =[chapter.id,chapter.name,course_id];
+                return dbService.executeSql(query,params);
+            },
+            updateChapterToDB: function(chapter,course_id){
+                var query = "UPDATE chapter SET name='"+chapter.name+"',course_id='" + course_id + "' WHERE id='"+chapter.id+"'";
+                var params =[];
+                return dbService.executeSql(query,params);
+            },
+            saveLessonToDB: function(lesson,enter_time,exit_time,studyed,chapter_id){
+                var query = "INSERT INTO lesson (id,name,creater,ctime,icon_path,enter_time,exit_time,studyed,chapter_id) VALUES (?,?,?,?,?,?,?,?,?)";
+                var params =[lesson.id,lesson.name,lesson.creater,lesson.ctime,lesson.icon_path,enter_time,exit_time,studyed,chapter_id];
+                return dbService.executeSql(query,params);
+            },
+            updateLessonToDB: function(lesson,enter_time,exit_time,studyed,chapter_id){
+                var query = "UPDATE lesson SET name='"+lesson.name+"',creater='" + lesson.creater +"',ctime='" + lesson.ctime+"',icon_path='" + lesson.icon_path
+                    +"',enter_time='" + enter_time+"',exit_time='" + exit_time+"',studyed='" + studyed+"',chapter_id='" + chapter_id +  "' WHERE id='"+lesson.id+"'";
+                var params =[];
+                return dbService.executeSql(query,params);
+            },
+            getLessonFromDB: function(lesson_id){
+                var query = "select * from lesson where id='"+lesson_id+"'";
                 var params = '';
                 return dbService.executeSql(query,params);
             }
@@ -262,11 +288,11 @@ angular.module('starter.services', [])
                 //创建用户表
                 $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS user (id text primary key,name text,true_name text,email text,qq text,mobile text,phone text,address text,icon_path text,role integer,sex integer)",'');
                 //创建课程表
-                $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS course (id text primary key,name text,description text,teacher_id text,teacher_name text,study_num integer,open_time double,course_type integer,credit integer,period integer,professional text,cover_url text)",'');
+                $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS course (id text primary key,course_name text,description text,teacher_id text,teacher_name text,study_num integer,open_time double,course_type integer,credit integer,period integer,professional text,cover_url text)",'');
                 //章节表
-                $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS chapter (id text primary key,name text)",'');
+                $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS chapter (id text primary key,name text, course_id text)",'');
                 //课时表
-                $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS lesson (id text primary key,name text,creater text,ctime double,icon_path text,enter_time double,exit_time double,studyed bool)",'');
+                $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS lesson (id text primary key,name text,creater text,ctime double,icon_path text,enter_time double,exit_time double,studyed bool, chapter_id text)",'');
 
                 $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS resource (id text primary key,name text,original_name text,mime_type text,file_path text,progress float,downloading bool,finishDownload bool,lesson_id text)",'');
             },
