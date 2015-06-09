@@ -3,7 +3,7 @@ angular.module('starter.controllers')
         $scope.user = users.lastLoginUser();
         if(DEBUG) console.log('user center controller :',$scope.user);
         $scope.listItems = [
-            {text:'我的学习',     state:'tab.lesson-history', iconClass:'ion-record',                  hasDetails:true},
+            {text:'我的学习',     state:'tab.course-history', iconClass:'ion-record',                  hasDetails:true},
             {text:'版本号 1.0.0',  iconClass:'ion-information-circled',    hasDetails:false},
             {text:'关于我们',state:'tab.about',       iconClass:'ion-ios-football',            hasDetails:true}
         ];

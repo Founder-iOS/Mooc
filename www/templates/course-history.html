@@ -1,0 +1,12 @@
+<ion-view  view-title="学习记录">
+    <ion-content>
+        <ion-list>
+                <ion-item ng-repeat="item in listItems" style="" class="item-icon-left" ng-class="{'item-icon-right':{{item.hasDetails}}}"
+                          ng-click="click($index)">
+                    <i style="font-size: 20px" class="icon {{item.iconClass}}"></i>
+                    <p>{{item.text}}</p>
+                    <i class="icon ion-chevron-right icon-accessory" ng-if="item.hasDetails"></i>
+                </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
