@@ -18,31 +18,8 @@ angular.module('starter.controllers')
             var pos=o.lastIndexOf("/");
             return o.substring(pos+1);
         };
-        $scope.openResource = function(resource){
-           alert('open');
-            console.log(resource.file_path);
-            $ionicPlatform.ready(function() {
-                var url = resource.file_path;
-                var file_name = $scope.getFileName(url);
-                var filePath = cordova.file.documentsDirectory + file_name;
-                if(resource.mime_type == application/mmsepub){
-                    fileOpener(filePath,resource.mime_type)
-                }
-                else if(resource.mime_type == application/mmsdpub){
-                    fileOpener(filePath,resource.mime_type)
-                }
-                else if(resource.mime_type == application/ibooks){
-                    fileOpener(filePath,resource.mime_type)
-                }
-                else if(resource.mime_type == application/pdf){
-                    fileOpener(filePath,resource.mime_type)
-                }
-                else{
-                    inAppBrower(filePath);
-                }
-            }, false);
-        };
         var inAppBrower = function(filePath){
+            alert('inAppBrower');
             var options = {
                 location: 'yes',
                 clearcache: 'no',
@@ -62,6 +39,7 @@ angular.module('starter.controllers')
 
         };
         var fileOpener = function(filePath,type){
+            alert('fileOpener')
             $cordovaFileOpener2.open(
                 filePath,
                 type
@@ -72,4 +50,30 @@ angular.module('starter.controllers')
                 });
         };
         initData();
+        $scope.openResource = function(resource){
+            console.log(resource.file_path);
+            $ionicPlatform.ready(function() {
+                var url = resource.file_path;
+                var file_name = getFileName(url);
+                var filePath = cordova.file.documentsDirectory + file_name;
+                console.log('filePath is ' + filePath);
+                inAppBrower(filePath);
+//                if(resource.mime_type == application/mmsepub){
+//                    fileOpener(filePath,resource.mime_type)
+//                }
+//                else if(resource.mime_type == application/mmsdpub){
+//                    fileOpener(filePath,resource.mime_type)
+//                }
+//                else if(resource.mime_type == application/ibooks){
+//                    fileOpener(filePath,resource.mime_type)
+//                }
+//                else if(resource.mime_type == application/pdf){
+//                    fileOpener(filePath,resource.mime_type)
+//                }
+//                else{
+//                    inAppBrower(filePath);
+//                }
+            }, false);
+        };
+
     });
