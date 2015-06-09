@@ -105,17 +105,15 @@ angular.module('starter.services', [])
             updateFinishResourceToDB: function(resource){
                 var query = "UPDATE resource SET progress='"+resource.progress+"',finishDownload='"+resource.finishDownload+
                     "'WHERE id='"+resource.id+"'";
+
                 var params ='';
                 return dbService.executeSql(query,params);
             },
             getResourceFromDB: function(resource){
-                console.log('resource id is ' + resource.id);
-                var query = "select * from resource where id = " + "'" + resource.id + "'";
-                var params = '';
+                var query = "select * from resource where id = '" + resource.id + "'";
+                var params ='';
                 return dbService.executeSql(query,params);
-//                var query = "select * from resource";
-//                var params = '';
-//                return dbService.executeSql(query,params);
+
             },
             getAllResourceFromDB: function(){
                 var query = "select * from resource";
@@ -123,7 +121,9 @@ angular.module('starter.services', [])
                 return dbService.executeSql(query,params);
             },
             getFinishDownloadResourceFromDB: function(){
-
+                var query = "select * from resource where finishDownload = 'true'";
+                var params ='';
+                return dbService.executeSql(query,params);
             }
 
         };
@@ -205,7 +205,7 @@ angular.module('starter.services', [])
         var finishDownload = function(resource){
             resource.finishDownload = true;
             console.log('完成下载' + resource);
-            lesson.updateResourceToDB(resource);
+            lesson.updateFinishResourceToDB(resource);
             downloadTasks.splice(downloadTasks.indexOf(resource), 1);
             if(downloadTasks.length > 0){
                 var resource = downloadTasks[0]
@@ -216,7 +216,7 @@ angular.module('starter.services', [])
         var faildDownload = function(resource){
             downloadTasks.splice(downloadTasks.indexOf(resource), 1);
             console.log('下载失败' + resource);
-            lesson.updateResourceToDB(resource);
+            lesson.updateFinishResourceToDB(resource);
             if(downloadTasks.length > 0){
                 var resource = downloadTasks[0]
                 console.log('下载失败后开启新的下载' + resource);
@@ -241,7 +241,7 @@ angular.module('starter.services', [])
                     }
                 }
                 console.log('停止下载');
-                //lesson.updateResourceToDB(resource);
+                lesson.updateResourceToDB(resource);
                 resource.downloading = false;
                 downloadTasks.splice(index, 1);
             },

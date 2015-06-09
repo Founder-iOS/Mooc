@@ -115,8 +115,6 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
                     }
                 }
             })
-
-
             .state('tab.lesson', {
                 url: "/lesson/:lessonId",
                 views: {
@@ -133,8 +131,8 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
 
 //   $urlRouterProvider.otherwise('/lesson/2209F611-7FE9-1BF9-CD89-CD328F7D2F67');
 
-//       $urlRouterProvider.otherwise('/sign-in');
+       $urlRouterProvider.otherwise('/sign-in');
 //         $urlRouterProvider.otherwise('/tab/courses/4CF65748-DF66-3546-788F-6BA54FF642D3');
-        $urlRouterProvider.otherwise('/tab/lesson/2209F611-7FE9-1BF9-CD89-CD328F7D2F67');
+//        $urlRouterProvider.otherwise('/tab/lesson/2209F611-7FE9-1BF9-CD89-CD328F7D2F67');
 
     });

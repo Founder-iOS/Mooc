@@ -80,3 +80,39 @@ lesson_id:课时id;
 }
 
 
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+<key>text/html</key>
+<integer>11</integer>
+<key>image/png</key>
+<integer>0</integer>
+<key>image/bmp</key>
+<integer>0</integer>
+<key>image/jpeg</key>
+<integer>0</integer>
+<key>video/mp4</key>
+<integer>2</integer>
+<key>application/pdf</key>
+<integer>6</integer>
+<key>audio/mpeg</key>
+<integer>1</integer>
+<key>application/mspowerpoint</key>
+<integer>4</integer>
+<key>application/msexcel</key>
+<integer>10</integer>
+<key>application/octet-stream</key>
+<integer>0</integer>
+<key>application/mmspowerpoint</key>
+<integer>3</integer>
+<key>application/mmsepub</key>
+<integer>5</integer>
+<key>application/mmsdpub</key>
+<integer>7</integer>
+<key>application/ibooks</key>
+<integer>8</integer>
+<key>application/msword</key>
+<integer>9</integer>
+</dict>
+</plist>

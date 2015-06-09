@@ -101,7 +101,7 @@ angular.module('starter.controllers')
         var formatResource = function(){
             console.log('课时详情结果:' +  JSON.stringify($scope.lesson.resources));
             for( var i=0,len= $scope.lesson.resources.length; i<len; i++ ){
-                resource = $scope.lesson.resources[i];
+                var resource = $scope.lesson.resources[i];
                 resource.lesson_id = $scope.lesson.id;
                 console.log('resource is ' +  JSON.stringify(resource));
                 var task =  downloadService.getDownloadResource(resource);
@@ -114,17 +114,15 @@ angular.module('starter.controllers')
                 var dbResource;
                 lesson.getResourceFromDB(resource).then(function(res){
                     var len = res.rows.length;
-                    console.log('length is ' + JSON.stringify(res));
                     if(len === 1){
                         console.log('update db');
                         dbResource =  res.rows.item(0);
                         console.log('db resource is ' + JSON.stringify(dbResource));
-                        console.log('dbResource is '+ dbResource);
                         if(!resource.downloading){
                             resource.progress = dbResource.progress;
                             resource.finishDownload =  dbResource.finishDownload;
                         }
-                        resource.downloading =  false;
+                        console.log("resource id is "+ resource.id);
                         lesson.updateResourceToDB(resource);
                     }
                     else{
