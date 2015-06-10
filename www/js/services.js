@@ -10,6 +10,12 @@ angular.module('starter.services', [])
 //     };
 
         return {
+            isEmpty: function(obj){
+                for (var pro in obj){
+                    return false;
+                }
+                return true;
+            },
             getFromServer: function(name,password){
                 return moocService.signIn(name,password);
             },
@@ -19,6 +25,16 @@ angular.module('starter.services', [])
             save: function(user){
                 console.log('save user  is ' + user);
                 $localstorage.setObject('lastLoginUser',user) ;
+            },
+            getCourseHistory: function(user){
+                var user =  $localstorage.getObject(user.id);
+                if(this.isEmpty(user))  return null;
+                else                    return user.courseHistory;
+            },
+            saveCourseHistory: function(user,courseHistory){
+                var user =  $localstorage.getObject(user.id);
+                user.courseHistory = courseHistory;
+                $localstorage.setObject(user.id,user);
             }
         };
     })

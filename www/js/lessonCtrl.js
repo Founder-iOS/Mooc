@@ -100,8 +100,10 @@ angular.module('starter.controllers')
 
         var formatResource = function(){
             console.log('课时详情结果:' +  JSON.stringify($scope.lesson.resources));
-            for( var i=0,len= $scope.lesson.resources.length; i<len; i++ ){
-                var resource = $scope.lesson.resources[i];
+
+            var updateResourse = function(resourseInd){
+                if(resourseInd >= $scope.lesson.resources.length) return;
+                var resource = $scope.lesson.resources[resourseInd];
                 resource.lesson_id = $scope.lesson.id;
                 console.log('resource is ' +  JSON.stringify(resource));
                 var task =  downloadService.getDownloadResource(resource);
@@ -131,11 +133,15 @@ angular.module('starter.controllers')
                         resource.finishDownload = false;
                         lesson.saveResourceToDB(resource);
                     }
+                    updateResourse(++resourseInd);
                 },function(err){
 
                 },function(progress){
                 });
-            }
+            };
+
+            updateResourse(0);
+
 //            lesson.getAllResourceFromDB().then(function(res){
 //                var len = res.rows.length;
 //                console.log("getAllResourceFromDB resources length: ",len);

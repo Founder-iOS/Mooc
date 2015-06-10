@@ -87,6 +87,16 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
                     }
                 }
             })
+            .state('tab.course-detail', {
+                url: '/courses/:courseId',
+                views: {
+                    'tab-user': {
+                        templateUrl: 'templates/course-history.html',
+                        controller: 'CourseDetailCtrl'
+                    }
+                }
+            })
+
             .state('tab.about', {
                 url: '/about',
                 views: {
@@ -132,6 +142,7 @@ angular.module('starter', ['ionic','ngCordova','starter.controllers','starter.se
 //   $urlRouterProvider.otherwise('/lesson/2209F611-7FE9-1BF9-CD89-CD328F7D2F67');
 
        $urlRouterProvider.otherwise('/tab/course-history');
+      //  $urlRouterProvider.otherwise('/sign-in');
          // $urlRouterProvider.otherwise('/tab/courses/4CF65748-DF66-3546-788F-6BA54FF642D3');
         //$urlRouterProvider.otherwise('/tab/lesson/11');
 

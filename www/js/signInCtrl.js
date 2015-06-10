@@ -5,7 +5,7 @@
 angular.module('starter.controllers')
     .controller('SignInCtrl', function($scope,$ionicPlatform,$state,users) {
         $scope.user = users.lastLoginUser();
-        if (user) {
+        if ($scope.user) {
             console.log("last login user: ",user);
         }
         $scope.signIn = function() {
@@ -16,7 +16,7 @@ angular.module('starter.controllers')
                     $scope.user = eval(data).data;
                     $scope.user.password = password;
                     users.save($scope.user );
-                    console.log("signin success");
+                    console.log("signin success ");
                     $state.go('tab.courses');
                 }
                 else{

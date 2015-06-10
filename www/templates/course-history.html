@@ -1,12 +1,14 @@
 <ion-view  view-title="学习记录">
     <ion-content>
         <ion-list>
-                <ion-item ng-repeat="item in listItems" style="" class="item-icon-left" ng-class="{'item-icon-right':{{item.hasDetails}}}"
-                          ng-click="click($index)">
-                    <i style="font-size: 20px" class="icon {{item.iconClass}}"></i>
-                    <p>{{item.text}}</p>
-                    <i class="icon ion-chevron-right icon-accessory" ng-if="item.hasDetails"></i>
-                </ion-item>
+            <div collection-repeat="course in courses_history" collection-item-width="100%" >
+                <a  class="item item-thumbnail-left" ng-href="#/tab/user/courses/{{course.course_id}}">
+                    <img style="height:80px; width:80px" ng-src="{{course.cover_url}}">
+                    <h2>{{course.course_name}}</h2>
+                    <p>选课人数：{{course.study_num}}</p>
+                    <p>开课时间：{{course.open_time *1000 | date:'yyyy-MM-dd'}}</p>
+                </a>
+            </div>
         </ion-list>
     </ion-content>
 </ion-view>
